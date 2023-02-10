@@ -60,6 +60,8 @@ infoBoatSupportLayer = 'We will clone/pull the BoATSupportLayer repository!\n'
 infoBoatEngine = 'Clone/pull the BoATEnigne repository, y/n?(y)'
 
 
+
+
 class ConfigContentGen():
     def __init__(self):
         self.config_content = ''
