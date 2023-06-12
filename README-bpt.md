@@ -1,4 +1,4 @@
-## 基于 BoAT-ProjectTemplate 开发模板构建BoAT开发项目
+## 基于 BoAT-ProjectTemplate 开发模板构建BoAT应用开发项目
 `BoAT-ProjectTemplate` 仓库，是开发基于`BoAT Infra Arch`基础架构应用程序的通用开发模板。
 
 基于`BoAT Infra Arch`基础架构的应用开发，通过三个开源仓库实现。
@@ -11,7 +11,7 @@
 
 以上三个仓库与应用平台共同构成基于`BoAT Infra Arch`基础架构的开发环境，BoAT应用就在这里诞生。
 
-以下逐步说明如何结合三个仓库在`linux-default`平台中编译出多个区块链的demo应用程序
+以下逐步说明如何结合三个仓库在`linux-default`平台中编译出不同区块链的demo应用程序
 
 ### 开发环境准备
 
