@@ -17,7 +17,7 @@ The following gradually explains how to compile multiple blockchain demo applica
 
 ### Development Environment Preparation
 
-To build the development environment for the `BoAT Infra Arch` infrastructure-based application development on the Linux operating system, you need to confirm that the following dependent libraries have been installed on the linux platform.
+To build the application development environment based on the `BoAT Infra Arch` infrastructure in the Linux operating system, it is necessary to confirm that the following dependencies and software have been installed on the Linux platform.
 
 1. curl
 ```
