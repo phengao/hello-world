@@ -13,7 +13,7 @@ Application development based on the `BoAT Infra Arch` infrastructure is achieve
 
 These three repositories and the application platform jointly constitute the development environment based on the `BoAT Infra Arch` infrastructure, where BoAT applications are born.
 
-The following gradually explains how to compile multiple blockchain demo applications on the `linux-default` platform by combining the three repositories.
+The following steps explain how to compile demo applications for different blockchains on the linux-default platform by combining three repositories:
 
 ### Development Environment Preparation
 
