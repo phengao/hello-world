@@ -157,7 +157,7 @@ Yes
 
 input:
 ```
-这里输入应用程序中需要支持的区块链，这里输入`9`，选择`venachain`区块链。
+这里输入应用程序中需要支持的区块链，输入`9`，选择`venachain`区块链。
 ```
 input:9
 Blockchain selected:
