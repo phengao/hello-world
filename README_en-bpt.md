@@ -1,5 +1,5 @@
 # BoAT-TemplateProject
-## Building a BoAT development project based on the BoAT-ProjectTemplate development template
+## Building a BoAT application development project based on the BoAT-ProjectTemplate development template
 
 The `BoAT-ProjectTemplate` repository is a universal development template for developing applications based on the `BoAT Infra Arch` infrastructure.
 
