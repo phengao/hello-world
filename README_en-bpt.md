@@ -176,7 +176,7 @@ Yes
 input:
 ```
 
-Enter the supported blockchains in the application. Here, enter `9` to select support for `venachain` blockchain. 
+Enter the blockchain that needs to be supported in the application here. Enter `9` to select the `venachain` blockchain. 
 
 ```
 input:9
