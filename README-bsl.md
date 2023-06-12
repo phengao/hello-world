@@ -60,6 +60,6 @@ The BoAT Common Components include cross-platform application common interfaces 
 |   +---rlp           |     RLP encoder
 ```
 ## Usage Instructions
-Refer to the README_cn.md of BoAT-ProjectTemplate for the compilation and application of BoAT-SupportLayer.
+Refer to the README.md of BoAT-ProjectTemplate for the compilation and application of BoAT-SupportLayer.
 
-https://github.com/aitos-io/BoAT-ProjectTemplate/blob/dev/README_cn.md
+https://github.com/aitos-io/BoAT-ProjectTemplate/blob/dev/README.md
