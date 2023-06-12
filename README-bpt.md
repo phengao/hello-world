@@ -1,4 +1,4 @@
-## 基于 BoAT-ProjectTemplate 开发模板构建项目开发目录说明
+## 基于 BoAT-ProjectTemplate 开发模板构建项目开发目录
 `BoAT-ProjectTemplate` 仓库，是开发基于`BoAT Infra Arch`基础架构应用程序的通用开发模板。
 
 基于`BoAT Infra Arch`基础架构的应用开发，通过三个开源仓库实现。
@@ -15,7 +15,7 @@
 
 ### 开发环境准备
 
-在Linux操作系统中构建，基于`BoAT Infra Arch`基础架构的应用开发环境，需要确认在linux平台下已经完成以下依赖库的安装
+在Linux操作系统中构建，基于`BoAT Infra Arch`基础架构的应用开发环境，需要确认在linux平台下已经完成以下依赖库和软件的安装
 1. curl
 ```
 sudo apt install curl
