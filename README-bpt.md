@@ -28,7 +28,7 @@ sudo apt install libsubunit-dev
 
 3. python3, version >= 3.5
 ```
-sudo apt install python3`
+sudo apt install python3
 ```
 5. git
 ```
@@ -244,14 +244,41 @@ sudo apt-get install libssl-dev
 |-- README_en.md
 ```
 ### 6. 编译输出目录说明：
-在`BoAT-ProjectTemplate/`目录下完成编译后，新增加连个目录：
-<build>:
-    包含编译过程中产生的中间文件以及各个源码库中产生的demo的可执行文件，本例中输出了venachain的demo可执行文件
-<lib>：
-    输出各个开源仓库生成的静态库问文件，在这个项目中生成两个静态库:
-    libboatengine.a : BoAT-Engine 静态库
-    libboatvendor.a ：BoAT-SupportLayer 静态库
+在`BoAT-ProjectTemplate/`目录下完成编译后，新增加两个目录：
+
+`build` 和 `lib`
+
+`build:`
+
+输出编译过程中产生的中间文件以及各个源码库中产生的demo的可执行文件，本例中输出了`venachain`的`demo`可执行文件
+在本例中 `venachain` 的demo输出在`BoAT-ProjectTemplate/build/BoAT-Engine/demo/demo_venachain/`目录，包含六个可执行文件：
+```
+demo_venachain_mycontract_create_internalGen
+demo_venachain_mycontract_create_native
+demo_venachain_mycontract_create_pkcs
+demo_venachain_mycontract_onetime_internalGen
+demo_venachain_mycontract_onetime_native
+demo_venachain_mycontract_onetime_pkcs
+```
+
+`lib：`
+
+输出各个开源仓库生成的静态库问文件，在这个项目中生成两个静态库:
+
+```
+libboatengine.a : BoAT-Engine 静态库
+libboatvendor.a ：BoAT-SupportLayer 静态库
+```
 ### 7. 执行demo：
-    
-    
+
+在`BoAT-ProjectTemplate/`目录下执行各个demo：
+
+```
+./build/BoAT-Engine/demo/demo_venachain/demo_venachain_mycontract_create_internalGen
+./build/BoAT-Engine/demo/demo_venachain/demo_venachain_mycontract_create_native
+./build/BoAT-Engine/demo/demo_venachain/demo_venachain_mycontract_create_pkcs
+./build/BoAT-Engine/demo/demo_venachain/demo_venachain_mycontract_onetime_internalGen
+./build/BoAT-Engine/demo/demo_venachain/demo_venachain_mycontract_onetime_native
+./build/BoAT-Engine/demo/demo_venachain/demo_venachain_mycontract_onetime_pkcs
+```
 
