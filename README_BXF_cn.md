@@ -1,6 +1,6 @@
 
 # BoAT-X Framework
-[![Issue](https://img.shields.io/github/issues/aitos-io/BoAT-X-Framework)](https://github.com/aitos-io/BoAT-X-Framework/issues)![Forks](https://img.shields.io/github/forks/aitos-io/BoAT-X-Framework)![Stars](https://img.shields.io/github/stars/aitos-io/BoAT-X-Framework)[![GitHub Release](https://img.shields.io/github/license/aitos-io/BoAT-X-Framework)](https://github.com/aitos-io/BoAT-X-Framework/blob/master/LICENSE)[![Join the chat at https://gitter.im/BoAT-X/community](https://badges.gitter.im/BoAT-X/community.svg)](https://gitter.im/BoAT-X/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Issue](https://img.shields.io/github/issues/aitos-io/BoAT-X-Framework)](https://github.com/aitos-io/BoAT-X-Framework/issues)![Forks](https://img.shields.io/github/forks/aitos-io/BoAT-X-Framework)![Stars](https://img.shields.io/github/stars/phengao/hello-world)[![GitHub Release](https://img.shields.io/github/license/aitos-io/BoAT-X-Framework)](https://github.com/aitos-io/BoAT-X-Framework/blob/master/LICENSE)[![Join the chat at https://gitter.im/BoAT-X/community](https://badges.gitter.im/BoAT-X/community.svg)](https://gitter.im/BoAT-X/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![BoAT logo](https://aitos-io.github.io/BoAT-X-Framework/logo/BoAT_RGB_Horizontal_100.png)
 
@@ -8,7 +8,9 @@
 ## BoAT-X介绍
 **BoAT-X** 是摩联科技推出的一套面向物联网的区块链应用框架，**它帮助物联网设备实现可信数据上链，赋能**数据从数据源头上传到云端以及后续物联网数据开放和交换下的全生命周期可信，是**BoAT家族各关键**组件的统称。**BoAT**全称为**B**lockchain **o**f **A**I **T**hing，**X泛指**本产品族涵盖的各相关组件，包括嵌入式区块链客户端，云端服务，和配套工具。物联网设备可以通过灵活调用该套组件访问各类区块链服务。BoAT-X所描绘的美好愿景是打造一艘船BoAT，从物联网设备这一数据的源头出发，承载着可信的物联网数据驶向千行百业的数据湖。
 
-- **BoAT-Engine** 是嵌入式区块链客户端，也可以称之为物联网设备钱包。它是一个用C语言编写的面向物联网设备的轻量级区块链客户端SDK。**BoAT Engine**可以单独运行，也可以与**BoAT-Anchor**协同工作。
+- **BoAT-Infra-Arch** ```是嵌入式区块链应用开发框架，适用于开发各种类型的区块链客户端，客户端也称之为物联网设备钱包。```
+
+  它是一个用C语言编写的面向物联网设备的轻量级区块链客户端SDK，由**BoAT-ProjectTemplate**、**BoAT-SupportLayer**、**BoAT-Engine**等多个具有特定功能的基础库构成，这些库可以灵活组合以构建满足不同需求的客户端，客户端可以单独运行，也可以与**BoAT-Anchor**协同工作。
 
 - **BoAT-Anchor** （开发中）是一种基于边缘设备的服务或区块链中继服务，它与其他BoAT组件一起协同工作，在物联网设备和区块链网络之间完成数据交易的中继。
 
@@ -60,34 +62,23 @@ BoAT-X有两种运行模式
 
 
 
-### 代码目录
-
-#### BoAT-Engine
+### 代码下载
 ```
-<SDKRoot>
-|
-+---build           | Directory to store object and executable files
-+---demo            | Demo application
-+---docs            | API reference manual
-+---vendor          | Special vendor dependency
-|   \---common      |     Universal soft algorithms implementation
-|   \---platform    |     Dependency of different platforms
-+---include         | Header files for application to include
-+---lib             | Lib files for application to link with
-+---sdk             | SDK source
-|   +---third-party |     Third party libraries
-|   +---include     |     Header files for SDK internal use
-|   +---protocol    |     Blockchain client protocol implementation
-|   +---rlp         |     RLP encoder
-|   +---utilities   |     Utility APIs
-|   \---wallet      |     SDK entry API implementation
-+---tests           | Test cases
-\---tools           | Tools for generating C interface from contract ABI
-
-NOTE: ./build and ./lib are created in building
-
+#### BoAT Infra Arch
 ```
+**BoAT Infra Arch**开发框架采用分层结构，由多个支持特定功能的组件构成，具体包含以下组件，各个组件中有详细的应用说明和举例。
 
+- **BoAT-ProjectTemplate**：用于构建基于BoAT Infra Arch基础架构应用的编译目录。
+
+  下载地址：[![Static Badge](https://img.shields.io/badge/BoAT--ProjectTemplate-0096DB)](https://github.com/aitos-io/BoAT-ProjectTemplate)
+
+- **BoAT-SupportLayer**：提供BIA系统抽象通用API接口静态库。
+
+  下载地址：[![Static Badge](https://img.shields.io/badge/BoAT--SupportLayer-0096DB)](https://github.com/aitos-io/BoAT-SupportLayer)
+
+- **BoAT-Engine**：提供多种区块链应用API的静态库。
+
+  下载地址：[![Static Badge](https://img.shields.io/badge/BoAT--Engine-0096DB)](https://github.com/aitos-io/BoAT-Engine)
 
 #### BoAT-Anchor
 敬请期待。
@@ -151,3 +142,4 @@ Apache License 2.0, 请访问[LICENSE](./LICENSE).
 **Open source by [aitos.io](http://www.aitos.io/)**
 
 [![aitos.io](https://aitos-io.github.io/BoAT-X-Framework/logo/aitos_logo_100.png)](http://www.aitos.io/)
+
