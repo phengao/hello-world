@@ -90,7 +90,7 @@ BoAT-X有两种运行模式
 ## 发布及状态
 
 ### 发布信息
-新功能的完整列表，请访问 [发布信息](https://github.com/aitos-io/BoAT-X-Framework/releases)。
+新功能的完整列表，请访问 [发布信息](https://github.com/phengao/hello-world/blob/master/BoATInfraArch_Releases.md)。
 
 ### 项目状态报告
 项目状态更新，请访问[项目状态更新报告](https://github.com/aitos-io/project-status-update)。
