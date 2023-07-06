@@ -70,15 +70,15 @@ BoAT-X有两种运行模式
 
 - **BoAT-ProjectTemplate**：用于构建基于BoAT Infra Arch基础架构应用的编译目录。
 
-  下载地址：[![Static Badge](https://img.shields.io/badge/BoAT--ProjectTemplate-0096DB)](https://github.com/aitos-io/BoAT-ProjectTemplate)
+  下载地址：    [BoAT-ProjectTemplate](https://github.com/aitos-io/BoAT-ProjectTemplate)
 
 - **BoAT-SupportLayer**：提供BIA系统抽象通用API接口静态库。
 
-  下载地址：[![Static Badge](https://img.shields.io/badge/BoAT--SupportLayer-0096DB)](https://github.com/aitos-io/BoAT-SupportLayer)
+  下载地址：    [BoAT-SupportLayer](https://github.com/aitos-io/BoAT-SupportLayer)
 
 - **BoAT-Engine**：提供多种区块链应用API的静态库。
 
-  下载地址：[![Static Badge](https://img.shields.io/badge/BoAT--Engine-0096DB)](https://github.com/aitos-io/BoAT-Engine)
+  下载地址：    [BoAT-Engine](https://github.com/aitos-io/BoAT-Engine)
 
 #### BoAT-Anchor
 敬请期待。
