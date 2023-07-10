@@ -41,13 +41,13 @@ Chainmaker (长安链)
 VenaChain (万纳链)
 
 **支持的Target操作系统：**  
-ChinaMobile-ML307A-DCLN 
-Fibocom-FG150 
-Fibocom-FM650 
-Fibocom-L610 
-linux-default 
-Mobiletek-L503C-6S 
-Unisoc-8850  
+ChinaMobile-ML307A-DCLN  
+Fibocom-FG150  
+Fibocom-FM650  
+Fibocom-L610  
+linux-default  
+Mobiletek-L503C-6S  
+Unisoc-8850   
 
 **支持的Build操作系统：**  
 Linux/Cygwin  
@@ -75,18 +75,126 @@ BoAT Infra Arch基础框架SDK的各个组件以软件lib库的形式，运行�
 对于非OpenCPU形态的蜂窝模组，BoAT Infra Arch基础框架库的各个组件被`模组固件链接`，并由模组厂商扩展为AT命令，供上位机上的物联网应用调用，不再赘述。  
 
 ### BoAT Infra Arch基础框架SDK架构
-BoAT Infra Arch基础框架SDK如图 2‑2所示，主要包含Wallet API、区块链客户端接口协议、远程过程调用接口、公共组件、硬件依赖组件以及工具组件。  
+BoAT Infra Arch基础框架SDK如图 2‑2所示，BoAT SDK主要包含BoAT Engine、BoAT Support Layer两层。
+BoAT Engine主要提供区块链应用相关业务逻辑，包含：IoT设备钱包应用API(Wallet APIs)、区块链客户端接口协议(Protocols)、区块链网络接口(Networks)。
+BoAT Support Layer主要为IoT应用提供系统底层抽象通用接口，包含：BoAT系统无关通用组件(BoAT Common Components)、操作系统API接口抽象层(Openrating System Abstraction Layer)、系统设备驱动/特性功能抽象层(Driver Abstraction Layer)。`远程过程调用接口、公共组件、硬件依赖组件以及工具组件。`
 
 ![BoAT Infra Arch基础框架SDK架构](https://github.com/phengao/hello-world/blob/master/boatsdk.png)  
 图 2-2 BoAT Infra Arch基础框架SDK架构
 
-Wallet API是SDK提供给物联网应用调用的接口，具体包括SDK公共接口和针对不同区块链协议的钱包和交易接口。
-区块链客户端接口协议主要实现针对不同区块链的交易接口协议，并通过RPC接口与区块链节点进行交互。
-远程过程调用（RPC）接口实现针对不同通信承载的接口方式。该组件需要根据IoT设备支持的具体通信方式进行移植。
-公共组件实现RLP编码、JSON编解码、字符串处理等公共功能。
-硬件依赖组件为涉及不同硬件的移植组件，例如密码学加速器、安全存储、随机数等，需要根据具体硬件进行移植。SDK亦提供一套全软件的默认实现。
-工具组件提供了根据Solidity或者WASM C++的智能合约ABI接口，生成C语言合约调用接口的Python工具。
+BoAT Engine代码结构如下：
+```
+<BoAT-Engine>
+|
++---demo                  | Demo application
+|   \---demo_chainmaker   |     network api of chainmaker
+|   \---demo_cita         |     network api of cita
+|   \---demo_ethereum     |     network api of ethereum
+|   \---demo_fiscobcos    |     network api of fiscobcos
+|   \---demo_hlfabric     |     network api of hlfabric
+|   \---demo_hwbcs        |     network api of hwbcs
+|   \---demo_platon       |     network api of platon
+|   \---demo_platone      |     network api of platone
+|   \---demo_quorum       |     network api of quorum
+|   \---demo_venachain    |     network api of venachain
++---include               | Header files for application to include
++---network               | Configuration and management of blockchain networks
+|   \---chainmaker        |     network api of chainmaker
+|   \---cita              |     network api of cita
+|   \---ethereum          |     network api of ethereum
+|   \---fiscobcos         |     network api of fiscobcos
+|   \---hlfabric          |     network api of hlfabric
+|   \---hwbcs             |     network api of hwbcs
+|   \---platon            |     network api of platon
+|   \---platone           |     network api of platone
+|   \---quorum            |     network api of quorum
+|   \---venachain         |     network api of venachain
++---protocol              | Blockchain client protocol implementation
+|   \---boatchainmaker_v1 |     protocol api of chainmaker
+|   \---boatchainmaker_v2 |     protocol api of chainmaker
+|   \---boatcita          |     protocol api of cita
+|   \---boatethereum      |     protocol api of ethereum
+|   \---boatfiscobcos     |     protocol api of fiscobcos
+|   \---boathlfabric      |     protocol api of hlfabric
+|   \---boathwbcs         |     protocol api of hwbcs
+|   \---boatplaton        |     protocol api of platon
+|   \---boatplatone       |     protocol api of platone
+|   \---boatquorum        |     protocol api of quorum
+|   \---boatvenachain     |     protocol api of venachain
+|   +---common            |     Universal soft algorithms implementation for blockchains
+|   |   \---web3intf      |     web3 api implementation
++---tests                 | Test cases
+\---tools                 | Tools for generating C interface from contract ABI
+\---wallet                | wallet API implementation for each blockchain
+```
+在BoAT Engine中：
+Wallet APIs是SDK提供给物联网应用调用的接口，具体包括SDK公共接口和针对不同区块链协议的钱包和交易接口。
 
+Portocols区块链客户端接口协议主要实现针对不同区块链的交易接口协议，并通过RPC接口与区块链节点进行交互。
+
+Networks区块链网络接口主要实现对不同区块链网络节点的配置和信息管理，时Wallet APIs能够通过网络信息于区块链节点建立链接。   
+
+另外还包含工具组件，提供了根据Solidity或者WASM C++的智能合约ABI接口，生成C语言合约调用接口的Python工具。   
+
+BoAT Support Layer代码结构如下：
+```
+<BoAT-SupportLayer>
+|
++---common            | Universal soft algorithms implementation
+|   \---http2intf     |     Universal soft algorithms implementation
+|   \---rpc           |     rpc interface
+|   \---storage       |     interface for storing data or files
+|   \---utilities     |     Utility APIs
++---include           | Header files for application to include
++---keypair           | Interface for generating and managing key pairs
++---keystore          | Store a series of Secret Keys, Key Pairs, or Certificates
+|   +---SE            |     Keystore Interface Implemented by Security Chip
+|   \---soft          |     Keystore Interface Implemented by Software
++---platform          | Implementation of Abstract Interfaces on Different Operating Platforms
+|   +---Chin...DCLN   |     Implementation of Abstract Interface in ChinaMobile-ML307A-DCLN
+|   +---Fibocom-L610  |     Implementation of Abstract Interface in Fibocom-L610
+|   +---include       |     Header files for platform internal use
+|   +---linux-default |     Implementation of Abstract Interface in ChinaMobile-ML307A-DCLN
++---tests             | Test cases
++---third-party       |     Third party libraries
+    \---cJSON         |     JSON parsing interface for C language 
+    \---crypto        |     Including various software encryption algorithms
+    \---nghttp2       |     HTTP/2 library implemented by C language
+    \---protobuf-c    |     protobuf interface
+    \---protos        |     protos interface
+    +---rlp           |     RLP encoder
+```
+在BoAT Support Layer中：
+BoAT Common Components组件包含物联网应用所需的各类系统无关通用软件，包括：   
+
+    common：
+    
+        远程过程调用（RPC）接口实现针对不同通信承载的接口方式。   
+	
+		还包含了部分通用协议的调用接口（http2intf）   
+  
+    third-party：   
+    
+        使用第三方软件提供的RLP编码、JSON编解码、字符串处理等公共功能。 
+	
+    keypair:   
+    
+        提供keypair应用相关接口，创建密钥对、获取公钥、删除密钥对等功能。  
+	
+    keystore:   
+    
+        提供密钥存储相关接口。   
+	
+OSAL:   
+
+    提供通用系统API调用API接口，将不同平台（platform）的系统API接口转换转换为统一抽象接口供给应用层使用，包含：semaphor、mutex、timer、task/thread、queue等。   
+    
+DAL:
+
+    提供通用系统API调用API接口，将不同平台（platform）的系统API接口转换转换为统一抽象接口供给应用层使用，包含：i2c、uart、virtualAT、http、ssl、storage等。例如密码学加速器、安全存储、随机数等，需要根据具体硬件进行移植。SDK亦提供一套全软件的默认实现。   
+
+
+基于BoAT Infra Arch基础框架SDK的物联网应用程序，通过调用BoAT Engine应用接口实现区块链访问业务，同时也可以通过BoAT Support Layer提供的系统抽象接口访问底层系统API，使得物联网应用程序能够在BIA基础框架支持的模组平台之间实现跨平台应用。在切换模组平台时，仅需要更改编译配置并完成编译生成固件，即可下载到对应模组中运行。  
 
 ### BoAT Infra Arch基础框架SDK代码结构
 ```
