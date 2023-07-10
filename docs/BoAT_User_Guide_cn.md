@@ -65,7 +65,7 @@ BoAT IoT Framework以软件lib库的形式，运行于蜂窝模组的应用处�
 
 图 2‑1展示了BoAT IoT Framwork在OpenCPU模组中的位置。BoAT作为应用层协议，位于模组已有的协议栈上方，向物联网应用提供区块链服务。BoAT的对等层是区块链网络层。  
 
-![BoAT IoT Framework在系统中的位置](https://aitos-io.github.io/BoAT-X-Framework/zh-cn/images/BoAT_User_Guide_cn-F2-1-BoAT_in_system.png)
+![BoAT IoT Framework在系统中的位置](https://github.com/phengao/hello-world/blob/master/boatsdk.png)
 图 2-1 BoAT IoT Framework在系统中的位置
 
 对于非OpenCPU形态的蜂窝模组，BoAT IoT Framework库被模组固件链接，并由模组厂商扩展为AT命令，供上位机上的物联网应用调用，不再赘述。  
