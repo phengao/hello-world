@@ -1,5 +1,5 @@
 # 用户手册
-[test](#功能和架构)
+[修改进度](#编程模型)
 ## 引言
 
 ### 概述
@@ -267,8 +267,8 @@ C:\Users\developer\Documents\project
 C:\Documents and Settings\developer\project，路径中带有‘ ’空格。  
 
 如果无法避免在路径中出现上述不适字符，请使用以下方法规避：  
-- Linux：在一个没有不适字符的路径中，建立一个指向SDK目录的符号链接：ln -s \<SDKRoot\> boatiotsdk，在该符号链接的路径下进行编译。  
-- Windows：使用SUBST Z: \<SDKRoot\>命令虚拟一个盘符Z:（也可以是其他未使用的盘符），在Z:盘下进行编译。
+- Linux：在一个没有不适字符的路径中，建立一个指向SDK目录的符号链接：ln -s \<BoAT-ProjectTemplate\> boatiotsdk，在该符号链接的路径下进行编译。  
+- Windows：使用SUBST Z: \<BoAT-ProjectTemplate\>命令虚拟一个盘符Z:（也可以是其他未使用的盘符），在Z:盘下进行编译。
 
 #### 构建编译目录  
 BoAT Infra Arch基础框架SDK所包含的BoAT-Engine、BoAT-SupportLayer仓库的源码不能直接下载编译，需要先下载BoAT-ProjectTemplate编译模板仓库到本地，在本地执行配置脚本完成BoAT-Engine和BoAT-SupportLayer**源码下载**、**区块链选择**、**目标平台选择**、**生成Makefile**、**构建编译目录**，以下依序说明整个过程。  
@@ -452,10 +452,10 @@ BoAT Infra Arch基础框架SDK所包含的BoAT-Engine、BoAT-SupportLayer仓库�
    [1] ETHEREUM
    [a] QUORUM
  ```
-   根据需要，选择一个或多个区块链编号，使能相应的区块链协议，未选择的区块链将被禁能。以上提示中给出了选择区块链示例，当输入“1a”时，表示选择使能[1]、[a]对应的区块链，即“ETHEREUM”和“QUORUM”,其余剩下的区块链将禁能。  
+   根据需要，选择一个或多个区块链编号，使能相应的区块链协议，未选择的区块链将被禁能。以上提示中给出了选择区块链示例，当输入“1a”时，表示选择使能[1]、[a]对应的区块链，即“ETHEREUM”和“QUORUM”,其余剩下的区块链将禁能，详见[构建编译目录](#构建编译目录)。  
    
 - 日志打印级别调整  
-根据需要，调整路径\<SDKRoot\>/BoAT-SupportLayer/platform/\<platform_name\>/src/log/boatlog.h中`BOAT_LOG_LEVEL`的值，来调整日志的打印级别。
+根据需要，调整路径\<BoAT-ProjectTemplate\>/BoAT-SupportLayer/platform/\<platform_name\>/src/log/boatlog.h中`BOAT_LOG_LEVEL`的值，来调整日志的打印级别。
 
 ### 合约C接口代码自动生成
 智能合约是区块链上的可执行代码，在区块链虚拟机（例如EVM和WASM）上执行，并以远程过程调用（RPC）方式被客户端调用。  
@@ -463,12 +463,12 @@ BoAT Infra Arch基础框架SDK所包含的BoAT-Engine、BoAT-SupportLayer仓库�
 SDK中BoAT-Engine仓库tools/目录下提供以下工具，用于根据合约ABI，生成相应的C接口代码，使得C代码中，可以像调用一般C函数一样，通过生成的接口代码调用链上智能合约：  
 |转换工具                                             |用途                                        |
 |:----------------------------------------------------|:-------------------------------------------|
-|\<SDKRoot\>/BoAT-Engine/tools/eth2c.py               |根据以太坊Solidity的ABI，生成C调用代码      |
-|\<SDKRoot\>/BoAT-Engine/tools/fiscobcos2c.py         |根据FISCO-BCOS Solidity的ABI，生成C调用代码 |
-|\<SDKRoot\>/BoAT-Engine/tools/platoneSolidity2c.py   |根据PlatONE Solidity的ABI，生成C调用代码    |
-|\<SDKRoot\>/BoAT-Engine/tools/platoneWASM2c.py       |根据PlatONE WASM的ABI，生成C调用代码        |
-|\<SDKRoot\>/BoAT-Engine/tools/venachainSolidity2c.py |根据Venachain Solidity的ABI，生成C调用代码  |
-|\<SDKRoot\>/BoAT-Engine/tools/venachainWASM2c.py     |根据Venachain WASM的ABI，生成C调用代码      |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/tools/eth2c.py               |根据以太坊Solidity的ABI，生成C调用代码      |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/tools/fiscobcos2c.py         |根据FISCO-BCOS Solidity的ABI，生成C调用代码 |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/tools/platoneSolidity2c.py   |根据PlatONE Solidity的ABI，生成C调用代码    |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/tools/platoneWASM2c.py       |根据PlatONE WASM的ABI，生成C调用代码        |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/tools/venachainSolidity2c.py |根据Venachain Solidity的ABI，生成C调用代码  |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/tools/venachainWASM2c.py     |根据Venachain WASM的ABI，生成C调用代码      |
 
 由于合约编程语言一般支持面向对象，而C语言不支持面向对象，无法使用统一范式传递对象，因此只有参数类型与C语言内置类型一致的合约函数，可以通过工具转换为C调用代码。具体的支持合约函数输入类型详见[合约调用（自动生成）](#合约调用（自动生成）) 章节。
 
@@ -476,16 +476,16 @@ SDK中BoAT-Engine仓库tools/目录下提供以下工具，用于根据合约ABI
 
 |合约ABI存放路径                                        |用途                                                 |
 |:------------------------------------------------------|:----------------------------------------------------|
-|\<SDKRoot\>/demo/demo_ethereum/demo_contract           |将以太坊的ABI JSON文件拷贝至该目录下                 |
-|\<SDKRoot\>/demo/demo_fiscobcos/demo_contract          |将FISCO-BCOS的ABI JSON文件拷贝至该目录下             |
-|\<SDKRoot\>/demo/demo_platone/demo_contract/Solidity   |将PlatONE（Solidity）的ABI JSON文件拷贝至该目录下    |
-|\<SDKRoot\>/demo/demo_platone/demo_contract/WSAM       |将PlatONE（WASM）的ABI JSON文件拷贝至该目录下        |
-|\<SDKRoot\>/demo/demo_venachain/demo_contract/Solidity |将Venachain（Solidity）的ABI JSON文件拷贝至该目录下  |
-|\<SDKRoot\>/demo/demo_venachain/demo_contract/WSAM     |将Venachain（WASM）的ABI JSON文件拷贝至该目录下      |
+|\<BoAT-ProjectTemplate\>/demo/demo_ethereum/demo_contract           |将以太坊的ABI JSON文件拷贝至该目录下                 |
+|\<BoAT-ProjectTemplate\>/demo/demo_fiscobcos/demo_contract          |将FISCO-BCOS的ABI JSON文件拷贝至该目录下             |
+|\<BoAT-ProjectTemplate\>/demo/demo_platone/demo_contract/Solidity   |将PlatONE（Solidity）的ABI JSON文件拷贝至该目录下    |
+|\<BoAT-ProjectTemplate\>/demo/demo_platone/demo_contract/WSAM       |将PlatONE（WASM）的ABI JSON文件拷贝至该目录下        |
+|\<BoAT-ProjectTemplate\>/demo/demo_venachain/demo_contract/Solidity |将Venachain（Solidity）的ABI JSON文件拷贝至该目录下  |
+|\<BoAT-ProjectTemplate\>/demo/demo_venachain/demo_contract/WSAM     |将Venachain（WASM）的ABI JSON文件拷贝至该目录下      |
 
 ***注：ABI的JSON文件必须以“.json”为文件名后缀。***
 
-在编译Demo过程中，自动生成工具将根据合约ABI JSON文件，生成相应的C接口调用代码。如果编译中自动生成C接口失败，则需要从<SDKRoot>/contract的相应目录中，删除无法支持的ABI JSON文件（或者删除其中无法支持的接口），手工编写C代码，进行ABI接口组装，详见 [转账调用](#转账调用) 章节。  
+在编译Demo过程中，自动生成工具将根据合约ABI JSON文件，生成相应的C接口调用代码。如果编译中自动生成C接口失败，则需要从<BoAT-ProjectTemplate>/contract的相应目录中，删除无法支持的ABI JSON文件（或者删除其中无法支持的接口），手工编写C代码，进行ABI接口组装，详见 [转账调用](#转账调用) 章节。  
 
 ### Host编译
 Host编译指编译环境与目标环境一致，例如，在x86上编译x86程序。通常有两种使用Host编译的场景: 
@@ -497,13 +497,13 @@ Host编译指编译环境与目标环境一致，例如，在x86上编译x86程�
 基于Linux发行版（例如Ubuntu）进行Host编译，一般无需特别配置编译环境，只需确保依赖软件都已安装。
 
 编译遵照如下步骤:
-1. 在符合[SDK源码路径](#boat-iot-framework-sdk源码路径)要求的路径中构建bia架构项目开发模板编译目录。  
-2. 可选：将要调用的智能合约的ABI JSON文件放在\<SDKRoot\>/demo/demo_\<protocol\>/demo_contract的对应目录中（参见[合约C接口代码自动生成](#合约c接口代码自动生成)章节）。  
-3. 在\<SDKRoot\>目录下，执行以下命令:  
+1. 在符合[SDK源码路径](#boat-iot-framework-sdk源码路径)要求的路径中构建bia架构项目开发模板[编译目录](#构建编译目录)。  
+2. 可选：将要调用的智能合约的ABI JSON文件放在\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_\<protocol\>/demo_contract的对应目录中（参见[合约C接口代码自动生成](#合约c接口代码自动生成)章节）。  
+3. 在\<BoAT-ProjectTemplate\>目录下，执行以下命令:  
 ```
-$make boatlibs
+$make all
 ```
-4. 编译完成后，生成的库文件在./lib中。应用应当包含./include下的头文件，并链接./lib下的库，实现访问区块链的功能。参见[头文件和库](#头文件和库)章节。
+4. 编译完成后，生成的库文件在./lib中。应用应当包含\<BoAT-ProjectTemplate\>/BoAT-Engine/include和下的头文件，并链接./lib下的libboatengine.a静态库，实现访问区块链的功能。参见[头文件和库](#头文件和库)章节。
 
 #### 以Cygwin为编译环境
 在Windows上，SDK不支持在Cygwin以外的环境进行编译，也不支持使用gcc以外的编译器进行编译。
@@ -563,7 +563,7 @@ ${AR} -v
 ###### 模组开发环境以GNU make为编译工具
 若模组开发环境以GNU make为编译工具（各级源码目录内有Makefile），可以对BoAT Infra Arch基础框架SDK调整编译配置，将其纳入整合的模组开发环境中编译。
 
-通常，模组开发环境中会提供客户代码的Example，并在编译体系中包含对客户示例代码Example的编译配置。首先将\<SDKRoot\>目录（以下例子中以boatiotsdk为目录名）复制到模组开发环境中的客户代码Example目录，然后修改针对客户代码Example的Makefile，增加一个编译BoAT Infra Arch基础框架SDK的target。
+通常，模组开发环境中会提供客户代码的Example，并在编译体系中包含对客户示例代码Example的编译配置。首先将\<BoAT-ProjectTemplate\>目录（以下例子中以boatiotsdk代替目录名）复制到模组开发环境中的客户代码Example目录，然后修改针对客户代码Example的Makefile，增加一个编译BoAT Infra Arch基础框架SDK的target。
 
 例如:  
 假设原有编译环境中，客户代码Example的Makefile如下:  
@@ -630,7 +630,7 @@ set PATH=%PATH%;\<Path_to_Cygwin\>\bin
 
 ***注：上述命令可以编写在一个bat批处理文件中，或者直接加入Windows系统环境变量中，方便调用。如果直接加入Windows系统环境变量，不得将Cygwin置于%SystemRoot%\System32路径之前，否则在其他场景中调用Windows的FIND命令时，将错误地调用Cygwin的find版本，这将影响其他场景中使用Windows自带命令。***
 
-然后，修改`<SDKRoot>/vendor/platform/<platform_name>/external.env`，为依赖工具加上路径:
+然后，修改`<BoAT-ProjectTemplate>/BoAT-SupportLaer/platform/<platform_name>/external.env`，为依赖工具加上路径:
 ```
 # Commands
 CYGWIN_BASE := C:\cygwin64  # Modify to actual path to Cygwin
@@ -657,16 +657,16 @@ f)	在“编辑环境变量”页中点击“新建”，新增Cygwin的安装�
 
 ### 编译和运行Demo
 #### 准备
-SDK提供基于以太坊、PlatON、PlatONE、FISCO-BCOS、Hyperledger Fabric、HW-BCS、Venachain和Chainmaker的Demo。在运行这些Demo之前，需要首先安装相应的区块链节点软件（或者有已知节点），并部署Demo所需的智能合约。
+BoAT Infra Arch基础框架SDK中BoAT-Engine库提供基于以太坊、PlatON、PlatONE、FISCO-BCOS、Hyperledger Fabric、HW-BCS、Venachain和Chainmaker的Demo。在运行这些Demo之前，需要首先安装相应的区块链节点软件（或者有已知节点），并部署Demo所需的智能合约。
 
 Demo所使用的智能合约及其ABI JSON文件放置在：  
 
 |Demo智能合约                                                  |合约ABI JSON文件                                              |用途           |
 |:----------------------------------------------------------- |:------------------------------------------------------------ |:------------ |
-|\<SDKRoot\>/demo/demo_ethereum/demo_contract/StoreRead.sol   |\<SDKRoot\>/demo/demo_ethereum/demo_contract/StoreRead.json   |以太坊演示     |
-|\<SDKRoot\>/demo/demo_platone/demo_contract/WASM/my_contract.cpp    |\<SDKRoot\>/demo/demo_platone/demo_contract/WASM/my_contract.cpp.abi.json    |PlatONE演示    |
-|\<SDKRoot\>/demo/demo_fiscobcos/demo_contract/HelloWorld.sol |\<SDKRoot\>/demo/demo_fiscobcos/demo_contract/HelloWorld.json |FISCO-BCOS演示 |
-|\<SDKRoot\>/demo/demo_venachain/demo_contract/WASM/mycontract.cpp    |\<SDKRoot\>/demo/demo_venachain/demo_contract/WASM/mycontract.cpp.abi.json    |Venachain演示   |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_ethereum/demo_contract/StoreRead.sol   |\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_ethereum/demo_contract/StoreRead.json   |以太坊演示     |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_platone/demo_contract/WASM/my_contract.cpp    |\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_platone/demo_contract/WASM/my_contract.cpp.abi.json    |PlatONE演示    |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_fiscobcos/demo_contract/HelloWorld.sol |\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_fiscobcos/demo_contract/HelloWorld.json |FISCO-BCOS演示 |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_venachain/demo_contract/WASM/mycontract.cpp    |\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_venachain/demo_contract/WASM/mycontract.cpp.abi.json    |Venachain演示   |
 
 在运行以太坊的Demo之前，需要安装以太坊节点模拟器ganache，以及以太坊智能合约编译部署工具truffle。  
 ganache及truffle工具可以访问该网站：https://truffleframework.com  
@@ -691,15 +691,15 @@ FISCO-BCOS源码及安装部署步骤可以访问该网站：https://fisco-bcos-
 
 |Demo C代码                                                  |用途                    |
 |:---------------------------------------------------------- |:--------------------- |
-|\<SDKRoot\>/demo/demo_ethereum/demo_ethereum_storeread.c    |以太坊合约演示用例       |
-|\<SDKRoot\>/demo/demo_ethereum/demo_ethereum_transfer.c     |以太坊转账演示用例       |
-|\<SDKRoot\>/demo/demo_platon/demo_platon_transfer.c         |PLATON转账演示用例      |
-|\<SDKRoot\>/demo/demo_platone/demo_platone_mycontract.c     |PLATONE合约演示用例     |
-|\<SDKRoot\>/demo/demo_fiscobcos/demo_fiscobcos_helloworld.c |FISCO-BCOS合约演示用例  |
-|\<SDKRoot\>/demo/demo_fabric/demo_fabric_abac.c             |FABRIC合约演示用例      |
-|\<SDKRoot\>/demo/demo_hw_bcs/demo_hw_bcs.c                  |HW-BCS合约演示用例      |
-|\<SDKRoot\>/demo/demo_chainmaker/demo_chainmaker.c |CHAINMAKER合约演示用例 |
-|\<SDKRoot\>/demo/demo_venachain/demo_venachain_mycontract.c |Venachain合约演示用例 |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_ethereum/demo_ethereum_storeread.c    |以太坊合约演示用例       |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_ethereum/demo_ethereum_transfer.c     |以太坊转账演示用例       |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_platon/demo_platon_transfer.c         |PLATON转账演示用例      |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_platone/demo_platone_mycontract.c     |PLATONE合约演示用例     |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_fiscobcos/demo_fiscobcos_helloworld.c |FISCO-BCOS合约演示用例  |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_fabric/demo_fabric_abac.c             |FABRIC合约演示用例      |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_hw_bcs/demo_hw_bcs.c                  |HW-BCS合约演示用例      |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_chainmaker/demo_chainmaker.c |CHAINMAKER合约演示用例 |
+|\<BoAT-ProjectTemplate\>/BoAT-Engine/demo/demo_venachain/demo_venachain_mycontract.c |Venachain合约演示用例 |
 
 编译Demo之前，需要修改Demo的C代码中以下部分：
 - 对于ETHEREUM、PLATON、FISCO-BCOS、PLATONE、Venachain:
@@ -735,11 +735,11 @@ FISCO-BCOS源码及安装部署步骤可以访问该网站：https://fisco-bcos-
   5. 如果demo启用TLS，则搜索`chainmaker_host_name`，设置节点的主机名称
 
 #### 编译Demo
-在\<SDKRoot\>目录下执行以下命令编译SDK的调用Demo：
+在\<BoAT-ProjectTemplate\>目录下执行以下命令编译SDK的调用Demo：
 ```
 $make demo
 ```
-生成的Demo程序分别位于\<SDKRoot\>/build/demo/demo_\<protocol\>/<demo_name>路径下，< protocol>可以为`ethereum`、`platon`、`fisco-bcos`、`platone`、`venachain`、`fabric`、`hwbcs`或`chainmaker`。
+生成的Demo程序分别位于\<BoAT-ProjectTemplate\>/build/BoAT-Engine/demo/demo_\<protocol\>/<demo_name>路径下，< protocol>可以为`ethereum`、`platon`、`fisco-bcos`、`platone`、`venachain`、`fabric`、`hwbcs`或`chainmaker`。
 
 
 
@@ -761,8 +761,15 @@ $make demo
    ```
    $file \<lib或obj文件名\>
    ```
+4. 编译中提示“openssl/evp.h”找不到
+   该问题是因为系统中未安装OpenSSL及其开发文件引起。
+   在 Ubuntu 系统中执行以下指令：
+   ```
+   sudo apt install libssl-dev
+   ```
+   提供openssl/evp.h头文件支持
 
-4. 编译中提示可执行文件找不到，或者参数错误  
+5. 编译中提示可执行文件找不到，或者参数错误  
 常见提示:  
 'make'不是内部或外部命令，也不是可运行的程序或批处理文件。  
 mkdir… 命令语法不正确。  
@@ -777,15 +784,15 @@ FIND: 参数格式不正确
 BoAT Infra Arch基础框架SDK编译完成后，应用可以通过SDK头文件和库，发起区块链交易或调用智能合约。
 
 在SDK编译完成后，只有以下文件是应用在编译链接时需要的：
-- \<SDKRoot\>/include下的所有头文件
-- \<SDKRoot\>/lib下的所有库文件
-- \<SDKRoot\>/vendor/platform/include/boatconfig.h头文件
+- \<BoAT-ProjectTemplate\>/include下的所有头文件
+- \<BoAT-ProjectTemplate\>/lib下的所有库文件
+- \<BoAT-ProjectTemplate\>/vendor/platform/include/boatconfig.h头文件
 - 如果使用了根据合约ABI JSON文件自动生成C接口代码，还应包含生成的智能合约C接口代码文件
 
 1. 在应用中引用SDK头文件
 
-- 在应用的头文件搜索路径中，增加\<SDKRoot\>/include，或者将\<SDKRoot\>/include下所有头文件拷贝至应用头文件目录中。
-- 在应用的头文件搜索路径中，增加\<SDKRoot\>/vendor/platform/include，或者将\<SDKRoot\>/vendor/platform/include下的boatconfig.h头文件拷贝至应用头文件目录中。
+- 在应用的头文件搜索路径中，增加\<BoAT-ProjectTemplate\>/include，或者将\<BoAT-ProjectTemplate\>/include下所有头文件拷贝至应用头文件目录中。
+- 在应用的头文件搜索路径中，增加\<BoAT-ProjectTemplate\>/vendor/platform/include，或者将\<BoAT-ProjectTemplate\>/vendor/platform/include下的boatconfig.h头文件拷贝至应用头文件目录中。
 - 在应用相关C代码中，添加以下头文件:
   ```
   #include "boatiotsdk.h" //SDK的入口头文件
@@ -798,7 +805,7 @@ BoAT Infra Arch基础框架SDK编译完成后，应用可以通过SDK头文件�
 
 2. 在应用中链接SDK库文件
 
-- 在应用的链接库中，依次增加\<SDKRoot\>/lib中两个静态库：  
+- 在应用的链接库中，依次增加\<BoAT-ProjectTemplate\>/lib中两个静态库：  
   `libboatwallet.a`
   `libboatvendor.a`
 
@@ -827,7 +834,7 @@ SDK支持两类钱包：一次性钱包和持久性钱包。
 一次性钱包在使用时临时创建，仅在内存中存在，关机后失效。  
 持久性钱包在创建时会做持久性保存，关机再重新开机后，可以加载之前已经创建的持久性钱包。  
 
-***注：<SDKRoot>/vendor/common/storage中的持久化实现方法仅供参考，在商业化产品中，建议根据实际硬件能力，考虑更安全的持久化方法。***
+***注：<BoAT-ProjectTemplate>/vendor/common/storage中的持久化实现方法仅供参考，在商业化产品中，建议根据实际硬件能力，考虑更安全的持久化方法。***
 
 创建和加载钱包时，应保证总在同一个线程中调用BoatWalletCreate()。
 在创建钱包时，需要根据具体区块链协议，传入钱包配置参数。创建钱包的函数描述如下：
@@ -1254,7 +1261,7 @@ https://github.com/aitos-io/BoAT-X-Framework/issues/355
                                         BUINT32 rlp_param_len);
     ```
     其中，rlp_param_ptr的格式遵循与步骤3相同的规则。
-  - 具体调用方法，可参照SDK所附的Demo的自动生成代码，这些代码位于\<SDKRoot\>/build/demo/demo_\<protocol\>/demo_contract下。
+  - 具体调用方法，可参照SDK所附的Demo的自动生成代码，这些代码位于\<BoAT-ProjectTemplate\>/build/demo/demo_\<protocol\>/demo_contract下。
 
 **例3：Hyperledger Fabric交易构造**
 - **步骤1** 调用BoatHlfabricTxInit()进行交易初始化，其中参数根据实际使用进行设置。
@@ -1322,27 +1329,27 @@ https://github.com/aitos-io/BoAT-X-Framework/issues/355
 1. 解除对curl的依赖  
     curl是一个Linux下的通信协议库，在SDK中用于支持http/https通信。区块链节点通常采用http/https协议进行通信。
 
-    对于采用RTOS的模组，应当在\<SDKRoot\>/vendor/platform/\<platform_name\>/src/rpc中增加对模组的http/https的接口的调用封装，并修改\<SDKRoot\>/vendor/platform/\<platform_name\>/scripts/gen.py，关闭RPC_USE_LIBCURL并设置新增的RPC USE OPTION
+    对于采用RTOS的模组，应当在\<BoAT-ProjectTemplate\>/vendor/platform/\<platform_name\>/src/rpc中增加对模组的http/https的接口的调用封装，并修改\<BoAT-ProjectTemplate\>/vendor/platform/\<platform_name\>/scripts/gen.py，关闭RPC_USE_LIBCURL并设置新增的RPC USE OPTION
 
 
 2. 解除对文件系统的依赖  
 
-    SDK中使用文件作为钱包的持久化保存方法。若RTOS不支持文件系统，应当修改\<SDKRoot\>/vendor/platform/\<platform_name\>/port_xx/boatplatform_internal.c中文件操作相关的`BoatGetFileSize`, `BoatWriteFile`, `BoatReadFile`, `BoatRemoveFile`四个函数，将读/写文件修改为系统支持的持久化方法。
+    SDK中使用文件作为钱包的持久化保存方法。若RTOS不支持文件系统，应当修改\<BoAT-ProjectTemplate\>/vendor/platform/\<platform_name\>/port_xx/boatplatform_internal.c中文件操作相关的`BoatGetFileSize`, `BoatWriteFile`, `BoatReadFile`, `BoatRemoveFile`四个函数，将读/写文件修改为系统支持的持久化方法。
 
 
 3. 内存裁剪  
 
     若目标系统内存较为紧张，以致无法装入时，可以尝试对内存进行裁剪。可以裁剪的点包括：
 
-    a)	根据实际需要，在<SDKRoot>/makefile中，关闭不需要支持的区块链Protocol  
-    b)	根据实际情况，减小<SDKRoot>/include/api_\<protocol\>.h中，节点URL字符串的存储空间BOAT_XXX_NODE_URL_MAX_LEN  
-    c)	根据实际需要，减小<SDKRoot>/include/boatwallet.h中，支持的钱包数量BOAT_MAX_WALLET_NUM  
-    d)	根据实际情况，减小<SDKRoot>/include/boatrlp.h中，一个LIST中支持的最大成员个数MAX_RLP_LIST_DESC_NUM  
-    e)	根据实际情况，减小<SDKRoot>/sdk/protocol/common/web3intf/web3intf.h中，web3数据缓冲区的自增步长WEB3_STRING_BUF_STEP_SIZE
+    a)	根据实际需要，在<BoAT-ProjectTemplate>/makefile中，关闭不需要支持的区块链Protocol  
+    b)	根据实际情况，减小<BoAT-ProjectTemplate>/include/api_\<protocol\>.h中，节点URL字符串的存储空间BOAT_XXX_NODE_URL_MAX_LEN  
+    c)	根据实际需要，减小<BoAT-ProjectTemplate>/include/boatwallet.h中，支持的钱包数量BOAT_MAX_WALLET_NUM  
+    d)	根据实际情况，减小<BoAT-ProjectTemplate>/include/boatrlp.h中，一个LIST中支持的最大成员个数MAX_RLP_LIST_DESC_NUM  
+    e)	根据实际情况，减小<BoAT-ProjectTemplate>/sdk/protocol/common/web3intf/web3intf.h中，web3数据缓冲区的自增步长WEB3_STRING_BUF_STEP_SIZE
 
 
     如果经过上述裁剪，内存仍然过大无法装入，可以尝试：  
-    a)	根据实际需要，采用针对具体交易参数的简易RLP编码方法，替代<SDKRoot>/sdk/rlp中递归的通用RLP编码方法  
+    a)	根据实际需要，采用针对具体交易参数的简易RLP编码方法，替代<BoAT-ProjectTemplate>/sdk/rlp中递归的通用RLP编码方法  
     b)	根据实际需要，裁剪实际不会用到的API  
 
 ## BoAT的扩展AT命令建议
