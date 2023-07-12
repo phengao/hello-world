@@ -503,7 +503,7 @@ Host编译指编译环境与目标环境一致，例如，在x86上编译x86程�
 ```
 $make all
 ```
-4. 编译完成后，生成的库文件在./lib中。应用应当包含\<BoAT-ProjectTemplate\>/BoAT-Engine/include和下的头文件，并链接./lib下的libboatengine.a静态库，实现访问区块链的功能。参见[头文件和库](#头文件和库)章节。
+4. 编译完成后，生成的库文件在./lib中。应用应当包含BoAT-Engine和BoAT-SupportLayer中include目录下的头文件，并链接./lib下的libboatengine.a和libboatvendor.a静态库，实现访问区块链的功能。参见[头文件和库](#头文件和库)章节。
 
 #### 以Cygwin为编译环境
 在Windows上，SDK不支持在Cygwin以外的环境进行编译，也不支持使用gcc以外的编译器进行编译。
@@ -783,30 +783,63 @@ FIND: 参数格式不正确
 ### 头文件和库
 BoAT Infra Arch基础框架SDK编译完成后，应用可以通过SDK头文件和库，发起区块链交易或调用智能合约。
 
-在SDK编译完成后，只有以下文件是应用在编译链接时需要的：
-- \<BoAT-ProjectTemplate\>/include下的所有头文件
+在SDK编译完成后，以下文件是应用在编译链接时需要的：
+- \<BoAT-ProjectTemplate\>/BoAT-SupportLayer/include/BoAT-SupportLayer.conf文件中的所有头文件路径中包含的头文件
+- \<BoAT-ProjectTemplate\>/BoAT-Engine/include/BoAT-Engine.conf文件中的所有头文件路径中包含的头文件
 - \<BoAT-ProjectTemplate\>/lib下的所有库文件
-- \<BoAT-ProjectTemplate\>/vendor/platform/include/boatconfig.h头文件
 - 如果使用了根据合约ABI JSON文件自动生成C接口代码，还应包含生成的智能合约C接口代码文件
 
 1. 在应用中引用SDK头文件
 
-- 在应用的头文件搜索路径中，增加\<BoAT-ProjectTemplate\>/include，或者将\<BoAT-ProjectTemplate\>/include下所有头文件拷贝至应用头文件目录中。
-- 在应用的头文件搜索路径中，增加\<BoAT-ProjectTemplate\>/vendor/platform/include，或者将\<BoAT-ProjectTemplate\>/vendor/platform/include下的boatconfig.h头文件拷贝至应用头文件目录中。
+- 在应用的头文件搜索路径中，增加上述BoAT-SupportLayer.conf和BoAT-Enigne.conf文件中的所有头文件路径，或者将这些头文件路径下所有头文件拷贝至应用头文件目录中。
+   - **BoAT-SupportLayer/include/BoAT-SupportLayer.conf**
+      ```
+      BOAT_INCLUDE :=   -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/include \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/platform/include \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/keystore \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/keystore/SE/NXP/sscom/se_process \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/keystore/SE/NXP/sscom/smCom \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/keystore/SE/NXP/sscom/smCom/T1oI2C \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/platform/$(PLATFORM_TARGET)/src/log \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/platform/$(PLATFORM_TARGET)/src/dal \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/platform/$(PLATFORM_TARGET)/src/dal/http \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/platform/$(PLATFORM_TARGET)/src/osal \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/keystore/SE/NXP \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/keystore/soft \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/common/http2intf \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/third-party/protos \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/third-party/nghttp2/include \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/third-party/protobuf-c/include \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/platform/$(PLATFORM_TARGET)/src/inet \
+                        -I$(BOAT_BASE_DIR)/BoAT-SupportLayer/tests \
+                        -I$(BOAT_BASE_DIR)/demo\
+		                $(BOAT_INCLUDE)
+      ...
+	  ```
+   - **BoAT-Engine/include/BoAT-Engine.conf**
+      ```
+	  BOAT_INCLUDE +=   -I$(BOAT_BASE_DIR)/BoAT-Engine/include \
+                        -I$(BOAT_BASE_DIR)/BoAT-Engine/include/network \
+                        -I$(BOAT_BASE_DIR)/BoAT-Engine/include/protocolapi \
+                        -I$(BOAT_BASE_DIR)/BoAT-Engine/protocol/common/web3intf \
+                        -I$(BOAT_BASE_DIR)/BoAT-Engine/protocol \
+      ...
+	  ```
 - 在应用相关C代码中，添加以下头文件:
   ```
   #include "boatiotsdk.h" //SDK的入口头文件
   #include "boatconfig.h" //SDK的配置头文件
+  #include "boatEngine.h" //SDK的区块链应用头文件
+  #include "boatosal.h"   //SDK的OSAL平台抽象接口头文件
+  #include "boatdal.h"    //SDK的DAL驱动抽象接口头文件
   ```
-- 应用无需将SDK的其他头文件目录纳入搜索路径。
-
-如果使用了根据合约ABI JSON文件自动生成C接口代码，还需包含生成的智能合约C接口代码的头文件，并将生成的`*.c`文件加入应用的编译脚本。
+  如果使用了根据合约ABI JSON文件自动生成C接口代码，还需包含生成的智能合约C接口代码的头文件，并将生成的`*.c`文件加入应用的编译脚本。
 
 
 2. 在应用中链接SDK库文件
 
 - 在应用的链接库中，依次增加\<BoAT-ProjectTemplate\>/lib中两个静态库：  
-  `libboatwallet.a`
+  `libboatengine.a`
   `libboatvendor.a`
 
 - 在应用的链接库中，增加curl的动态库：  
@@ -824,6 +857,50 @@ BOAT_RESULT BoatIotSdkInit(void);
 ```
 void BoatIotSdkDeInit(void);
 ```
+### 密钥对创建/删除/获取
+
+SDK支持两类密钥对：一次性密钥对和持久性密钥对。
+
+一次性密钥对在使用时临时创建，仅在内存中存在，关机后失效。  
+持久性密钥对在创建时会做持久性保存，关机再重新开机后，可以加载之前已经创建的持久性密钥对。  
+
+***注：<BoAT-ProjectTemplate>/BoAT-SupportLayer/common/storage中的持久化实现方法仅供参考，在商业化产品中，建议根据实际硬件能力，考虑更安全的持久化方法。***
+
+#### 创建密钥对
+密钥对用于生成区块链钱包地址，时IoT设备访问区块链网络的ID。SDK支持在同一个IoT设备中创建6个私钥，其中1个一次性密钥对和5个持久性密钥对。密钥对创建后存储在系统中，每个密钥对对应一个存储序号，IoT设备通过索引号获取存储在系统中的密钥对，根据应用需要将不同的密钥对应用在不同的场景。  
+BOAT_RESULT BoatKeypairCreate(BoatKeypairPriKeyCtx_config *keypairConfig, 
+                              BCHAR *keypairName, 
+                              BoatStoreType storeType)
+参数:
+
+|参数名称              |参数描述                                                          |
+|:---------------------|:-----------------------------------------------------------------|
+|keypairConfig         |A pointer to a key pair configuration structure. See boatkeypair.h for more details.  |
+|keypairName           |A string of keypaire name.<br>If the given \<keypairName\> is NULL, the SDK will generate an internal name for the current keypair.|
+|storeType             |an one-time or persistent keypair type|
+
+
+**返回值:**  
+This function returns the non-negative index of the loaded keypair.
+It returns -1 if keypair creation fails.
+
+示例(生成一次性密钥对):
+```
+    BUINT8 keypairIndex = 255;
+    BoatKeypairPriKeyCtx_config keypair_config = {0};
+
+	/* keypair_config value assignment */
+    keypair_config.prikey_genMode = BOAT_KEYPAIR_PRIKEY_GENMODE_INTERNAL_GENERATION;
+    keypair_config.prikey_type    = BOAT_KEYPAIR_PRIKEY_TYPE_SECP256K1;
+
+	/* create ethereum keypair */
+    keypairIndex = BoatKeypairCreate( &keypair_config, keypairName,BOAT_STORE_TYPE_RAM);
+
+```
+#### 删除密钥对
+BOAT_RESULT BoATIotKeypairDelete(BUINT8 index)
+
+### 区块链网络创建/删除/获取
 
 ### 区块链钱包创建/加载/卸载/删除
 钱包是区块链账号的属性集合，这些属性包括私钥、区块链节点URL等关键属性。在发起交易或调用智能合约前，必须创建钱包或加载此前已经持久化保存的钱包。
@@ -834,9 +911,9 @@ SDK支持两类钱包：一次性钱包和持久性钱包。
 一次性钱包在使用时临时创建，仅在内存中存在，关机后失效。  
 持久性钱包在创建时会做持久性保存，关机再重新开机后，可以加载之前已经创建的持久性钱包。  
 
-***注：<BoAT-ProjectTemplate>/vendor/common/storage中的持久化实现方法仅供参考，在商业化产品中，建议根据实际硬件能力，考虑更安全的持久化方法。***
+***注：<BoAT-ProjectTemplate>/BoAT-SupportLayer/common/storage中的持久化实现方法仅供参考，在商业化产品中，建议根据实际硬件能力，考虑更安全的持久化方法。***
 
-创建和加载钱包时，应保证总在同一个线程中调用BoatWalletCreate()。
+创建和加载钱包时，应保证总在同一个线程中调用钱包创建BoatWalletCreate()。
 在创建钱包时，需要根据具体区块链协议，传入钱包配置参数。创建钱包的函数描述如下：
 
 ```
@@ -883,7 +960,7 @@ void BoatWalletUnload(BSINT32 wallet_index);
 ```
 参数:
 
-|参数名称        |参数描述                   |
+|参数名称       |参数描述                   |
 |:--------------|:--------------------------|
 |wallet_index   |The wallet index to unload.|
 
@@ -895,7 +972,7 @@ BOAT_RESULT BoatWalletDelete(BCHAR * wallet_name_str);
 ```
 参数:
 
-|参数名称            |参数描述                      |
+|参数名称           |参数描述                      |
 |:------------------|:-----------------------------|
 |wallet_name_str    |The wallet name to delete.    |
 
@@ -913,7 +990,7 @@ BOAT_RESULT BoatEthTransfer(BoatEthTx *tx_ptr,
 
 参数:
 
-|参数名称          |参数描述                                                                |
+|参数名称         |参数描述                                                                |
 |:----------------|:-----------------------------------------------------------------------|
 |tx_ptr           |Transaction pointer.                                                    |
 |value_hex_str    |A string representing the value (Unit: wei) to transfer, in HEX format like "0x89AB3C".<br>Note that decimal value is not accepted. If a decimal value such as "1234" is specified, it's treated as "0x1234".|
