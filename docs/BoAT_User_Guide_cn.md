@@ -430,28 +430,28 @@ BoAT Infra Arch基础框架SDK所包含的BoAT-Engine、BoAT-SupportLayer仓库�
 
 #### BoAT Infra Arch基础框架SDK配置
 - 使能/禁能区块链协议  
-执行**BoAT-ProjectTemplate**中config.py脚本，如果BoATLibs.conf文件中包含BoAT-Engine仓库，则会在配置过程中要求选择区块链，提示如下：
- ```
- Select blockchain list as below:
- [1] ETHEREUM          : 
- [2] PLATON            : 
- [3] PLATONE           : 
- [4] FISCOBCOS         : 
- [5] HLFABRIC          : 
- [6] HWBCS             : 
- [7] CHAINMAKER_V1     : 
- [8] CHAINMAKER_V2     : 
- [9] VENACHAIN         : 
- [a] QUORUM            : 
- [b] CITA              : 
- [0] All block chains
- Example:
-  Select blockchain list as below:
-  input:1a
-  Blockchain selected:
-   [1] ETHEREUM
-   [a] QUORUM
- ```
+   执行**BoAT-ProjectTemplate**中config.py脚本，如果BoATLibs.conf文件中包含BoAT-Engine仓库，则会在配置过程中要求选择区块链，提示如下：
+   ```
+    Select blockchain list as below:
+    [1] ETHEREUM          : 
+    [2] PLATON            : 
+    [3] PLATONE           : 
+    [4] FISCOBCOS         : 
+    [5] HLFABRIC          : 
+    [6] HWBCS             : 
+    [7] CHAINMAKER_V1     : 
+    [8] CHAINMAKER_V2     : 
+    [9] VENACHAIN         : 
+    [a] QUORUM            : 
+    [b] CITA              : 
+    [0] All block chains
+    Example:
+     Select blockchain list as below:
+     input:1a
+     Blockchain selected:
+      [1] ETHEREUM
+      [a] QUORUM
+   ```
    根据需要，选择一个或多个区块链编号，使能相应的区块链协议，未选择的区块链将被禁能。以上提示中给出了选择区块链示例，当输入“1a”时，表示选择使能[1]、[a]对应的区块链，即“ETHEREUM”和“QUORUM”,其余剩下的区块链将禁能，详见[构建编译目录](#构建编译目录)。  
    
 - 日志打印级别调整  
