@@ -1008,7 +1008,7 @@ This function returns 0 if network deletion successful.
 It returns -1 if network deletion fails.
 ```
 
-### 区块链钱包初始化/去初始化
+### 区块链钱包初始化/反初始化
 钱包是区块链账号的属性集合，这些属性包括私钥、区块链节点URL等关键属性。在发起交易或调用智能合约前，必须初始化钱包。
 
 #### 初始化钱包
@@ -1031,9 +1031,9 @@ BoatEthWallet *BoatEthWalletInit(BUINT8 walletIndex,
 Returns 0 if the wallet initialization is successful.  
 Returns -1 if the wallet initialization is fails.  
 
-#### 去初始化钱包
-SDK中各个区块链都设计了各自的区块链钱包去初始化函数，去初始化钱包将把已初始化的钱包从内存中卸载。卸载不会删除已经持久化的密钥对和区块链网络，但在再次初始化之前，该钱包将不能使用。
-以太坊Ethereum区块链去初始化钱包函数如下：
+#### 反初始化钱包
+SDK中各个区块链都设计了各自的区块链钱包反初始化函数，反初始化钱包将把已初始化的钱包从内存中卸载。卸载不会删除已经持久化的密钥对和区块链网络，但在再次初始化之前，该钱包将不能使用。
+以太坊Ethereum区块链反初始化钱包函数如下：
 ```
 void BoatEthWalletDeInit(BoatEthWallet *wallet_ptr)
 ```
@@ -1581,14 +1581,14 @@ the index of the created keypair
 the index of the created network
 
 
-### 去初始化钱包AT^BUWALT
+### 反初始化钱包AT^BUWALT
 |Command**                               |Response(s)                                            |
 |:-------------------------------------- |:----------------------------------------------------- |
 |Write Command:<br>^BUWALT=<wallet_tpye> |<br>OK<br>                                             |
 |Test Command:<br>^BUWALT=?              |+BUWALT: (list of loadeded \<wallet_index\>s)<br>OK<br>|
 
 功能：
-去初始化钱包，与BoatWalletUnload()对应。
+反初始化钱包，与BoatWalletUnload()对应。
 
 参数:
 \<wallet_tpye\>: integer type; wallet type to unload, previously protocol_type parameter entered by AT^BCNETWORK earlier
