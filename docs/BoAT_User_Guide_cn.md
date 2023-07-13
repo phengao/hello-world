@@ -850,24 +850,22 @@ BoAT Infra Arch基础框架SDK编译完成后，应用可以通过SDK头文件�
 
 ### SDK初始化和销毁
 在调用SDK之前，必须调用BoatIotSdkInit()对SDK的全局资源进行初始化:
-```
-BOAT_RESULT BoatIotSdkInit(void);
-```
+   ```
+   BOAT_RESULT BoatIotSdkInit(void);
+   ```
 在使用结束后，应调用BoatIotSdkDeInit()释放资源:
-```
-void BoatIotSdkDeInit(void);
-```
-### 密钥对创建/删除/获取
+   ```
+   void BoatIotSdkDeInit(void);
+   ```
+### 密钥对创建/获取/删除
 
-SDK支持两类密钥对：一次性密钥对和持久性密钥对。  
-一次性密钥对在使用时临时创建，仅在内存中存在，关机后失效。  
-持久性密钥对在创建时会做持久性保存，关机再重新开机后，可以加载之前已经创建的持久性密钥对。  
-密钥对用于生成区块链钱包地址，SDK支持在同一个IoT设备中创建6个密钥对，其中1个一次性密钥对和5个持久性密钥对。密钥对创建后存储在系统中，每个密钥对对应一个存储索引号，IoT设备通过索引号获取存储在系统中的密钥对，根据应用需要将不同的密钥对应用在不同的场景。
+SDK支持两类密钥对：一次性密钥对和持久性密钥对。一次性密钥对在使用时临时创建，仅在内存中存在，关机后失效。持久性密钥对在创建时会做持久性保存，关机再重新开机后，可以加载之前已经创建的持久性密钥对。  
+密钥对用于生成区块链钱包地址，SDK支持在同一个IoT设备中创建6个密钥对，其中1个一次性密钥对和5个持久性密钥对。密钥对创建后存储在系统中，每个密钥对对应一个存储索引号，IoT设备通过索引号获取存储在系统中的密钥对，根据应用需要将不同的密钥对应用在不同的场景。  
 密钥对除了用于涉密应用外，也是构成区块链钱包的组成部分。  
 ***注：<BoAT-ProjectTemplate>/BoAT-SupportLayer/common/storage中的持久化实现方法仅供参考，在商业化产品中，建议根据实际硬件能力，考虑更安全的持久化方法。***
 
 #### 创建密钥对
-IoT设备通过密钥对创建函数生成密钥对，创建密钥对需要预先配置密钥对的属性，包括模式、类型、算法、格式等，创建密钥对生成私钥和公钥，并将密钥对存储在系统加密文件中，创建成功后将得到密钥对在系统中的存储索引号用于加载和删除密钥对。
+IoT设备通过密钥对创建函数生成密钥对，创建密钥对需要预先配置密钥对的属性，包括模式、类型、算法、格式等，创建密钥对生成私钥和公钥，并将密钥对存储在系统加密文件中，创建成功后将得到密钥对在系统中的存储索引号用于加载和删除密钥对。  
 密钥对创建函数如下：
 ```
 BOAT_RESULT BoatKeypairCreate(BoatKeypairPriKeyCtx_config *keypairConfig, 
@@ -896,6 +894,7 @@ It returns -1 if keypair creation fails.
 	/* keypair_config value assignment */
     keypair_config.prikey_genMode = BOAT_KEYPAIR_PRIKEY_GENMODE_INTERNAL_GENERATION;
     keypair_config.prikey_type    = BOAT_KEYPAIR_PRIKEY_TYPE_SECP256K1;
+
 
 	/* create ethereum keypair */
     keypairIndex = BoatKeypairCreate( &keypair_config, keypairName,BOAT_STORE_TYPE_RAM);
@@ -939,11 +938,11 @@ BOAT_RESULT BoATIotKeypairDelete(BUINT8 index)
 This function returns 0 if kepair deletion successful.
 It returns -1 if keypair deletion fails.
 ```
-### 区块链网络创建/删除/获取
+### 区块链网络创建/获取/删除
 不同的区块链其网络构成和应用方式尽皆不同，不同的区块链根据其网络特性创建其网络应用信息，存储在系统中，区块链网络是构成区块链钱包的组成部分。  
 #### 区块链网络创建
 区块链网路创建，将区块链应用所需的网络信息，存储到系统中，并通过返回的索引号，供IoT应用程序获取网络信息，网络信息的存储类型分为两类：一次性网络和持久性网络。
-创建网络函数按照区块链分别实现，以下以Ethereum区块链为例说明，其他区块链网络相关函数，参见 BoAT-Engine/network/network_*.c,*为不同区块链名称。
+创建网络函数按照区块链分别实现，以下以Ethereum区块链为例说明，其他区块链网络相关函数，参见 BoAT-Engine/network/network_Xxx.c,Xxx为不同区块链名称。
 以太坊区块链网络创建函数如下：
 ```
 BOAT_RESULT BoATEthNetworkCreate(BoatEthNetworkConfig *networkConfig, 
@@ -954,7 +953,7 @@ BOAT_RESULT BoATEthNetworkCreate(BoatEthNetworkConfig *networkConfig,
 |:---------------------|:-----------------------------------------------------------------|
 |networkConfig         |A pointer to a Etherum network configuration structure. See network_ethereum.h for more details.  |
 |storeType             |An one-time or persistent keypair type|
-```
+
 **返回值:**  
 ```
 This function returns the non-negative index of the loaded Ethereum network.
@@ -984,7 +983,7 @@ BOAT_RESULT BoATEth_GetNetworkByIndex(BoatEthNetworkData *networkData,
 |:---------------------|:-----------------------------------------------------------------|
 |networkConfig         |A pointer to a Etherum network configuration structure. See network_ethereum.h for more details.  |
 |storeType             |An one-time or persistent keypair type|
-```
+
 **返回值:**  
 ```
 This function returns 0 if the network was successfully obtained.
@@ -1014,7 +1013,7 @@ It returns -1 if network deletion fails.
 
 #### 初始化钱包
 SDK按照不同区块链创建各自的钱包。  
-钱包按照使用时创建原则，通过密钥对和区块链网络信息索引号，分别获取密钥对和区块链网络信息，根据区块链对钱包的要求，通过各区块链钱包地址算法计算出钱包地址信息，存储在内存中，作为访问区块链的识别ID。  
+钱包按照使用时创建原则，通过密钥对和区块链网络信息索引号，分别获取密钥对和区块链网络信息，根据区块链对钱包的要求，通过各区块链钱包地址算法计算出钱包地址信息，存储在内存中，作为访问区块链的账号。  
 创建钱包时，应保证总在同一个线程中调用钱包创建函数BoatXxxWalletInit()，其中Xxx是不同区块链的名称，列入BoatEthWalletInit()。  
 在创建钱包时，需要根据具体区块链协议，传入钱包配置参数。例如以太坊Ethereum创建钱包的函数描述如下：
 ```
@@ -1464,7 +1463,7 @@ https://github.com/aitos-io/BoAT-X-Framework/issues/355
   代码示例：
 
   ```
-   BoatChainmakerAddTxParam(&tx_ptr, 6, "time", "6543235", "file_hash", "ab3456df5799b87c77e7f85", "file_name", "name005", NULL);
+  BoatChainmakerAddTxParam(&tx_ptr, 6, "time", "6543235", "file_hash", "ab3456df5799b87c77e7f85", "file_name", "name005", NULL);
   ```
 
 * **步骤3** 调用BoatChainmakerContractInvoke() 发起交易。
@@ -1481,14 +1480,14 @@ https://github.com/aitos-io/BoAT-X-Framework/issues/355
 
 2. 解除对文件系统的依赖  
 
-    SDK中使用文件作为钱包的持久化保存方法。若RTOS不支持文件系统，应当修改\<BoAT-ProjectTemplate\>/BoAT-SupportLayer/platform/\<platform_name\>/port_xx/boatplatform_internal.c中文件操作相关的`BoatGetFileSize`, `BoatWriteFile`, `BoatReadFile`, `BoatRemoveFile`四个函数，将读/写文件修改为系统支持的持久化方法。
+    SDK中使用文件作为钱包的持久化保存方法。若RTOS不支持文件系统，应当修改\<BoAT-ProjectTemplate\>/BoAT-SupportLayer/platform/\<platform_name\>/src/dal/boatstorage.c中文件操作相关的`BoatGetStorageSize`, `BoatWriteStorage`, `BoatReadStorage`, `BoatRemoveFile`四个函数，将读/写文件修改为系统支持的持久化方法。
 
 
 3. 内存裁剪  
 
     若目标系统内存较为紧张，以致无法装入时，可以尝试对内存进行裁剪。可以裁剪的点包括：
 
-    a)	根据实际需要，在执行config.py是只选择需要的区块链，参见[选择区块链](使能/禁能区块链协议)
+    a)	根据实际需要，在执行config.py是只选择需要的区块链，参见[选择区块链](#BoAT Infra Arch基础框架SDK配置)
     b)	根据实际情况，减小<BoAT-ProjectTemplate>/BoAT-Engine/include/network/network_<protocol\>.h中，节点URL字符串的存储空间BOAT_XXX_NODE_URL_MAX_LEN  
     c)	根据实际需要，减小<BoAT-ProjectTemplate>/BoAT-SupportLayer/include/keypair.h中，支持的密钥对数量BOAT_MAX_KEYPAIR_NUM  
 	d)  根据实际情况，减小<BoAT-ProjectTemplate>/BoAT-Engine/include/boatengine.h中，支持的网络数量BOAT_MAX_NETWORK_NUM
