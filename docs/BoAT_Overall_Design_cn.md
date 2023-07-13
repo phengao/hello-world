@@ -1,11 +1,11 @@
 # BoAT总体设计
 
-
+[edithere](#BoAT的实现框架)
 
 ## 引言
 
 ### 编写目的
-本文对BoAT的系统总体设计进行描述，包括体系架构设计、子系统功能、内外部接口、关键流程及关键技术设计描述，以期指导各子系统的总体设计及测试策略/规范的编写。
+本文对BoAT的系统总体设计进行描述，包括体系架构设计、子系统功能、内外部接口、关键流程及关键技术设计描述，以期指导各子系统的总体设计及测试策略/规范的编写。  
 本文的预期读者为：BoAT SDK详细设计人员。
 
 
@@ -13,7 +13,11 @@
 |术语   |解释                         |
 |:----- |:--------------------------- |
 |ABI    |Application Binary Interface |
+|BE     |BoAT-Engine                  |
+|BIA    |BoAT Infra Arch              |
 |BoAT   |Blockchain of AI Things      |
+|BPT    |BoAT-ProjectTemplate         |
+|BSL    |BoAT-SupportLayer            |
 |RLP    |Recursive Length Prefix      |
 |RNG    |Random Numeral Generator     |
 |RPC    |Remote Procedure Call        |
