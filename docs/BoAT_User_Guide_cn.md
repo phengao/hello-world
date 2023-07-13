@@ -859,31 +859,35 @@ void BoatIotSdkDeInit(void);
 ```
 ### 密钥对创建/删除/获取
 
-SDK支持两类密钥对：一次性密钥对和持久性密钥对。
-
+SDK支持两类密钥对：一次性密钥对和持久性密钥对。  
 一次性密钥对在使用时临时创建，仅在内存中存在，关机后失效。  
 持久性密钥对在创建时会做持久性保存，关机再重新开机后，可以加载之前已经创建的持久性密钥对。  
-
+密钥对用于生成区块链钱包地址，SDK支持在同一个IoT设备中创建6个密钥对，其中1个一次性密钥对和5个持久性密钥对。密钥对创建后存储在系统中，每个密钥对对应一个存储索引号，IoT设备通过索引号获取存储在系统中的密钥对，根据应用需要将不同的密钥对应用在不同的场景。
+密钥对除了用于涉密应用外，也是构成区块链钱包的组成部分。  
 ***注：<BoAT-ProjectTemplate>/BoAT-SupportLayer/common/storage中的持久化实现方法仅供参考，在商业化产品中，建议根据实际硬件能力，考虑更安全的持久化方法。***
 
 #### 创建密钥对
-密钥对用于生成区块链钱包地址，时IoT设备访问区块链网络的ID。SDK支持在同一个IoT设备中创建6个私钥，其中1个一次性密钥对和5个持久性密钥对。密钥对创建后存储在系统中，每个密钥对对应一个存储序号，IoT设备通过索引号获取存储在系统中的密钥对，根据应用需要将不同的密钥对应用在不同的场景。  
+IoT设备通过密钥对创建函数生成密钥对，创建密钥对需要预先配置密钥对的属性，包括模式、类型、算法、格式等，创建密钥对生成私钥和公钥，并将密钥对存储在系统加密文件中，创建成功后将得到密钥对在系统中的存储索引号用于加载和删除密钥对。
+密钥对创建函数如下：
+```
 BOAT_RESULT BoatKeypairCreate(BoatKeypairPriKeyCtx_config *keypairConfig, 
                               BCHAR *keypairName, 
                               BoatStoreType storeType)
-参数:
+```
+**参数:**
 
 |参数名称              |参数描述                                                          |
 |:---------------------|:-----------------------------------------------------------------|
-|keypairConfig         |A pointer to a key pair configuration structure. See boatkeypair.h for more details.  |
+|keypairConfig         |A pointer to a keypair configuration structure. See boatkeypair.h for more details.  |
 |keypairName           |A string of keypaire name.<br>If the given \<keypairName\> is NULL, the SDK will generate an internal name for the current keypair.|
 |storeType             |an one-time or persistent keypair type|
 
 
 **返回值:**  
+```
 This function returns the non-negative index of the loaded keypair.
 It returns -1 if keypair creation fails.
-
+```
 示例(生成一次性密钥对):
 ```
     BUINT8 keypairIndex = 255;
@@ -897,87 +901,153 @@ It returns -1 if keypair creation fails.
     keypairIndex = BoatKeypairCreate( &keypair_config, keypairName,BOAT_STORE_TYPE_RAM);
 
 ```
-#### 删除密钥对
-BOAT_RESULT BoATIotKeypairDelete(BUINT8 index)
 
-### 区块链网络创建/删除/获取
-
-### 区块链钱包创建/加载/卸载/删除
-钱包是区块链账号的属性集合，这些属性包括私钥、区块链节点URL等关键属性。在发起交易或调用智能合约前，必须创建钱包或加载此前已经持久化保存的钱包。
-
-#### 创建和加载钱包
-SDK支持两类钱包：一次性钱包和持久性钱包。
-
-一次性钱包在使用时临时创建，仅在内存中存在，关机后失效。  
-持久性钱包在创建时会做持久性保存，关机再重新开机后，可以加载之前已经创建的持久性钱包。  
-
-***注：<BoAT-ProjectTemplate>/BoAT-SupportLayer/common/storage中的持久化实现方法仅供参考，在商业化产品中，建议根据实际硬件能力，考虑更安全的持久化方法。***
-
-创建和加载钱包时，应保证总在同一个线程中调用钱包创建BoatWalletCreate()。
-在创建钱包时，需要根据具体区块链协议，传入钱包配置参数。创建钱包的函数描述如下：
-
+#### 获取密钥对
+完成创建密钥对后，IoT应用程序可以通过返回的密钥对索引号获取密钥对详细内容，包阔密钥对的：索引号、名称、格式、类型和公钥。
+IoT设备应用程序可以通过BoATKeypair_GetKeypairByIndex函数加载密钥对,获取密钥对的基本信息，函数定义如下：
 ```
-BSINT32 BoatWalletCreate(BoatProtocolType protocol_type,
-                         const BCHAR *wallet_name_str,
-                         const void *wallet_config_ptr,
-                         BUINT32 wallet_config_size);
+BOAT_RESULT BoATKeypair_GetKeypairByIndex(BoatKeypairPriKeyCtx *priKeyCtx, 
+                                          BUINT8 index)
+```
+
+**参数:**
+
+|参数名称              |参数描述                                                          |
+|:---------------------|:-----------------------------------------------------------------|
+|priKeyCtx             | A BoatKeypairPriKeyCtx structure pointer used to store key pair information read from the system. |
+|index                 | The keypair index want to read.  |
+
+**返回值:**  
+```
+This function returns 0 if the keypair was successfully obtained.
+It returns -1 if obtaining the key pair fails.
+```
+
+#### 删除密钥对
+IoT设备应用程序可以通过BoATIotKeypairDelete函数删除index对用的可加载密钥对。
+```
+BOAT_RESULT BoATIotKeypairDelete(BUINT8 index)
+```
+**参数:**
+
+|参数名称              |参数描述                                                          |
+|:---------------------|:-----------------------------------------------------------------|
+|index                 | The index of the loadable keypair.  |
+
+**返回值:** 
+``` 
+This function returns 0 if kepair deletion successful.
+It returns -1 if keypair deletion fails.
+```
+### 区块链网络创建/删除/获取
+不同的区块链其网络构成和应用方式尽皆不同，不同的区块链根据其网络特性创建其网络应用信息，存储在系统中，区块链网络是构成区块链钱包的组成部分。  
+#### 区块链网络创建
+区块链网路创建，将区块链应用所需的网络信息，存储到系统中，并通过返回的索引号，供IoT应用程序获取网络信息，网络信息的存储类型分为两类：一次性网络和持久性网络。
+创建网络函数按照区块链分别实现，以下以Ethereum区块链为例说明，其他区块链网络相关函数，参见 BoAT-Engine/network/network_*.c,*为不同区块链名称。
+以太坊区块链网络创建函数如下：
+```
+BOAT_RESULT BoATEthNetworkCreate(BoatEthNetworkConfig *networkConfig, 
+                                 BoatStoreType storeType)
+```
+**参数：**
+|参数名称              |参数描述                                                          |
+|:---------------------|:-----------------------------------------------------------------|
+|networkConfig         |A pointer to a Etherum network configuration structure. See network_ethereum.h for more details.  |
+|storeType             |An one-time or persistent keypair type|
+```
+**返回值:**  
+```
+This function returns the non-negative index of the loaded Ethereum network.
+It returns -1 if Ethereum network creation fails.
+```
+示例：（生成一次性网络信息）
+```
+    BUINT8 networkIndex = 255;
+    BoatEthNetworkConfig network_config = {0};
+
+    network_config.chain_id             = 1;
+    network_config.eip155_compatibility = BOAT_FALSE;
+    strncpy(network_config.node_url_str, demoUrl, BOAT_ETH_NODE_URL_MAX_LEN - 1);
+
+	/* create ethereum network */
+    networkIndex = BoATEthNetworkCreate( &network_config, BOAT_STORE_TYPE_RAM);
+```
+
+#### 获取网络信息
+IoT应用程序通过区块链创建网络函数返回的索引号获取区块链网络信息。
+```
+BOAT_RESULT BoATEth_GetNetworkByIndex(BoatEthNetworkData *networkData, 
+                                      BUINT8 index)
+```
+**参数：**
+|参数名称              |参数描述                                                          |
+|:---------------------|:-----------------------------------------------------------------|
+|networkConfig         |A pointer to a Etherum network configuration structure. See network_ethereum.h for more details.  |
+|storeType             |An one-time or persistent keypair type|
+```
+**返回值:**  
+```
+This function returns 0 if the network was successfully obtained.
+It returns -1 if obtaining the network fails.
+```
+
+#### 删除网络信息
+IoT设备应用程序可以通过各个区块链提供的网络信息删除接口函数，删除指定的区块链网络信息。
+以太坊区块链删除网络信息函数如下：
+```
+BOAT_RESULT BoATEthNetworkDelete(BUINT8 index)
+```
+**参数:**
+
+|参数名称              |参数描述                                                          |
+|:---------------------|:-----------------------------------------------------------------|
+|index                 | The index of the loadable Ethereum network.  |
+
+**返回值:** 
+``` 
+This function returns 0 if network deletion successful.
+It returns -1 if network deletion fails.
+```
+
+### 区块链钱包初始化/去初始化
+钱包是区块链账号的属性集合，这些属性包括私钥、区块链节点URL等关键属性。在发起交易或调用智能合约前，必须初始化钱包。
+
+#### 初始化钱包
+SDK按照不同区块链创建各自的钱包。  
+钱包按照使用时创建原则，通过密钥对和区块链网络信息索引号，分别获取密钥对和区块链网络信息，根据区块链对钱包的要求，通过各区块链钱包地址算法计算出钱包地址信息，存储在内存中，作为访问区块链的识别ID。  
+创建钱包时，应保证总在同一个线程中调用钱包创建函数BoatXxxWalletInit()，其中Xxx是不同区块链的名称，列入BoatEthWalletInit()。  
+在创建钱包时，需要根据具体区块链协议，传入钱包配置参数。例如以太坊Ethereum创建钱包的函数描述如下：
+```
+BoatEthWallet *BoatEthWalletInit(BUINT8 walletIndex, 
+                                 BUINT8 networkIndex)
 ```
 参数:
 
-|参数名称               |参数描述                                                          |
-|:---------------------|:-----------------------------------------------------------------|
-|protocol_type         |The blockchain protocol. See boattypes.h for supported protocol.  |
-|wallet_name_str       |A string of wallet name.<br>If the given \<wallet_name_str\> is NULL, a one-time wallet is created.<br>Otherwise a persistent wallet with the given name will be created or loaded.|
-|wallet_config_ptr     |Configuration (e.g. crypto key) for the wallet.<br>The exact configuration definition is determinted by the specified \<protocol_type\>.|
-|wallet_config_size    |Size (in byte) of configuration specified by \<wallet_config_ptr\>.|
+|参数名称              |参数描述                                                          |
+|:---------------------|:---------------------------------------------|
+|walletIndex           | The index of the loadable keypair.           |
+|networkIndex          | The index of the loadable Ethereum network.  |
 
 **返回值:**  
-This function returns the non-negative index of the loaded wallet.
-It returns -1 if wallet creation fails.
+Returns 0 if the wallet initialization is successful.  
+Returns -1 if the wallet initialization is fails.  
 
-示例(私钥内部生成):
+#### 去初始化钱包
+SDK中各个区块链都设计了各自的区块链钱包去初始化函数，去初始化钱包将把已初始化的钱包从内存中卸载。卸载不会删除已经持久化的密钥对和区块链网络，但在再次初始化之前，该钱包将不能使用。
+以太坊Ethereum区块链去初始化钱包函数如下：
 ```
-BoatEthWallet *g_ethereum_wallet_ptr = NULL;
-BoatEthWalletConfig wallet_config    = {0};
-
-/* wallet_config value assignment */
-wallet_config.prikeyCtx_config.prikey_genMode = BOAT_WALLET_PRIKEY_GENMODE_INTERNAL_GENERATION;
-wallet_config.prikeyCtx_config.prikey_type    = BOAT_WALLET_PRIKEY_TYPE_SECP256K1;
-
-wallet_config.chain_id             = 1;
-wallet_config.eip155_compatibility = BOAT_TRUE;
-strncpy(wallet_config.node_url_str, demoUrl, BOAT_ETH_NODE_URL_MAX_LEN - 1);
-
-/* create ethereum wallet */
-index = BoatWalletCreate( BOAT_PROTOCOL_ETHEREUM, "boateth.keystore", &wallet_config, sizeof(BoatEthWalletConfig) );
-```
-
-#### 卸载钱包
-卸载钱包将把已加载的钱包从内存中卸载。卸载不会删除已经持久化的钱包，但在再次加载之前，该持久性钱包将不能使用。
-
-```
-void BoatWalletUnload(BSINT32 wallet_index);
+void BoatEthWalletDeInit(BoatEthWallet *wallet_ptr)
 ```
 参数:
 
 |参数名称       |参数描述                   |
 |:--------------|:--------------------------|
-|wallet_index   |The wallet index to unload.|
+|wallet_ptr     |A Ethereum blockchain wallet structure pointer, pointing to the initialized Ethereum blockchain wallet structure variable.|
 
+**返回值:**  
+Returns 0 if the wallet deinitialization is successful.  
+Returns -1 if the wallet deinitialization is fails.  
 
-#### 删除钱包
-删除钱包会将持久化的钱包删除。如果该钱包在删除之前已经加载，那么删除之后，该持久化钱包会变为一次性钱包，在卸载之前仍可使用。  
-```
-BOAT_RESULT BoatWalletDelete(BCHAR * wallet_name_str);
-```
-参数:
-
-|参数名称           |参数描述                      |
-|:------------------|:-----------------------------|
-|wallet_name_str    |The wallet name to delete.    |
-
-### 密钥生成
-创建钱包时需要配置的密钥，可以由外部输入，也可以由SDK生成， 通过设置`prikeyCtx_config.prikey_genMode`为相应的值实现。
 
 ### 转账调用
 从本账户向其他账户进行token转账（并非所有区块链协议都支持转账）。
@@ -1387,42 +1457,43 @@ https://github.com/aitos-io/BoAT-X-Framework/issues/355
 
 **例5：CHAINMAKER交易构造**
 
-* **步骤1** 调用BoatHlChainmakerTxInit()进行交易初始化，其中参数根据实际使用进行设置。
+* **步骤1** 调用BoatChainmakerTxInit()进行交易初始化，其中参数根据实际使用进行设置。
 
-* **步骤2** 调用BoatHlchainmakerAddTxParam()  设置交易参数。
+* **步骤2** 调用BoatChainmakerAddTxParam()  设置交易参数。
 
   代码示例：
 
   ```
-   BoatHlchainmakerAddTxParam(&tx_ptr, 6, "time", "6543235", "file_hash", "ab3456df5799b87c77e7f85", "file_name", "name005", NULL);
+   BoatChainmakerAddTxParam(&tx_ptr, 6, "time", "6543235", "file_hash", "ab3456df5799b87c77e7f85", "file_name", "name005", NULL);
   ```
 
-* **步骤3** 调用BoatHlchainmakerContractInvoke() 发起交易。
+* **步骤3** 调用BoatChainmakerContractInvoke() 发起交易。
 
-* **步骤4** 调用BoatHlchainmakerContractQuery() 查询交易。
+* **步骤4** 调用BoatChainmakerContractQuery() 查询交易。
 
 ## SDK往RTOS移植的建议
 若将SDK移植到RTOS上，一般应遵循以下几点:
 1. 解除对curl的依赖  
     curl是一个Linux下的通信协议库，在SDK中用于支持http/https通信。区块链节点通常采用http/https协议进行通信。
 
-    对于采用RTOS的模组，应当在\<BoAT-ProjectTemplate\>/vendor/platform/\<platform_name\>/src/rpc中增加对模组的http/https的接口的调用封装，并修改\<BoAT-ProjectTemplate\>/vendor/platform/\<platform_name\>/scripts/gen.py，关闭RPC_USE_LIBCURL并设置新增的RPC USE OPTION
+    对于采用RTOS的模组，应当在\<BoAT-ProjectTemplate\>/BoAT-SupportLayer/platform/\<platform_name\>/src/rpc中增加对模组的http/https的接口的调用封装，并修改\<BoAT-ProjectTemplate\>/BoAT-SupportLayer/platform/\<platform_name\>/scripts/gen.py，关闭RPC_USE_LIBCURL并设置新增的RPC USE OPTION
 
 
 2. 解除对文件系统的依赖  
 
-    SDK中使用文件作为钱包的持久化保存方法。若RTOS不支持文件系统，应当修改\<BoAT-ProjectTemplate\>/vendor/platform/\<platform_name\>/port_xx/boatplatform_internal.c中文件操作相关的`BoatGetFileSize`, `BoatWriteFile`, `BoatReadFile`, `BoatRemoveFile`四个函数，将读/写文件修改为系统支持的持久化方法。
+    SDK中使用文件作为钱包的持久化保存方法。若RTOS不支持文件系统，应当修改\<BoAT-ProjectTemplate\>/BoAT-SupportLayer/platform/\<platform_name\>/port_xx/boatplatform_internal.c中文件操作相关的`BoatGetFileSize`, `BoatWriteFile`, `BoatReadFile`, `BoatRemoveFile`四个函数，将读/写文件修改为系统支持的持久化方法。
 
 
 3. 内存裁剪  
 
     若目标系统内存较为紧张，以致无法装入时，可以尝试对内存进行裁剪。可以裁剪的点包括：
 
-    a)	根据实际需要，在<BoAT-ProjectTemplate>/makefile中，关闭不需要支持的区块链Protocol  
-    b)	根据实际情况，减小<BoAT-ProjectTemplate>/include/api_\<protocol\>.h中，节点URL字符串的存储空间BOAT_XXX_NODE_URL_MAX_LEN  
-    c)	根据实际需要，减小<BoAT-ProjectTemplate>/include/boatwallet.h中，支持的钱包数量BOAT_MAX_WALLET_NUM  
-    d)	根据实际情况，减小<BoAT-ProjectTemplate>/include/boatrlp.h中，一个LIST中支持的最大成员个数MAX_RLP_LIST_DESC_NUM  
-    e)	根据实际情况，减小<BoAT-ProjectTemplate>/sdk/protocol/common/web3intf/web3intf.h中，web3数据缓冲区的自增步长WEB3_STRING_BUF_STEP_SIZE
+    a)	根据实际需要，在执行config.py是只选择需要的区块链，参见[选择区块链](使能/禁能区块链协议)
+    b)	根据实际情况，减小<BoAT-ProjectTemplate>/BoAT-Engine/include/network/network_<protocol\>.h中，节点URL字符串的存储空间BOAT_XXX_NODE_URL_MAX_LEN  
+    c)	根据实际需要，减小<BoAT-ProjectTemplate>/BoAT-SupportLayer/include/keypair.h中，支持的密钥对数量BOAT_MAX_KEYPAIR_NUM  
+	d)  根据实际情况，减小<BoAT-ProjectTemplate>/BoAT-Engine/include/boatengine.h中，支持的网络数量BOAT_MAX_NETWORK_NUM
+    e)	根据实际情况，减小<BoAT-ProjectTemplate>/BoAT-SupportLayer/include/boatrlp.h中，一个LIST中支持的最大成员个数MAX_RLP_LIST_DESC_NUM  
+    f)	根据实际情况，减小<BoAT-ProjectTemplate>/BoAT-Engine/protocol/common/web3intf/web3intf.h中，web3数据缓冲区的自增步长WEB3_STRING_BUF_STEP_SIZE
 
 
     如果经过上述裁剪，内存仍然过大无法装入，可以尝试：  
@@ -1431,14 +1502,37 @@ https://github.com/aitos-io/BoAT-X-Framework/issues/355
 
 ## BoAT的扩展AT命令建议
 
-### 创建/加载钱包 AT^BCWALT
+### 创建密钥对 AT^BCKEYPAIR
 |Command                                                                         |Response(s)                                              |
 |:-----------------------------------------------------------------------------  |:------------------------------------------------------- |
-|Write Command:<br>^BCWALT=\<protocol_type\>,\<wallet_name\>[,\<wallet_config\>] |^BCWALT: \<wallet_index\><br>OK<br>                      |
-|Test Command:<br>^BCWALT=?                                                      |+BCWALT: (list of supported \<protocol_type\>s)<br>OK<br>|
+|Write Command:<br>^BCKEYPAIR=\<store_type\>,\<keypair_name\>[,\<kepair_config\>] |^BCKEYPAIR: \<wallet_index\><br>OK<br>                      |
+|Test Command:<br>^BCKEYPAIR=?                                                      |+BCKEYPAIR: (list of supported \<protocol_type\>s)<br>OK<br>|
 
 功能：
-创建/加载钱包，与BoatWalletCreate()对应。
+创建密钥对，与BoatKeypairCreate()对应。
+
+参数：
+\<store_type\>: integer type
+- 1: persistent
+- 0: one-time
+
+\<keypair_name\>: string type; 
+a string of keypair name
+
+\<keypair_config\>: string type;
+A JSON string representing the keypair configuration of \<protocol_type\>. The exact format is manufacture specific.
+
+\<keypair_index\>: integer type; 
+the index of the created keypair
+
+### 创建区块链网络 AT^BCNETWORK
+|Command                                                                         |Response(s)                                              |
+|:-----------------------------------------------------------------------------  |:------------------------------------------------------- |
+|Write Command:<br>^BCNETWORK=\<protocol_type\>,\store_type\>[,\<network_config\>] |^BCNETWORK: \<wallet_index\><br>OK<br>                      |
+|Test Command:<br>^BCNETWORK=?                                                      |+BCNETWORK: (list of supported \<protocol_type\>s)<br>OK<br>|
+
+功能：
+创建区块链网络，与BoatXxxNetworkCreate()对应。
 
 参数：
 \<protocol_type\>: integer type
@@ -1451,64 +1545,99 @@ https://github.com/aitos-io/BoAT-X-Framework/issues/355
 - 7: Chainmaker
 - 8: Venachain
 
-\<wallet_name\>: string type; 
-a string of wallet name
+\<store_type\>: integer type; 
+- 1: persistent
+- 0: one-time
 
-\<wallet_config\>: string type;
-A JSON string representing the wallet configuration of \<protocol_type\>. The exact format is manufacture specific.
+\<network_config\>: string type;
+A JSON string representing the network configuration of \<protocol_type\>. The exact format is manufacture specific.
 
-\<wallet_index\>: integer type; 
-the index of the created wallet
+\<network_index\>: integer type; 
+the index of the created network
 
-### 卸载钱包AT^BUWALT
+### 初始化钱包 AT^BCWALT
+|Command                                                                         |Response(s)                                              |
+|:-----------------------------------------------------------------------------  |:------------------------------------------------------- |
+|Write Command:<br>^BCWALT=\<protocol_type\>,\<keypair_index\>[,\<network_index\>] |^BCWALT: <br>OK<br>                      |
+|Test Command:<br>^BCWALT=?                                                      |+BCWALT: (list of supported \<protocol_type\>s)<br>OK<br>|
+
+功能：
+初始化钱包，与BoatXxxWalletInit()对应。
+
+参数：
+\<protocol_type\>: integer type
+- 1: Ethereum
+- 2: HLFABRIC
+- 3: PLATON
+- 4: PLATONE
+- 5: FISCOBCOS
+- 6: HWBCS
+- 7: Chainmaker
+- 8: Venachain
+
+\<keypair_index\>: integer type; 
+the index of the created keypair
+
+\<network_index\>: integer type; 
+the index of the created network
+
+
+### 去初始化钱包AT^BUWALT
 |Command**                               |Response(s)                                            |
 |:-------------------------------------- |:----------------------------------------------------- |
-|Write Command:<br>^BUWALT=<wallet_index>|<br>OK<br>                                             |
+|Write Command:<br>^BUWALT=<wallet_tpye> |<br>OK<br>                                             |
 |Test Command:<br>^BUWALT=?              |+BUWALT: (list of loadeded \<wallet_index\>s)<br>OK<br>|
 
 功能：
-卸载钱包，与BoatWalletUnload()对应。
+去初始化钱包，与BoatWalletUnload()对应。
 
 参数:
-\<wallet_index\>: integer type; wallet index to unload, previously returned by ^BCWALT
-### 删除钱包AT^BDWALT
+\<wallet_tpye\>: integer type; wallet type to unload, previously protocol_type parameter entered by AT^BCNETWORK earlier
+
+### 删除密钥对 AT^BDKEYPAIR
 |Command                                  |Response(s)   |
 |:--------------------------------------- |:------------ |
-|Write Command:<br>^BDWALT=\<wallet_name\>|<br>OK<br>    |
+|Write Command:<br>^BDKEYPAIR=\<keypair_index\>|<br>OK<br>    |
 
 功能：
-删除已创建的持久化钱包，与BoatWalletDelete()对应。
+删除已创建的持久化密钥对，与BoatKeypairDelete()对应。
 
 参数:
-\<wallet_name\>: string type; the name of the wallet to delete
+\<keypair_index\>: integer type; the index of the created keypair
+
+### 删除密钥对 AT^BDKEYPAIR
+|Command                                  |Response(s)   |
+|:--------------------------------------- |:------------ |
+|Write Command:<br>^BDKEYPAIR=\<network_index\>|<br>OK<br>    |
+
+功能：
+删除已创建的持久化区块链网络，与BoatXxxNetworkDelete()对应。
+
+参数:
+\<network_index\>: integer type; the index of the created network
 
 ### 合约函数调用AT^BCALLFUNC
 |Command                                                    |Response(s)   |
 |:--------------------------------------------------------- |:------------ |
-|Write Command:<br>^BCALLFUNC=\<wallet_index\>,\<tx_object\>|<br>OK<br>    |
+|Write Command:<br>^BCALLFUNC=\<tx_object\>|<br>OK<br>    |
 
 功能：
 发起合约调用，与根据合约ABI JSON文件生成的C调用接口对应。
 
 参数:
-\<wallet_index\>: integer type; wallet index combined with the contract call, previously returned by ^BCWALT
-
 \<tx_object\>: string type;
 A JSON string representing the transaction object as per the generated C contract interface. The exact format is manufacture specific.
 
-\<wallet_index\>: integer type; the index of the created wallet
 
 ### 转账AT^BTRANS
 |Command                                                           |Response(s)   |
 |:---------------------------------------------------------------- |:------------ |
-|Write Command:<br>^BTRANS=\<wallet_index\>,\<recipient\>,\<value\>|<br>OK<br>    |
+|Write Command:<br>^BTRANS=\<recipient\>,\<value\>|<br>OK<br>    |
 
 功能：  
 发起指定Wallet的转账（并非所有区块链都支持转账）。例如，对以太坊，与BoatEthTransfer()对应。
 
 参数:  
-\<wallet_index\>: integer type; wallet index combined with the transfer (the payer), previously returned by ^BCWALT
-
 \<recipient\>: string type;  
 A HEX string representing the recipient (payee) address.
 
