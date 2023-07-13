@@ -3,12 +3,16 @@
 ## 引言
 
 ### 概述
-本文描述BoAT Framework SDK区块链客户端（C语言版本）对蜂窝模组的系统需求。BoAT是一个运行在模组的应用处理器上的SDK。对于OpenCPU蜂窝模组，BoAT作为库被应用程序链接和调用。对于非OpenCPU的蜂窝模组，BoAT的API需要扩展为AT命令，供上位机上的应用调用。
+本文描述BoAT Infra Arch基础框架SDK区块链客户端（C语言版本）对蜂窝模组的系统需求。BoAT是一个运行在模组的应用处理器上的SDK。对于OpenCPU蜂窝模组，BoAT作为库被应用程序链接和调用。对于非OpenCPU的蜂窝模组，BoAT的API需要扩展为AT命令，供上位机上的应用调用。
 
 ### 缩写术语
-|术语  |解释                                                    |
+|术语  |解释                                                   |
 |:---- |:----------------------------------------------------- |
 |BoAT  |Blockchain of AI Things                                |
+|BIA   |BoAT Infra Arch                                        |
+|BE    |BoAT-Engine                                            |
+|BPT   |BoAT-ProjectTemplate                                   |
+|BSL   |BoAT-SupportLayer                                      |
 |SDK   |Software Development Kit                               |
 |API   |Application Programming Interface                      |
 |MCU   |Microcontroller Unit                                   |
@@ -31,31 +35,31 @@
 
 ## 存储需求
 
-仅支持以太坊/Venachain/FISCO BCOS时，BoAT Framework SDK（C语言版本）自身对存储的需求约为：
+仅支持以太坊/Venachain/FISCO BCOS时，BoAT Infra Arch基础框架SDK（C语言版本）自身对存储的需求约为：
 - Flash（代码和只读数据）：约210kB
 - Flash（持久性读写数据）：数百Bytes
 - RAM（全局变量、堆、栈）：约10kB
 
-仅支持HyperLedger Fabric时，BoAT Framework SDK（C语言版本）自身对存储的需求约为：
+仅支持HyperLedger Fabric时，BoAT Infra Arch基础框架SDK（C语言版本）自身对存储的需求约为：
 - Flash（代码和只读数据）：约520kB
 - Flash（持久性读写数据）：数千Bytes
 - RAM（全局变量、堆、栈）：约30kB
 
-仅支持长安链时，BoAT Framework SDK（C语言版本）自身对存储的需求约为：
+仅支持长安链时，BoAT Infra Arch基础框架SDK（C语言版本）自身对存储的需求约为：
 - Flash（代码和只读数据）：约380kB
 - Flash（持久性读写数据）：数千Bytes
 - RAM（全局变量、堆、栈）：约40kB
 
-以上不含BoAT Framework SDK（C语言版本）所依赖的系统库，具体数值随不同区块链协议而有所不同。
+以上不含BoAT Infra Arch基础框架SDK（C语言版本）所依赖的系统库，具体数值随不同区块链协议而有所不同。
 
 ## 处理能力需求
 
-支持以太坊时，BoAT Framework SDK（C语言版本）在100MHz左右频率的ARM Cortex M4上，完成一次区块链交易或智能合约调用相关的密码学运算，约需1秒（不含网络通信时间）。具体时间随不同区块链协议有所不同。
-确切的处理能力需求，取决于调用BoAT Framework SDK的应用，对功耗和时延的要求。BoAT自身没有特别要求。
+支持以太坊时，BoAT Infra Arch基础框架SDK（C语言版本）在100MHz左右频率的ARM Cortex M4上，完成一次区块链交易或智能合约调用相关的密码学运算，约需1秒（不含网络通信时间）。具体时间随不同区块链协议有所不同。
+确切的处理能力需求，取决于调用BoAT Infra Arch基础框架SDK的应用，对功耗和时延的要求。BoAT自身没有特别要求。
 
 ## 操作系统和通信需求
 
-BoAT Framework SDK（C语言版本）对操作系统没有特别要求，Linux和各种RTOS均可移植，但至少应支持以下能力：
+BoAT Infra Arch基础框架SDK（C语言版本）对操作系统没有特别要求，Linux和各种RTOS均可移植，但至少应支持以下能力：
 1. 支持动态内存分配/释放。
 2. 支持互斥量保护机制。
 3. 支持按指定时长挂起线程（可选）。若不支持，则BoAT不支持超时或轮询功能，其他功能不受影响。
