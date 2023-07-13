@@ -1602,7 +1602,7 @@ the index of the created network
 删除已创建的持久化密钥对，与BoatKeypairDelete()对应。
 
 参数:
-\<keypair_index\>: integer type; the index of the created keypair
+\<keypair_index\>: integer type; the index of the stored keypair
 
 ### 删除密钥对 AT^BDKEYPAIR
 |Command                                  |Response(s)   |
@@ -1613,7 +1613,7 @@ the index of the created network
 删除已创建的持久化区块链网络，与BoatXxxNetworkDelete()对应。
 
 参数:
-\<network_index\>: integer type; the index of the created network
+\<network_index\>: integer type; the index of the stored network
 
 ### 合约函数调用AT^BCALLFUNC
 |Command                                                    |Response(s)   |
