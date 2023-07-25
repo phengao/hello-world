@@ -25,8 +25,8 @@
 |RAM    |Random Access Memory         |
 
 
-## BOAT EDGE设计目标(指BOAT EDGE的目标)
-作为物联网区块链应用端侧产品，应以最小的改动代价，方便、快速的移植到各物联网设备中~~模组~~中，BOAT EDGE的设计遵循以下原则:
+## BOAT EDGE设计目标
+作为物联网区块链应用端侧产品，应以最小的改动代价，方便、快速的移植到各物联网设备中*~~模组~~*中，BOAT EDGE的设计遵循以下原则:
 + 层次化设计  
 + 多个区块链协议支持  
 + 可扩展设计  
@@ -44,8 +44,8 @@ BOAT EDGE作为连接物联网设备和区块链的中间件，其在整个交�
 ## BOAT EDGE的实现框架
 (在这里添加原始框架图，附说明)  
 基于基础框架完成be和bsl的设计，并根据edge需求添加其他相关特定功能组件。  
-（用原有的图文说明整个框架）
-![BIA OVERALL](https://github.com/phengao/hello-world/blob/master/docs/images/BoAT_Overall_Design_cn-F3-0-BoAT-Infra-Arch-overall.png)
+（用原有的图文说明整个框架）  
+![BIA OVERALL](https://github.com/phengao/hello-world/blob/master/docs/images/BoAT_Overall_Design_cn-F4-0-BoAT-Infra-Arch-overall.png)  
 Composable BoAT Core
 Core components of BoAT. These components could be deployed in combitionation.
 BoAT Engine: Multi-chain client
