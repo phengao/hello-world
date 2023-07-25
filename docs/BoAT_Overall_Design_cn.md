@@ -41,83 +41,52 @@ BOAT EDGE作为连接物联网设备和区块链的中间件，其在整个交�
 
 
 
-## BOAT EDGE的实现框架
-(在这里添加原始框架图，附说明)  
-基于基础框架完成be和bsl的设计，并根据edge需求添加其他相关特定功能组件。  
-（用原有的图文说明整个框架）  
+## BOAT EDGE的实现框架  
+BoAT Edge 提供的物联网区块链应用功能，由BoAT Infra Arch基础架构实现。BoAT Infra Arch基础架构是物联网区块链应用程序设计框架，通过分层设计将区块链应用和物联网平台分离，通过底层抽象将不同应用平台集成在统一的应用框架下，实现多种区块链支持和有效范围内的跨平台设计。  
+
 ![BIA OVERALL](https://github.com/phengao/hello-world/blob/master/docs/images/BoAT_Overall_Design_cn-F4-0-BoAT-Infra-Arch-overall.png)  
-Composable BoAT Core
-Core components of BoAT. These components could be deployed in combitionation.
-BoAT Engine: Multi-chain client
-BoAT Provisioner: Keypair management
-BoAT Lite: Signer integrated with BoAT Wake Service
-BoAT AT Relayer: Blockchain AT command extension
+  
+如图所示，BIA 基础架构分为四层结构，自顶向下分别为： 
+ 
++ Application layer：  
+应用层，IoT Application，根据IoT设备应用场景需求，通过调用Composable BoAT Core层和BoAT Support Layer层API接口，设计实现Iot应用功能。  
 
-BoAT Support Layer
-Operating system and driver abstraction layer as well as common components for BoAT.
-OSAL: Abstraction layer encapsulating operating system functionalities, e.g., dynamic memory, task, sema, queue
-DAL: Abstraction layer for hardware drivers and module extensions, e.g., UART, virtual AT
-BoAT Common Components: Common libraries for BoAT, e.g., blockchain cryptographic library, RLP encoding
++ Composable BoAT Core layer:   
+可组合的BoAT核心层，BoAT的核心组件，这些组件可以组合部署，如图所示多个BoAT组件，其中虚线方框中的组件BoAT-Provisioner、BoAT-ATRelayer、BoAT-Lite为私有组件暂不开源如由需要可以联系我们，实线框中的BoAT-Engine组件为开源组件。  
+  - BoAT Engine：为IoT应用提供基于BoAT-SuppotLayer设计的多链客户端API，应用层可以通过BoAT Engine的API接口实现IoT多区块链应用访问应用。  
+  - BoAT Provisioner：为IoT设备提供初始密钥对管理接口，实现IoT设备的个人化功能。  
+  - BoAT Lite：与BoAT Wake服务集成在一起的签名服务。  
+  - BoAT AT Relayer：区块链AT命令扩展，为模组提供自定义AT指令定义和常规AT指令转发功能。  
 
-Module OpenSDK
-SDK provided by module vendor for OpenCPU application. Parts other than the Module Vendor Extension are initially provided by the chip vendor.
-HAL: Abstration layer for hardware.
-Driver Framework: A framework for driver management and a unified driver interface, e.g. read(), write(), ioctl()
-Operating System: RTOS or linux
-System Common Libs.: Common libraries provided by the system, e.g., C library, TLS library, MQTT/HTTP/TCP/IP libraries
-Module Vendor Extensions: Module vendor's extended functionalities on top of the chip, e.g., module vendor specific AT commands
++ BoAT Support Layer:    
+BoAT支持层，包含操作系统和驱动程序抽象层，以及BoAT的通用组件。通过BoAT-SupportLayer的抽象，为应用层提供基于不同操作平台的通用API接口，使得BoAT Infra Arch基础架构在支持的操作平台（platform）之间实现应用层的跨平台应用。即IoT设备在更换BIA架构支持的硬件平台后，应用程序仅需选择适配的platform，重新编译后就可以在新的硬件环境中运行。   
+  - OSAL：封装操作系统功能的抽象层，例如动态内存、任务、信号量、队列  
+  - DAL：硬件驱动程序和模块扩展的抽象层，例如UART、虚拟AT  
+  - BoAT通用组件：BoAT的通用库，例如区块链加密库、RLP编码、RPC服务、密钥对管理等。  
 
-可组合BoAT核心
++ RTOS/Module OpenSDK Layer:   
+操作系统/模组OpenSDK层，这一层是IoT设备的操作系统层，包括在MCU中采用的RTOS(linux、freeRTOS、Azure RTOS等)，或者由模块供应商提供的用于OpenCPU应用程序的SDK。除了Module Vendor Extensions（模组供应商扩展）之外，其他部分最初由芯片供应商提供。
+  - HAL：硬件抽象层。
+  - Driver Framework: 驱动程序框架，驱动程序管理和统一驱动程序接口的框架，例如read()、write()、ioctl()
+  - Operating System：RTOS或Linux
+  - System Common Libs.: 系统公共库，系统提供的常见库，例如C库、TLS库、MQTT/HTTP/TCP/IP库
+  - Module Vendor Extensions:模组供应商扩展，模块供应商在芯片基础上的扩展功能，例如模块供应商特定的AT命令，在MCU应用中不包括这个模块
 
-BoAT的核心组件。这些组件可以组合部署。
+## BoAT-Engine和BoAT-SupportLayer  
 
-BoAT引擎：多链客户端
-
-BoAT Provisioner：键盘管理
-
-BoAT Lite：Signer与BoAT唤醒服务集成
-
-BoAT AT中继：区块链AT命令扩展
-
-
-
-BoAT支持层
-
-BoAT的操作系统和驱动程序抽象层以及通用组件。
-
-OSAL：封装操作系统功能的抽象层，例如，动态内存、任务、sema、队列
-
-DAL：硬件驱动程序和模块扩展的抽象层，例如UART、虚拟AT
-
-BoAT通用组件：BoAT的通用库，例如区块链密码库、RLP编码
-
-
-
-模块OpenSDK
-
-模块供应商为OpenCPU应用程序提供的SDK。模块供应商扩展以外的部件最初由芯片供应商提供。
-
-HAL：硬件的抽象层。
-
-驱动程序框架：用于驱动程序管理的框架和统一的驱动程序接口，例如read（）、write（）和ioctl（）
-
-操作系统：RTOS或linux
-
-系统公共图书馆：系统提供的通用库，如C库、TLS库、MQTT/HTTP/TCP/IP库
-
-模块供应商扩展：模块供应商在芯片顶部的扩展功能，例如模块供应商特定的AT命令
-
-BoAT Infra Arch基础框架提供开放的两层中间库结构，BoAT-SupportLayer和BoAT-Engine中间库。  
-BoAT-SupportLayer，提供操作系统API抽象、驱动抽象和常规通用组件接口，在BoAT Infra Arch支持的platform范围里提供跨平台移植特性。  
+BoAT Infra Arch基础框架目前提供两层开源仓库：BoAT-SupportLayer和BoAT-Engine。  
+BoAT-SupportLayer，提供操作系统API抽象、驱动抽象和常规通用组件接口，在BoAT Infra Arch支持的platform范围内提供跨平台移植特性。  
 BoAT-Engine，基于BoAT-SupportLayer实现多种区块链访问接口，实现区块链应用功能。  
-两层中间库均遵循层次化设计，BE由接口层，协议层，网络层和通用工具组成；BSL由OSAL层、DAL层和BoAT通用组件层组成。各层具体功能如下：
-+ 接口层： 提供物联网区块链应用钱包接口。
-+ 协议层： 主要实现各区块链协议部分。
-+ 网络层： 提供各区块链网络信息相关接口。
-+ 通用工具： 用于智能合约的C语言接口生成。
-+ BoAT Common Coponents通用组件层：向协议层提供RPC服务；为接口层的钱包提供密码学算法、签名、存储中间接口；向各层提供如数据格式转换和报文编解码等服务。  
-+ OSAL层：将不同platform的系统API抽象为统一的通用接口，为上层应用跨平台设计提供服务。  
-+ DAL层：将不同platform的驱动和特性功能抽象为统一的通用接口，为上层应用跨平台设计提供服务。  
+两层中间库均遵循层次化设计，BoAT-Engine由Wallet接口层、Protocol协议层、Network网络层和Tools通用工具组成；BoAT-SupportLayer由OSAL层、DAL层和BoAT通用组件层组成。各层具体功能如下：
++ BoAT-Engine:  
+  - Wallet 接口层： 提供物联网区块链应用钱包接口。
+  - Protocol 协议层： 主要实现各区块链协议部分。
+  - Network 网络层： 提供各区块链网络信息相关接口。
+  - Tools 通用工具： 用于智能合约的C语言接口生成。
++ BoAT-SupportLayer:  
+  - BoAT Common Coponents通用组件层：向协议层提供RPC服务；为接口层的钱包提供密码学算法、签名、存储中间接口；向各层提供如数据格式转换和报文编解码等服务。  
+  - OSAL层：将不同platform的系统API抽象为统一的通用接口，为上层应用跨平台设计提供服务。  
+  - DAL层：将不同platform的驱动和特性功能抽象为统一的通用接口，为上层应用跨平台设计提供服务。  
 
   
 BoAT的整体框架如图4-1所示。  
