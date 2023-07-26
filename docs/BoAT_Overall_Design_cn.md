@@ -1,7 +1,5 @@
 # BoAT Edge总体设计
 
-[edithere](#BoAT的实现框架)
-
 ## 引言
 
 ### 编写目的
@@ -44,8 +42,8 @@ BOAT EDGE作为连接物联网设备和区块链的中间件，其在整个交�
 ## BOAT EDGE的实现框架  
 BoAT Edge 提供的物联网区块链应用功能，由BoAT Infra Arch基础架构实现。BoAT Infra Arch基础架构是物联网区块链应用程序设计框架，通过分层设计将区块链应用和物联网平台分离，通过底层抽象将不同应用平台集成在统一的应用框架下，实现多种区块链支持和有效范围内的跨平台设计。  
 
-![BIA OVERALL](https://github.com/phengao/hello-world/blob/master/docs/images/BoAT_Overall_Design_cn-F4-0-BoAT-Infra-Arch-overall.png)  
-图4 BoAT Infar Arch基础架构图  
+![BIA OVERALL](./images/BoAT_Overall_Design_cn-F4-1-BoAT-Infra-Arch-overall.png)  
+图 4-1 BoAT Infar Arch基础架构图  
 如图所示，BIA 基础架构分为四层结构，自顶向下分别为： 
  
 + Application layer：  
@@ -75,10 +73,10 @@ BoAT支持层，包含操作系统和驱动程序抽象层，以及BoAT的通用
 ## BoAT-Engine和BoAT-SupportLayer  
 
 BoAT Infra Arch基础框架目前实现两层开源组件：BoAT-SupportLayer和BoAT-Engine。  
-实现的组件框架如图4-1所示： 
+实现的组件框架如图4-2所示： 
 
-![BoAT实现框图](./images/BoAT_Overall_Design_cn-F4-0-1-BoAT-Infra-Arch-overall-Simplified.png)  
-图 4-1 BoATInfraArch实现组件图  
+![BoAT实现框图](./images/BoAT_Overall_Design_cn-F4-2-BoAT-Infra-Arch-overall-Simplified.png)  
+图 4-2 BoATInfraArch实现组件图  
 BoAT-Engine，基于BoAT-SupportLayer实现多种区块链访问接口。  
 BoAT-SupportLayer，提供操作系统API抽象、驱动抽象和常规通用组件接口，在BoAT Infra Arch支持的platform范围内提供跨平台设计特性。  
 两层组件均遵循层次化设计，BoAT-Engine由Wallet钱包、Protocol区块链协议、Network区块链网络和Tools通用工具组成；BoAT-SupportLayer由OSAL、DAL和BoAT通用组件组成。各层具体功能如下：
@@ -108,9 +106,9 @@ BoAT-Engine位于区块链应用接口的最上层，向物联网应用提供访
 
 BoAT-Engine的各个接口由BoAT-SupportLayer层提供支持，有关BoAT-SupportLayer层的描述请参见[BoAT-SupportLayer](#BoAT-SupportLayer)。  
  
-BoAT-Engine详细构成如图4-2所示：
-![BoAT实现框图](./images/BoAT_Overall_Design_cn-F4-2-BoAT-Engine.png)
-图 4-2 BoAT-Engine内部构成图
+BoAT-Engine详细构成如图4-3所示：
+![BoAT实现框图](./images/BoAT_Overall_Design_cn-F4-3-BoAT-Engine.png)
+图 4-3 BoAT-Engine内部构成图
 #### Wallet区块链钱包接口  
 Wallet区块链钱包含两部分内容，钱包接口和交易接口，分别实现区块链钱包管理和区块链交易管理。  
 ##### 钱包接口
@@ -130,7 +128,7 @@ Wallet区块链钱包含两部分内容，钱包接口和交易接口，分别�
   + 钱包创建
   + 钱包删除
   
-###### 钱包接口功能实现简述
+###### 钱包接口功能实现简述  
 ####### BoAT-Engine初始化/反初始化
 + BoAT-Engine初始化：  
 在使用BoAT SDK之前应做BoAT-Engine初始化，该接口执行的内容包括：
@@ -224,10 +222,10 @@ PlatON和Ethereum相比，差异主要集中在如下三点:
   3. PlatON必须使用指定区块链ID方式。  
     EIP-155描述了两种可以用来交易的数据格式，但是PlatON只支持一种，具体参考[raw transaction接口简述](#raw-transaction接口简述)。   
 
-在设计PlatON的数据结构及代码实现时，应考虑数据结构的继承及代码实现的复用，这样既减少代码量，也便于维护。尽管PlatON的交易结构和Ethereum一样，但是，在一些RPC命令中的调用时，需要用到Bech32格式的地址。因此，在数据结构的设计中，增加了两个存贮Bech32格式地址的字段，可能的设计思路如图4-2所示：  
-![PlatON数据结构的一种可能的设计思路](./images/BoAT_Overall_Design_cn-F4-2-PlatON_Data_Structure.png)  
-图 4-2 PlatON数据结构的一种可能的设计思路  
-图4-2描述了PlatON的一种可能的数据结构设计思路，请注意，PlatON的两个额外地址字段应放置在数据结构的最末位置，不能破坏复用的Ethereum的数据结构的完整性。如果破坏了Ethereum的数据结构的完整性，将导致Ethereum中与该数据结构相关的实现方法不可复用。  
+在设计PlatON的数据结构及代码实现时，应考虑数据结构的继承及代码实现的复用，这样既减少代码量，也便于维护。尽管PlatON的交易结构和Ethereum一样，但是，在一些RPC命令中的调用时，需要用到Bech32格式的地址。因此，在数据结构的设计中，增加了两个存贮Bech32格式地址的字段，可能的设计思路如图4-4所示：  
+![PlatON数据结构的一种可能的设计思路](./images/BoAT_Overall_Design_cn-F4-4-PlatON_Data_Structure.png)  
+图 4-4 PlatON数据结构的一种可能的设计思路  
+图4-4描述了PlatON的一种可能的数据结构设计思路，请注意，PlatON的两个额外地址字段应放置在数据结构的最末位置，不能破坏复用的Ethereum的数据结构的完整性。如果破坏了Ethereum的数据结构的完整性，将导致Ethereum中与该数据结构相关的实现方法不可复用。  
 
 
 ###### PlatONE交易接口功能实现简述
@@ -236,10 +234,10 @@ PlatON和Ethereum相比，差异主要集中在如下三点:
 除了Ethereum描述的初始化步骤外，PlatONE还要：
   1. 设置交易类型字段  
 
-由前所述可以看出，PlatONE和Ethereum的差异非常的小，在设计PlatONE的数据结构及代码实现时，应考虑数据结构的继承及代码实现的复用，这样既减少代码量，也便于维护。比如在交易结构上的组成上，PlatONE的交易结构比Ethereum的交易结构多了一个交易类型字段，因此，在数据结构的设计中，一种可能的设计思路如图4-3所示：  
-![PlatONE数据结构的一种可能的设计思路](./images/BoAT_Overall_Design_cn-F4-3-PlatONE_Data_Structure.png)
-图 4-3 PlatONE数据结构的一种可能的设计思路  
-图4-3描述了PlatONE的一种可能的数据结构设计思路，请注意，PlatONE的交易类型字段应放置在数据结构的最末位置，不能破坏复用的Ethereum的数据结构的完整性。如果破坏了Ethereum的数据结构的完整性，将导致Ethereum中与该数据结构相关的实现方法不可复用。
+由前所述可以看出，PlatONE和Ethereum的差异非常的小，在设计PlatONE的数据结构及代码实现时，应考虑数据结构的继承及代码实现的复用，这样既减少代码量，也便于维护。比如在交易结构上的组成上，PlatONE的交易结构比Ethereum的交易结构多了一个交易类型字段，因此，在数据结构的设计中，一种可能的设计思路如图4-5所示：  
+![PlatONE数据结构的一种可能的设计思路](./images/BoAT_Overall_Design_cn-F4-5-PlatONE_Data_Structure.png)
+图 4-5 PlatONE数据结构的一种可能的设计思路  
+图4-5描述了PlatONE的一种可能的数据结构设计思路，请注意，PlatONE的交易类型字段应放置在数据结构的最末位置，不能破坏复用的Ethereum的数据结构的完整性。如果破坏了Ethereum的数据结构的完整性，将导致Ethereum中与该数据结构相关的实现方法不可复用。
 
 ###### FISCO BCOS交易接口功能实现简述
 和Ethereum相比，有差异的地方可以参考FISCO BCOS官方文档 https://fisco-bcos-documentation.readthedocs.io/zh_CN/latest/docs/design/protocol_description.html 。  
@@ -249,12 +247,12 @@ PlatON和Ethereum相比，差异主要集中在如下三点:
   2. chainId链信息  
   3. groupId群组ID  
   4. extraData预留字段  
-因此，在数据结构的设计中，一种可能的设计思路如图4-4所示：  
-![FISCO BCOS数据结构的一种可能的设计思路](./images/BoAT_Overall_Design_cn-F4-4-FISCOBCOS_Data_Structure.png)  
-图 4-4 FISCO BCOS数据结构的一种可能的设计思路  
-图4-4描述了FISCO BCOS的一种可能的数据结构设计思路，请注意，FISCO BCOS的交易类型字段应放置在数据结构的最末位置，不能破坏复用的Ethereum的数据结构的完整性。如果破坏了Ethereum的数据结构的完整性，将导致Ethereum中与该数据结构相关的实现方法不可复用。
+因此，在数据结构的设计中，一种可能的设计思路如图4-6所示：  
+![FISCO BCOS数据结构的一种可能的设计思路](./images/BoAT_Overall_Design_cn-F4-6-FISCOBCOS_Data_Structure.png)  
+图 4-6 FISCO BCOS数据结构的一种可能的设计思路  
+图4-6描述了FISCO BCOS的一种可能的数据结构设计思路，请注意，FISCO BCOS的交易类型字段应放置在数据结构的最末位置，不能破坏复用的Ethereum的数据结构的完整性。如果破坏了Ethereum的数据结构的完整性，将导致Ethereum中与该数据结构相关的实现方法不可复用。
 
-***注：由于FISCO BCOS在交易中增加了新的字段，所以进行RLP编码时和Ethereum并不一样，具体参考本章提供链接的RC2部分。***  
+***注：由于FISCO BCOS在交易中增加了新的字段，所以进行RLP编码时和Ethereum并不一样。***  
 
 ###### Fabric交易接口功能实现简述
 -	钱包初始化
@@ -443,15 +441,15 @@ FISCO BCOS的协议层实现与Ethereum的协议层几乎一样，其唯一的�
 
 #### Fabric的协议层实现
 ##### Fabric协议概述
-Fabric协议层主要包含提案协议和交易协议，查询的协议与提案协议相同。提案协议与交易协议分别如图4-5，图4-6所示  
-![Fabric提案报文结构](./images/BoAT_Overall_Design_cn-F4-5-Fabric-Proposal.png)  
-图 4-5 Fabric提案报文结构  
-![Fabric交易报文结构](./images/BoAT_Overall_Design_cn-F4-6-Fabric-Transaction.png)  
-图 4-6 Fabric交易报文结构  
+Fabric协议层主要包含提案协议和交易协议，查询的协议与提案协议相同。提案协议与交易协议分别如图4-7，图4-8所示  
+![Fabric提案报文结构](./images/BoAT_Overall_Design_cn-F4-7-Fabric-Proposal.png)  
+图 4-7 Fabric提案报文结构  
+![Fabric交易报文结构](./images/BoAT_Overall_Design_cn-F4-8-Fabric-Transaction.png)  
+图 4-8 Fabric交易报文结构  
 
-Fabric客户端发起一笔的交易的时候，会首先向背书节点发送提案，背书节点对提案签名后返回签名数据，然后Fabric客户端连同背书节点的签名数据和交易参数按交易报文的格式组织好后发送给排序节点，排序节点校验通过后更新链的状态。详细的交易流程如图4-7所示，该图是从《hyperledger-fabricdocs master》文档中摘取的。关于Fabric更多的介绍，可以参考Fabric文档 <https://hyperledger-fabric.readthedocs.io/en/release-1.4/>  
-![ Fabric交易流程](./images/BoAT_Overall_Design_cn-F4-7-Fabric-Transaction-Flow.png)  
-图 4-7 Fabric交易流程
+Fabric客户端发起一笔的交易的时候，会首先向背书节点发送提案，背书节点对提案签名后返回签名数据，然后Fabric客户端连同背书节点的签名数据和交易参数按交易报文的格式组织好后发送给排序节点，排序节点校验通过后更新链的状态。详细的交易流程如图4-9所示，该图是从《hyperledger-fabricdocs master》文档中摘取的。关于Fabric更多的介绍，可以参考Fabric文档 <https://hyperledger-fabric.readthedocs.io/en/release-1.4/>  
+![ Fabric交易流程](./images/BoAT_Overall_Design_cn-F4-9-Fabric-Transaction-Flow.png)  
+图 4-9 Fabric交易流程
 #####	Fabric协议接口实现
 在Fabric报文中，协议中的各字段通过protobuf实现序列化，然后通过HTTP2协议发送出去。由前序章节可知，提案报文和交易报文有一些重复和相似的地方，可以把这些重复的部分拆分为一个子模块，以便于重用。一种可能的拆分方式列出如下：
 -	channelHeader打包
@@ -543,63 +541,66 @@ Fabric客户端发起一笔的交易的时候，会首先向背书节点发送�
 ##### 生成PlatONE智能合约C语言接口的工具
 常用的PlatONE智能合约的开发语言是C++，同Ethereum一样，PlatONE的智能合约经过编译后也会生成一个描述合约接口的JSON文件。其JSON字段和Ethereum的JSON字段相同，C语言接口和JSON字段的对应关系也与Ethereum一致。
 
-##### 生成Venachain智能合约C语言接口的工具
-常用的Venachain智能合约的开发语言是C++，同Ethereum一样，Venachain的智能合约经过编译后也会生成一个描述合约接口的JSON文件。其JSON字段和Ethereum的JSON字段相同，C语言接口和JSON字段的对应关系也与Ethereum一致。
-
 ##### 生成FISCO BCOS智能合约C语言接口的工具
 常用的FISCO BCOS智能合约的开发语言是solidity，具体可以参考[生成Ethereum智能合约C语言接口的工具](#生成Ethereum智能合约C语言接口的工具)。
 
+##### 生成Venachain智能合约C语言接口的工具
+常用的Venachain智能合约的开发语言是C++，同Ethereum一样，Venachain的智能合约经过编译后也会生成一个描述合约接口的JSON文件。其JSON字段和Ethereum的JSON字段相同，C语言接口和JSON字段的对应关系也与Ethereum一致。
 
 
 
-***BSL的内容***
-  **以下归类到BSL**
-  BoAT SDK运行在蜂窝模组的应用处理器上，其运行环境的资源是受限的，如有的蜂窝模组可能并不提供非易失性存储器的访问接口；另一方面，从用户的角度讲，可能有的用户仅仅希望创建一个临时的钱包用于测试，而不想长久的存储它。鉴于此，在BoAT SDK的设计里将钱包分为两类：持久化钱包和一次性钱包。持久化钱包存储在运行环境的非易失性存储器里，掉电不会丢失；一次性钱包存储在运行环境的RAM中，掉电即丢失。
-  + 私钥设置
-  + 私钥生成
-  + 私钥校验
+### BoAT-SupportLayer
 
+BoAT-SupportLayer详细构成如图4-10所示：
+![BoAT实现框图](./images/BoAT_Overall_Design_cn-F4-10-BoAT-SupportLayer.png)
+图 4-10 BoAT-SupportLayer内部组件图  
 
-BoAT-SupportLayer详细构成如图4-2所示：
-![BoAT实现框图](./images/BoAT_Overall_Design_cn-F4-3-BoAT-SupportLayer.png)
-图 4-2 BoAT-SupportLayer内部组件图
-### BoAT Common Conponets
-#### keypair
-**一下类容修改到keypair和network中**
-+ 钱包删除：  
-该接口从非易失性存储器中删除一个持久化钱包。注意：该接口并不从RAM中卸载钱包。持久钱包被删除后，它就变成了一次性钱包。该接口执行的内容包括：  
-  1. 从非易失性存储器上删除指定的钱包文件
-+ 钱包卸载：    
-该接口用于从RAM中卸载一个钱包。注意：该接口仅仅从RAM中卸载钱包，并不从非易失性存储器中删除钱包。该接口执行的内容包括：  
-  1. 根据具体入参执行某一个区块链的钱包反初始化，如执行Ethereum的钱包反初始化，或者执行PlatONE的钱包反初始化
-+ 根据索引查询钱包信息：  
-该接口用于查询钱包。该接口执行的内容包括：
-  1. 根据具体入参(入参可以为存储序号索引值、钱包地址等)返回相应的钱包信息地址  
-###### 私钥操作
-+ 私钥设置：  
-该接口用于设置钱包的私钥，私钥应注意小心保管。该接口执行的内容包括：  
-  1. 执行私钥校验  
-  2. 执行私钥赋值  
-  3. 通过私钥生成公钥(可选)  
+#### BoAT Common Conponets
+##### keypair  
+ 在keypair的设计里将私钥和公钥作为一个整体存储，存储类型分为两类：持久化密钥对和一次性密钥对。持久化密钥对存储在运行环境的非易失性存储器里，掉电不会丢失；一次性密钥对存储在运行环境的RAM中，掉电即丢失。
+ 
+  + 密钥对设置
+  + 密钥对生成
+  + 密钥对校验
+  + 根据索引查询密钥对信息
+
+###### 密钥对操作
++ 密钥对设置：  
+该接口用于设置钱包的密钥对，密钥对应注意小心保管。该接口执行的内容包括：  
+  1. 执行密钥对校验  
+  2. 执行密钥对赋值  
+  3. 通过密钥对生成公钥(可选)  
   4. 通过公钥生成地址(可选)  
-+ 私钥生成：  
-该接口用于生成一个有效的私钥。该接口执行的内容包括：  
-  1. 通过产生随机数的方式产生私钥  
-  2. 执行私钥校验  
-  3. 如校验失败返回第1步重新产生私钥，校验成功返回产生的私钥  
-+ 私钥校验：  
-该接口用于检查给定的私钥是否有效。该接口执行的内容包括：  
-  1. 检查私钥是否处于有效的私钥范围  
++ 密钥对生成：  
+该接口用于生成一个有效的密钥对。该接口执行的内容包括：  
+  1. 通过产生随机数的方式产生密钥对  
+  2. 执行密钥对校验  
+  3. 如校验失败返回第1步重新产生密钥对，校验成功返回产生的密钥对  
++ 密钥对校验：  
+该接口用于检查给定的密钥对是否有效。该接口执行的内容包括：  
+  1. 检查密钥对是否处于有效的密钥对范围  
++ 根据索引查询密钥对信息  
+该接口用于查询密钥对。该接口执行的内容包括：
+  1. 根据具体入参(入参可以为存储序号索引值)返回相应的密钥对信息地址  
 
 #### keystore
++ SE
++ soft
+##### 签名  
+由BoAT SDK进行纯软件实现。 + 签名(如Ethereum使用的ECDSA)
+
 #### third-party
 + RLP编码
++ JSON编解码  
++ 加密算法 + 哈希算法(如Ethereum使用的Keccak-256)
+
+
 ##### RLP编码
 ##### RLP的结构
 RLP编码用于两个地方，一个是协议层组织交易报文会用到RLP编码，另一个是生成的C语言合约接口代码里可能会用到RLP编码。  
-RLP编码的定义里只处理两类数据：一类是字符串，一类是列表。字符串指的是一串二进制数据，如字节数组；列表是一个嵌套递归的结构，里面可以包含字符串和列表，其结构形式如图4-8所示：  
-![RLP列表的结构](./images/BoAT_Overall_Design_cn-F4-8-Structure_Of_RLP.png)  
-图 4-8 RLP列表的结构  
+RLP编码的定义里只处理两类数据：一类是字符串，一类是列表。字符串指的是一串二进制数据，如字节数组；列表是一个嵌套递归的结构，里面可以包含字符串和列表，其结构形式如图4-11所示：  
+![RLP列表的结构](./images/BoAT_Overall_Design_cn-F4-11-Structure_Of_RLP.png)  
+图 4-11 RLP列表的结构  
 
 ##### RLP编码规则
 RLP的编码规则描述如下：   
@@ -610,11 +611,10 @@ RLP的编码规则描述如下：
 
 关于RLP编码规则更详细的描述，请参阅参考文档Rlp wiki：https://eth.wiki/en/fundamentals/rlp
 
-
 ##### RLP编码实现
-RLP编码实现可以有多种不同的方式。由前述章节可知，RLP编码的一种可能的数据结构组成描述如图4-9所示：
-![RLP编码的一种可能的数据结构](./images/BoAT_Overall_Design_cn-F4-9-Data_Structure_Of_RLP.png)  
-图 4-9 RLP编码的一种可能的数据结构  
+RLP编码实现可以有多种不同的方式。由前述章节可知，RLP编码的一种可能的数据结构组成描述如图4-12所示：
+![RLP编码的一种可能的数据结构](./images/BoAT_Overall_Design_cn-F4-12-Data_Structure_Of_RLP.png)  
+图 4-12 RLP编码的一种可能的数据结构  
 
 图中定义了四种类型，来表达RLP列表的嵌套递归结构，假如有一个名为List的列表对象，其包含了三个字符串对象分别为stringA，stringB，stringC，则对列表对象List执行RLP编码的一种可能的流程描述如下：
 1. 初始化列表对象List
@@ -636,26 +636,26 @@ RLP编码实现可以有多种不同的方式。由前述章节可知，RLP编�
 + 删除列表中的某个字符串
 + 计算RLP编码长度
 
-#### JSON编解码
+##### JSON编解码
 在BoAT SDK访问区块链的报文中，会涉及到JSON的编码，在区块链给BoAT SDK的响应报文中，会涉及到JSON的解码。在报文里对JSON的编解码可以用一个三方库实现：cJSON。  
 cJSON是C语言编写的一个轻量级的JSON编解码器，遵循ANSI-C标准，可以适应更多的平台和编译器。cJSON移植进SDK也很方便，只需简单的将cJSON.h和cJSON.c复制到SDK，并在需要使用cJSON的地方包含头文件“cJSON.h”就可以使用它了。关于cJSON的更多描述可以参阅参考文档 cJSON<https://github.com/DaveGamble/cJSON#welcome-to-cjson>.
 
 #### common
-### 实用程序
-#### 概述
+##### 概述
 在BoAT SDK各个层的实现里，或多或少都会涉及到数据格式的转换、报文的编解码等。这些功能宜抽象为独立的模块，为各个层提供服务。这些功能块包括:
-+ 数据格式转换工具
++ UTILITIES  
++ RPC
++ storage + 安全存储(如以加密的方式保存私钥)
 
-+ JSON编解码
-##### 数据格式转换工具
-在BoAT SDK的设计中，很多地方都用到了数据格式的转换，如将输入的ASCII码转为二进制格式，将区块链返回的二进制格式数据转为便于显示的ASCII码格式，合约ABI接口中涉及到的大小端转换等。为便于使用，宜将可能会用到的格式转换的函数实现放到同一个文件里。可能会用的数据转换有：
+##### UTILITIES
+数据格式转换工具,在BoAT SDK的设计中，很多地方都用到了数据格式的转换，如将输入的ASCII码转为二进制格式，将区块链返回的二进制格式数据转为便于显示的ASCII码格式，合约ABI接口中涉及到的大小端转换等。为便于使用，宜将可能会用到的格式转换的函数实现放到同一个文件里。可能会用的数据转换有：
 + 将二进制流转换为十六进制字符串
 + 将十六进制字符串转换为二进制流
 + 将uint32类型的数据转换为大端
 + 将uint64类型的数据转换为大端
 + 对一串字节流做字节序转换  
 
-##### RPC层
+##### RPC
 ###### 概述
 RPC层实现了对发送数据到区块链节点的具体链路的封装，向协议层提供服务。RPC层是发送链路具体实现的一层抽象，以使BoAT SDK更方便的移植到不同的运行环境中。
 
@@ -676,58 +676,33 @@ cURL是一个利用URL语法在命令行下工作的文件传输工具，支持F
    10. 执行RPC请求
    11. cURL资源清理和回收  
 
-
 ### OSAL和DAL
-除此之外，为使SDK适应更多的环境，还可以对以下函数做一层接口封装放到该文件中：  
-+ 堆内存申请
-+ 堆内存释放
-+ 睡眠等待 
-### 供应商依赖层
+
 #### 概述
-BoAT SDK会运行在不同的硬件平台上，由于各个供应商提供的多种硬件平台功能多种多样，比如有的硬件平台提供了随机数发生器的硬件实现，而有的硬件平台不仅提供随机数发生器的硬件实现，还提供TEE环境。为了更好的利用平台的资源，同时为了将软件上的变化隔离开来，BoAT SDK设计了供应商依赖层。供应商依赖层为接口层的钱包提供诸如随机数发生器、安全存储、加密签名等服务。在硬件平台能提供相应的实现时，供应商依赖层会通过供应商预留的接口调用相应的硬件功能。在硬件平台不提供相应服务时，通过纯软件实现相应功能。
+BoAT SDK会运行在不同的硬件平台上，由于各个供应商提供的多种硬件平台功能多种多样，比如有的硬件平台提供了随机数发生器的硬件实现，而有的硬件平台不仅提供随机数发生器的硬件实现，还提供TEE环境。为了更好的利用平台的资源，同时为了将软件上的变化隔离开来，BoAT SDK设计了OSAL和DAL层，按照硬件平台（platform）实现通用的抽象API接口，为应用层和BoAT-Engine提供诸如随机数发生器、安全存储、加密签名等底层服务。在硬件平台能提供相应的实现时，OSAL和DAL层会通过供应商预留的接口调用相应的硬件功能。在硬件平台不提供相应服务时，通过纯软件实现相应功能。
+OSAL，提供硬件平台操作系统API抽象。
+DAL，提供硬件平台设备驱动API抽象。
 
-#### 供应商依赖层的纯软件实现
-供应商依赖层应提供一种所需要的各种服务的纯软件实现。从而使得BoAT SDK在硬件无法提供所需的相应服务时，仍然可以完整运行。供应商依赖层应以覆盖必要的硬件服务为标准，至少提供以下功能的纯软件实现：
-+ 随机数生成器
-+ 签名(如Ethereum使用的ECDSA)
-+ 安全存储(如以加密的方式保存私钥)
-+ 哈希算法(如Ethereum使用的Keccak-256)
+#### OSAL和DAL层的纯软件实现
+OSAL和DAL层应提供一种所需要的各种服务的纯软件实现。从而使得BoAT SDK在硬件无法提供所需的相应服务时，仍然可以完整运行。OSAL和DAL层应以覆盖必要的硬件服务为标准，至少提供以下功能的纯软件实现：
 
-#### ML302
-##### 文件存储
-利用ML302的OPENAPI，供应商依赖层实现了如下功能：  
-+ 文件存储
-+ 文件读取
-+ 查询文件大小
-+ 删除文件
-##### 随机数生成器  
-由BoAT SDK进行纯软件实现。  
-##### 签名  
-由BoAT SDK进行纯软件实现。  
-##### 安全存储  
-当使用持久性存储时，BoAT会对私钥进行AES加密后再进行存储。  
-##### 哈希算法  
-由BoAT SDK进行纯软件实现。  
-##### 内存管理  
-利用ML302的OPENAPI，供应商依赖层实现了申请内存和释放内存。  
-##### 系统延时  
-利用ML302的OPENAPI，供应商依赖层实现了延时功能。  
+##### OSAL抽象实现
++ mutex 开关量
++ queue 消息队列
++ timer 定时器
++ sem 信号量
++ task 任务或线程
++ malloc 堆内存申请
++ free 堆内存释放
++ time 时间戳
++ random 随机数生成器
 
-#### MN316
-##### 文件存储
-由于MN316不支持文件系统，持久性存储必须利用对FLASH进行操作实现。所以相应功能相较于正常的BoAT SDK有所缩减，同一时间只能存储一个持久性钱包。
-##### 随机数生成器
-由BoAT SDK进行纯软件实现。
-##### 签名
-由BoAT SDK进行纯软件实现。
-##### 安全存储
-当使用持久性存储时，BoAT会对私钥进行AES加密后再进行存储。
-##### 哈希算法
-由BoAT SDK进行纯软件实现。
-##### 内存管理
-利用ML302的OPENAPI，供应商依赖层实现了申请内存和释放内存。
-##### 系统延时
-利用ML302的OPENAPI，供应商依赖层实现了延时功能。
+##### DAL抽象实现
++ i2c 驱动接口
++ uart 区孔接口
++ virtualAT 虚拟AT家口
++ storage 文件存储接口
++ ssl 安全套接字接口
 
 #### TEE支持
 BoAT的设计应考虑TEE环境的支持。对于有TEE环境的硬件，BoAT应可以通过少量的修改将敏感信息放到TEE环境中。为满足此目标，钱包的设计满足以下标准：
@@ -735,8 +710,8 @@ BoAT的设计应考虑TEE环境的支持。对于有TEE环境的硬件，BoAT应
 + 钱包相关的实现模块化设计
 + 钱包相关的敏感信息不在钱包以外的地方体现
 
-## 使用BoAT创建一笔区块链交易的流程
-### 使用BoAT创建一笔Ethereum交易的流程
+## 使用BoAT SDK创建一笔区块链交易的流程
+### 使用BoAT SDK创建一笔Ethereum交易的流程
 一个典型的使用BoAT创建一笔Ethereum交易的流程如图5-1所示：  
 ![使用BoAT创建一笔交易的流程](./images/BoAT_Overall_Design_cn-F5-1-Create_Ttransaction.png)  
 图 5-1 使用BoAT创建一笔交易的流程  
