@@ -3,8 +3,8 @@
 ## 引言
 
 ### 概述
-本文介绍BoAT Infra Arch基础框架SDK 3.1.x的功能和使用方法。  
-本文的预期读者为集成BoAT Infra Arch基础框架SDK的客户和爱好者。  
+本文介绍BoAT Edge 产品的实现——BoAT Infra Arch基础框架的功能和使用方法，BoAT Edge产品特性的展现依赖于BoAT Infra Arch基础框架灵活的配置和组合能力。  
+本文的预期读者为集成BoAT Edge 产品软件实框架的客户和爱好者。  
 本用户手册版本号为1.0.0。
 
 ### 缩写术语
