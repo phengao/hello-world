@@ -1,9 +1,9 @@
-# BoAT系统需求
+# BoAT Edge系统需求
 
 ## 引言
 
 ### 概述
-本文描述BoAT Infra Arch基础框架SDK区块链客户端（C语言版本）对蜂窝模组的系统需求。BoAT是一个运行在模组的应用处理器上的SDK。对于OpenCPU蜂窝模组，BoAT作为库被应用程序链接和调用。对于非OpenCPU的蜂窝模组，BoAT的API需要扩展为AT命令，供上位机上的应用调用。
+本文描述BoAT Edge产品基于BoAT Infra Arch基础框架实现的SDK区块链客户端（C语言版本），对IoT设备MCU/蜂窝模组的系统需求。BoAT Edge是一个运行在模组的应用处理器上的SDK。对于IoT设备MCU/OpenCPU蜂窝模组，BoAT Edge作为库被应用程序链接和调用。对于非OpenCPU的蜂窝模组，BoAT的API需要扩展为AT命令，供上位机上的应用调用。
 
 ### 缩写术语
 |术语  |解释                                                   |
@@ -40,7 +40,7 @@
 - Flash（持久性读写数据）：数百Bytes
 - RAM（全局变量、堆、栈）：约10kB
 
-仅支持HyperLedger Fabric时，BoAT Infra Arch基础框架SDK（C语言版本）自身对存储的需求约为：
+仅支持HyperLEdger Fabric时，BoAT Infra Arch基础框架SDK（C语言版本）自身对存储的需求约为：
 - Flash（代码和只读数据）：约520kB
 - Flash（持久性读写数据）：数千Bytes
 - RAM（全局变量、堆、栈）：约30kB
@@ -105,6 +105,6 @@ BoAT Infra Arch基础框架SDK（C语言版本）对操作系统没有特别要�
 1. 椭圆曲线签名ECDSA（secp256k1曲线）
 2. Keccak-256（Keccak-256为SHA3-256的变种）
 
-支持HyperLedger Fabric时，BoAT至少需要如下密码学运算：
+支持HyperLEdger Fabric时，BoAT至少需要如下密码学运算：
 1. 椭圆曲线签名ECDSA（secp256r1曲线）
 2. SHA2-256
