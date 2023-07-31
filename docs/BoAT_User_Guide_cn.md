@@ -1,4 +1,4 @@
-# 用户手册
+# BoAT Edge用户手册
 
 ## 引言
 
@@ -28,14 +28,14 @@
 
 
 ## 功能和架构
-BoAT Infra Arch 基础框架是面向蜂窝模组的C语言区块链应用框架客户端软件，便于移植到各类模组中，帮助基于蜂窝模组的物联网应用连接区块链，实现数据上链等业务。BoAT Infra Arch基础框架SDK向物联网应用提供的功能包括发起链上交易、智能合约C接口代码自动生成、调用智能合约、管理区块链密钥等。
+BoAT Infra Arch 基础框架是面向IoT设备MCU/蜂窝模组的C语言区块链应用框架客户端软件，便于移植到各类模组中，帮助基于IoT设备MCU/蜂窝模组的物联网应用连接区块链，实现数据上链等业务。BoAT Infra Arch基础框架SDK向物联网应用提供的功能包括发起链上交易、智能合约C接口代码自动生成、调用智能合约、管理区块链密钥等。
 
 **已支持的区块链:**  
 以太坊/Polygon  
 PlatON  
 PlatONE  
 FISCO-BCOS  
-Hyperledger Fabric  
+HyperlEdger Fabric  
 Huawei BCS (华为链)  
 Chainmaker (长安链)  
 VenaChain (万纳链)
@@ -67,16 +67,16 @@ Linux/Cygwin
 
 ### 系统中的位置
 
-BoAT Infra Arch基础框架SDK的各个组件以软件lib库(libbaotxxx.a)的形式，运行于蜂窝模组的应用处理器上。SDK以C源文件形式提供，在蜂窝模组的开发环境中编译。  
+BoAT Infra Arch基础框架SDK的各个组件以软件lib库(libbaotxxx.a)的形式，运行于IoT设备MCU/蜂窝模组的应用处理器上。SDK以C源文件形式提供，在IoT设备MCU/蜂窝模组的开发环境中编译。  
 
-对于OpenCPU形态的蜂窝模组，BoAT Infra Arch基础框架SDK的各个组件库被`物联网应用链接`，形成具备区块链链接能力的物联网应用程序。  
+对于OpenCPU形态的IoT设备MCU/蜂窝模组，BoAT Infra Arch基础框架SDK的各个组件库被`物联网应用链接`，形成具备区块链链接能力的物联网应用程序。  
 
 图 2‑1展示了BoAT Infra Arch基础框架(图中简称为BoAT)在OpenCPU模组中的位置。BoAT作为应用层协议，位于模组已有的协议栈上方，向物联网应用提供区块链服务。BoAT的对等层是区块链网络层。  
 
 ![BoAT Infra Arch基础框架在系统中的位置](https://aitos-io.github.io/BoAT-X-Framework/zh-cn/images/BoAT_User_Guide_cn-F2-1-BoAT_in_system.png)
 图 2-1 BoAT Infra Arch基础框架在系统中的位置
 
-对于非OpenCPU形态的蜂窝模组，BoAT Infra Arch基础框架库的各个组件被`模组固件链接`，并由模组厂商扩展为AT命令，供上位机上的物联网应用调用，不再赘述。  
+对于非OpenCPU形态的IoT设备MCU/蜂窝模组，BoAT Infra Arch基础框架库的各个组件被`模组固件链接`，并由模组厂商扩展为AT命令，供上位机上的物联网应用调用，不再赘述。  
 
 ### BoAT Infra Arch基础框架SDK架构
 BoAT Infra Arch基础框架SDK如图 2‑2所示，BoAT SDK主要包含BoAT Engine、BoAT Support Layer两层。
@@ -657,7 +657,7 @@ f)	在“编辑环境变量”页中点击“新建”，新增Cygwin的安装�
 
 ### 编译和运行Demo
 #### 准备
-BoAT Infra Arch基础框架SDK中BoAT-Engine库提供基于以太坊、PlatON、PlatONE、FISCO-BCOS、Hyperledger Fabric、HW-BCS、Venachain和Chainmaker的Demo。在运行这些Demo之前，需要首先安装相应的区块链节点软件（或者有已知节点），并部署Demo所需的智能合约。
+BoAT Infra Arch基础框架SDK中BoAT-Engine库提供基于以太坊、PlatON、PlatONE、FISCO-BCOS、HyperlEdger Fabric、HW-BCS、Venachain和Chainmaker的Demo。在运行这些Demo之前，需要首先安装相应的区块链节点软件（或者有已知节点），并部署Demo所需的智能合约。
 
 Demo所使用的智能合约及其ABI JSON文件放置在：  
 
@@ -1409,7 +1409,7 @@ https://github.com/aitos-io/BoAT-X-Framework/issues/355
     其中，rlp_param_ptr的格式遵循与步骤3相同的规则。
   - 具体调用方法，可参照SDK所附的Demo的自动生成代码，这些代码位于\<BoAT-ProjectTemplate\>/build/demo/demo_\<protocol\>/demo_contract下。
 
-**例3：Hyperledger Fabric交易构造**
+**例3：HyperlEdger Fabric交易构造**
 - **步骤1** 调用BoatHlfabricTxInit()进行交易初始化，其中参数根据实际使用进行设置。
 - **步骤2** 如果节点自动查询功能没有开启，调用BoatHlfabricWalletSetNetworkInfo()进行网络参数设置。
 - **步骤3** 调用BoatHlfabricTxSetTimestamp()设置时间戳，实时时间通过硬件相应功能获取。
