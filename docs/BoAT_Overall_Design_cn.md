@@ -4,7 +4,7 @@
 
 ### 编写目的
 本文对BoAT Edge（后文中简称 BoAT）的系统总体设计进行描述，包括体系架构设计、子系统功能、内外部接口、关键流程及关键技术设计描述，以期指导各子系统的总体设计及测试策略/规范的编写。  
-本文的预期读者为：BoAT SDK相关设计人员。
+本文的预期读者为：BoAT Edge相关设计人员。
 
 
 ### 缩写术语
@@ -23,8 +23,8 @@
 |RAM    |Random Access Memory         |
 
 
-## BOAT EDGE设计目标
-作为物联网区块链应用端侧产品，应以最小的改动代价，方便、快速的移植到各物联网设备中*~~模组~~*中，BOAT EDGE的设计遵循以下原则:
+## BOAT Edge设计目标
+作为物联网区块链应用端侧产品，应以最小的改动代价，方便、快速的移植到各物联网设备中*~~模组~~*中，BOAT Edge的设计遵循以下原则:
 + 层次化设计  
 + 多个区块链协议支持  
 + 可扩展设计  
@@ -32,14 +32,14 @@
 + 针对不同区块链提供相应的C语言接口合约自动生成工具  
 
 
-## BOAT EDGE在整个区块链网络中的位置
-BOAT EDGE作为连接物联网设备和区块链的中间件，其在整个交互网络中的位置如图3-1所示。  
+## BOAT Edge在整个区块链网络中的位置
+BOAT Edge作为连接物联网设备和区块链的中间件，其在整个交互网络中的位置如图3-1所示。  
 ![BoAT position](./images/BoAT_Overall_Design_cn-F3-1-Boat_Position.png)  
 图 3-1 BoAT在区块链交互网络中的位置  
 
 
 
-## BOAT EDGE的实现框架  
+## BOAT Edge的实现框架  
 BoAT Edge 提供的物联网区块链应用功能，由BoAT Infra Arch基础架构实现。BoAT Infra Arch基础架构是物联网区块链应用程序设计框架，通过分层设计将区块链应用和物联网平台分离，通过底层抽象将不同应用平台集成在统一的应用框架下，实现多种区块链支持和有效范围内的跨平台设计。  
 
 ![BIA OVERALL](./images/BoAT_Overall_Design_cn-F4-1-BoAT-Infra-Arch-overall.png)  
@@ -447,7 +447,7 @@ Fabric协议层主要包含提案协议和交易协议，查询的协议与提�
 ![Fabric交易报文结构](./images/BoAT_Overall_Design_cn-F4-8-Fabric-Transaction.png)  
 图 4-8 Fabric交易报文结构  
 
-Fabric客户端发起一笔的交易的时候，会首先向背书节点发送提案，背书节点对提案签名后返回签名数据，然后Fabric客户端连同背书节点的签名数据和交易参数按交易报文的格式组织好后发送给排序节点，排序节点校验通过后更新链的状态。详细的交易流程如图4-9所示，该图是从《hyperledger-fabricdocs master》文档中摘取的。关于Fabric更多的介绍，可以参考Fabric文档 <https://hyperledger-fabric.readthedocs.io/en/release-1.4/>  
+Fabric客户端发起一笔的交易的时候，会首先向背书节点发送提案，背书节点对提案签名后返回签名数据，然后Fabric客户端连同背书节点的签名数据和交易参数按交易报文的格式组织好后发送给排序节点，排序节点校验通过后更新链的状态。详细的交易流程如图4-9所示，该图是从《hyperlEdger-fabricdocs master》文档中摘取的。关于Fabric更多的介绍，可以参考Fabric文档 <https://hyperlEdger-fabric.readthedocs.io/en/release-1.4/>  
 ![ Fabric交易流程](./images/BoAT_Overall_Design_cn-F4-9-Fabric-Transaction-Flow.png)  
 图 4-9 Fabric交易流程
 #####	Fabric协议接口实现
