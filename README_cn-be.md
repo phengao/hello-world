@@ -69,4 +69,4 @@
 ![代码下载](https://github.com/aitos-io/BoAT-SupportLayer/releases/tag/BoAT-SupportLayer-v3.1.0)
 
 ## BoAT-Engine的编译和使用方法
-参考 ![***BoATEngine***编译和使用方法](https://github.com/aitos-io/BoAT-ProjectTemplate/blob/dev/README_cn.md)
+![***BoATEngine***编译和使用方法](https://github.com/aitos-io/BoAT-ProjectTemplate/blob/dev/README_cn.md)
