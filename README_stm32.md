@@ -63,8 +63,10 @@ git clone -b dev https://github.com/aitos-io/BoAT-SupportLayer.git
 
 ### 3. 构建 KEIL 工程
 
-STM32 MCU 的应用可通过构建 KEIL 工程进行开发。  
+STM32 MCU 应用通过构建 KEIL 工程进行开发。  
+
 #### 1. 构建 Keil 工程的方法
+
 1. 可通过MX构建应用程序KEIL工程
 MX是st公司构建STM32Cube应用程序的工具，可参考MX用户手册，构建基于NUCLEO-H563ZI开发板的应用程序工程。  
 下载地址：https://www.st.com/zh/development-tools/stm32cubemx.html  
@@ -74,6 +76,7 @@ MX是st公司构建STM32Cube应用程序的工具，可参考MX用户手册，�
 本例将构建两个应用工程，分别用来实现boatlib静态库创建和存证demo实现。  
 
 #### 2. 构建 BoAT-SupportLayer 静态库工程
+
 BoAT-SupportLayer 静态库工程，其作用是将 BoAT-SupportLayer 相关代码编译成 KEIL支持的 .lib  静态库，供应用程序使用，应用程序在其工程中只需要添加静态库和头文件，不用增加具体的各个文件，可减少构建应用工程工作量。  
 
 1. 创建 BoAT-SupportLayer 静态库KEIL工程 boatlib  
@@ -123,7 +126,7 @@ BoAT-SupportLayer 静态库工程，其作用是将 BoAT-SupportLayer 相关代�
 
 在'Project'->'Options for Target boatlib'->'C/C++(AC6)'->'Include Paths' 中添加 BoAT-SupportLayer 相关 .h 文件路径
 需要添加的头文件路径如下：
-'''
+```
 <STM32Cube>/BoAT-SupportLayer
 <STM32Cube>/BoAT-SupportLayer/BoAT-SupportLayer/third-party/crypto
 <STM32Cube>/BoAT-SupportLayer/BoAT-SupportLayer/platform/azure-rtos/src/log
@@ -140,7 +143,12 @@ BoAT-SupportLayer 静态库工程，其作用是将 BoAT-SupportLayer 相关代�
 <STM32Cube>/BoAT-SupportLayer/car/src
 <STM32Cube>/BoAT-SupportLayer/car/inc
 <STM32Cube>/BoAT-SupportLayer-SupportLayer/BoAT-SupportLayer/common/utilities</IncludePath>
-'''
+```
+
+5. 将 boatlib 工程输出配置为静态库
+
+在'Project'->'Options for Target boatlib'->'Output' 中选择 'Create Library：'，编译完成后将在输出目录生成 boatlib.lib 静态库文件。
+
 
 #### 3. 构建 STM32 存证应用程序KEIL工程 boatdemo
 
