@@ -495,7 +495,7 @@ The compilation follows the steps below:
 ```
 $ make all
 ```
-4. After the compilation is completed, the generated library files are in the `./lib` directory. The application should include the header files under the include directory of BoAT-Engine and BoAT-SupportLayer, and link the static libraries `libboatengine.a` and `libboatvendor.a` under the `./lib` directory to implement the functionality of accessing the blockchain. See the [Header Files and Libraries](#header-files-and-libraries) section for details.
+4. After the compilation is completed, the generated library files are in the `./lib` directory. The application should include the header files under the include directory of BoAT-Engine and BoAT-SupportLayer, and link the static libraries `libboatengine.a` and `libboatvendor.a` under the `./lib` directory to implement the functionality of accessing the blockchain. See the [Header Files and Libraries](#Headers-and-Libraries) section for details.
 
 #### Compiling with Cygwin as the Environment
 
@@ -544,7 +544,7 @@ ${CC} -v
 ${AR} -v
 ```
 
-After completing the above configuration, follow the steps in the [Linux as the Compilation Environment](#linux-as-the-compilation-environment) section for compilation.
+After completing the above configuration, follow the steps in the [Linux as the Compilation Environment](#Linux-as-the-Compilation-Environment) section for compilation.
 
 ##### Integrated Cross-Compilation Environment with Module Development Environment
 Some OpenCPU modules integrate a compatible cross-compilation environment in their provided development environment, eliminating the need for customers to separately install a cross-compiler on the Linux system. This is especially useful for developing application software on multiple different models of modules on a single host computer without having to switch cross-compilation environments repeatedly.
@@ -584,13 +584,13 @@ In the above example, `boatiotsdk` is the directory where the SDK is located, an
 
 ***Note: In the Makefile, the commands under the target must start with a tab character (ASCII code 0x09) and not with spaces.***
 
-The above steps are only used to compile the SDK library. After the SDK library is compiled, the compiled lib files need to be integrated into the module development environment. See the [Header Files and Libraries](#header-files-and-libraries) section for details.
+The above steps are only used to compile the SDK library. After the SDK library is compiled, the compiled lib files need to be integrated into the module development environment. See the [Header Files and Libraries](#Headers-and-Libraries) section for details.
 
 #### Module Development Environment Using Non-GNU Make Compilation Tool
 
 Since the BoAT Infra Arch SDK uses GNU Make as the compilation tool, if the module development environment uses a non-GNU Make compilation tool (such as Ninja, ant, etc.) or uses a tool for automatically generating the compilation project (such as automake, CMake), the SDK cannot be compiled directly in the module development environment.
 
-To compile the SDK in such a module development environment, the gcc and binutils compilation tools in the module development environment need to be released and the environment variables described in the [Independent Cross-Compilation Environment](#independent-cross-compilation-environment) section need to be configured so that they can be called in the system, similar to an independent cross-compilation environment. Then, compile the SDK.
+To compile the SDK in such a module development environment, the gcc and binutils compilation tools in the module development environment need to be released and the environment variables described in the [Independent Cross-Compilation Environment](#Independent-Cross-Compilation-Environment) section need to be configured so that they can be called in the system, similar to an independent cross-compilation environment. Then, compile the SDK.
 
 #### Windows as the Compilation Environment
 
@@ -642,7 +642,7 @@ f) In the "Edit Environment Variable" page, click on "New" and add the bin path 
 When cross-compiling outside of Cygwin, in addition to the adjustments mentioned in the previous section, the following adjustments need to be made:
 
 1. Try running make, if there is a path error, modify the corresponding path separators in the Makefile from "/" to "\\". Do not change all "/" to "\\" at the beginning, as some Windows versions of tools derived from Linux can recognize "/" as a path separator.
-2. Configure the environment variables described in the [Independent Cross-Compilation Environment](#independent-cross-compilation-environment) section to point to the correct cross-compilation environment. In these environment variables, the path should be separated by "\\".
+2. Configure the environment variables described in the [Independent Cross-Compilation Environment](#Independent-Cross-Compilation-Environment) section to point to the correct cross-compilation environment. In these environment variables, the path should be separated by "\\".
 
 ### Compiling and Running the Demo
 #### Preparation
