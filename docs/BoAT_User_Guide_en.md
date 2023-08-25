@@ -244,7 +244,7 @@ Before compiling and using the SDK, make sure these software are installed. On U
    ![image](https://user-images.githubusercontent.com/81662688/130744556-163fb5e4-0260-42d8-b8c1-4c78052bd7d1.png)
    
 
-  On Windows, the SDK does not support compilation outside of Cygwin. If you must run it outside of Cygwin (e.g., using a cross-compiler with Windows as the build environment), please refer to the section [Windows as the Compilation Environment](#Windows-as-the-Compilation-Environment) to adjust the compilation files.
+  On Windows, the SDK does not support compilation outside of Cygwin. If you must run it outside of Cygwin (e.g., using a cross-compiler with Windows as the build environment), please refer to the section [Windows as the Compilation Environment]Windows-as-the-Compilation-Environment) to adjust the compilation files.
 
   When porting the SDK to an RTOS, the dependency on libcurl needs to be ported or the RPC methods need to be rewritten.
 
@@ -446,7 +446,7 @@ If cross-compiling, if the cross-compilation environment needs to configure spec
       [1] ETHEREUM
       [a] QUORUM
    ```
-   According to your needs, select one or more blockchain numbers to enable the corresponding blockchain protocols. The blockchain protocols that are not selected will be disabled. The above prompt provides an example of selecting a blockchain. When entering "1a", it means choosing to enable the "ETHEREUM" and "QUORUM" blockchains, and the remaining blockchains will be disabled, see [Building Compilation Directory](#Building-Compilation-Directory) for details.
+   According to your needs, select one or more blockchain numbers to enable the corresponding blockchain protocols. The blockchain protocols that are not selected will be disabled. The above prompt provides an example of selecting a blockchain. When entering "1a", it means choosing to enable the "ETHEREUM" and "QUORUM" blockchains, and the remaining blockchains will be disabled, see [Building Compilation Directory]Building-Compilation-Directory) for details.
 
 - Adjusting Log Printing Level
 According to your needs, adjust the value of `BOAT_LOG_LEVEL` in the path `<BoAT-ProjectTemplate>/BoAT-SupportLayer/platform/<platform_name>/src/log/boatlog.h` to adjust the log printing level.
@@ -464,7 +464,7 @@ The BoAT-Engine repository in the SDK provides the following tools under the too
 | `<BoAT-ProjectTemplate>/BoAT-Engine/tools/venachainSolidity2c.py` | Generate C calling code based on Venachain Solidity ABI  |
 | `<BoAT-ProjectTemplate>/BoAT-Engine/tools/venachainWASM2c.py`     | Generate C calling code based on Venachain WASM ABI      |
 
-Since contract programming languages generally support object-oriented programming, while C language does not support object-oriented programming and cannot pass objects using a unified paradigm, only contract functions with parameter types consistent with built-in C types can be converted to C calling code using the tools. For specific supported contract function input types, please refer to the [Contract Invocation (Auto-generated)](#Contract-Call-Automatically-Generated) section.
+Since contract programming languages generally support object-oriented programming, while C language does not support object-oriented programming and cannot pass objects using a unified paradigm, only contract functions with parameter types consistent with built-in C types can be converted to C calling code using the tools. For specific supported contract function input types, please refer to the [Contract Invocation (Auto-generated)]Contract-Call-Automatically-Generated) section.
 
 Before making a call, you need to compile the contract and copy the generated ABI interface description JSON file to the corresponding directory in the SDK.
 | ABI Storage Path                                          | Purpose                                             |
@@ -478,7 +478,7 @@ Before making a call, you need to compile the contract and copy the generated AB
 
 ***Note: The ABI JSON file must have the ".json" file name extension.***
 
-During the compilation of the demo, the auto-generated tool will generate the corresponding C interface calling code based on the contract ABI JSON file. If the auto-generation of C interfaces fails during compilation, you need to manually delete unsupported ABI JSON files (or delete unsupported interfaces) from the corresponding directories in `<BoAT-ProjectTemplate>/contract` and write C code to assemble the ABI interfaces, see [Transfer Invocation](#Transfer-Invocation) section for details.
+During the compilation of the demo, the auto-generated tool will generate the corresponding C interface calling code based on the contract ABI JSON file. If the auto-generation of C interfaces fails during compilation, you need to manually delete unsupported ABI JSON files (or delete unsupported interfaces) from the corresponding directories in `<BoAT-ProjectTemplate>/contract` and write C code to assemble the ABI interfaces, see [Transfer Invocation]Transfer-Invocation) section for details.
 
 ### Host Compilation
 Host compilation refers to compiling the software in an environment that is the same as the target environment, such as compiling x86 programs on an x86 machine. There are usually two scenarios for using host compilation:
@@ -489,7 +489,7 @@ Host compilation refers to compiling the software in an environment that is the 
 For host compilation based on a Linux distribution (such as Ubuntu), there is generally no need to configure the compilation environment specially, just ensure that the required software dependencies are installed.
 
 The compilation follows the steps below:
-1. Build the BoAT architecture project development template [build directory](#Building-Compilation-Directory) in a path that meets the requirements of the [SDK source code path](#boat-iot-framework-sdk-source-code-path).
+1. Build the BoAT architecture project development template [build directory](#Building-Compilation-Directory) in a path that meets the requirements of the [SDK source code path](#BoAT-Infra-Arch-SDK-Source-Code-Path).
 2. Optional: Place the ABI JSON file of the smart contract to be called in the corresponding directory under `<BoAT-ProjectTemplate>/BoAT-Engine/demo/demo_<protocol>/demo_contract` (see [Contract C Interface Code Generation](#Contract-C-Interface-Code-Generation) section).
 3. In the `<BoAT-ProjectTemplate>` directory, execute the following command:
 ```
