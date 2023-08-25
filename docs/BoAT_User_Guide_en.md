@@ -72,7 +72,7 @@ For IoT device MCU/cellular modules in the form of OpenCPU, the components of th
 
 Figure 2-1 shows the positioning of the BoAT Infra Arch framework (referred to as BoAT in the figure) in an OpenCPU module. BoAT acts as an application layer protocol and is located above the existing protocol stack of the module, providing blockchain services to IoT applications. The peer layer of BoAT is the blockchain network layer.
 
-![Positioning of BoAT Infra Arch framework in the system](https://aitos-io.github.io/BoAT-X-Framework/images/BoAT_User_Guide-F2-1-BoAT_in_system.png)
+![Positioning of BoAT Infra Arch framework in the system](https://aitos-io.github.io/BoAT-X-Framework/zh-cn/images/BoAT_User_Guide_cn-F2-1-BoAT_in_system.png)
 Figure 2-1 Positioning of BoAT Infra Arch framework in the system
 
 For IoT device MCU/cellular modules in non-OpenCPU form, the components of the BoAT Infra Arch framework library are linked to the module firmware and extended by module manufacturers as AT commands for IoT applications on the host computer to call, which will not be discussed further.
@@ -82,7 +82,7 @@ The BoAT Infra Arch framework SDK consists of two layers: BoAT Engine and BoAT S
 BoAT Engine provides blockchain application-related business logic, including IoT device wallet application APIs, blockchain client interface protocols, and blockchain network interfaces.
 BoAT Support Layer provides system-level abstraction interfaces for IoT applications, including BoAT system-independent common components, operating system API abstraction layer, and system device driver/feature abstraction layer. It also includes remote procedure call interfaces, common components, hardware-dependent components, and tool components.
 
-![BoAT Infra Arch framework SDK architecture](https://aitos-io.github.io/BoAT-X-Framework/images/BoAT_User_Guide-F2-2-BoAT_SDK_arch.png)  
+![BoAT Infra Arch framework SDK architecture](https://github.com/phengao/hello-world/blob/master/boatsdk.png)  
 Figure 2-2 BoAT Infra Arch framework SDK architecture
 
 IoT applications based on the BoAT Infra Arch framework SDK implement blockchain access business by calling the application interfaces of BoAT Engine (as shown by the yellow arrows in the figure). At the same time, they can also access the underlying system APIs through the system abstraction interfaces provided by BoAT Support Layer (as shown by the orange arrows in the figure), enabling IoT applications to achieve cross-platform applications on the module platforms supported by BIA. When switching module platforms, you only need to change the compilation configuration and complete the compilation to generate the firmware, which can be downloaded and run on the corresponding module.
