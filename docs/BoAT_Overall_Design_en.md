@@ -650,7 +650,7 @@ For a more detailed description of the RLP encoding rules, please refer to the R
 
 ##### RLP Encoding Implementation
 There can be multiple ways to implement RLP encoding. As mentioned earlier, one possible data structure composition for RLP encoding is shown in Figure 4-12:
-![One Possible Data Structure for RLP Encoding](./images/BoAT_Overall_Design_cn-F4-12-Data_Structure_Of_RLP.png)
+![One Possible Data Structure for RLP Encoding](./images/BoAT_Overall_Design_cn-F4-12-Data_Structure_Of_RLP.png)  
 Figure 4-12: One Possible Data Structure for RLP Encoding
 
 The diagram defines four types to represent the nested recursive structure of an RLP list. For example, if there is a list object named "List" that contains three string objects named "StringA," "StringB," and "StringC," the possible steps to encode the list object "List" using RLP are as follows:
