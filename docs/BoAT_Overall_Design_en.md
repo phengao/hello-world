@@ -579,7 +579,7 @@ For the generated C language contract interface, the corresponding relationship 
 The commonly used programming language for PlatONE smart contracts is C++. Similar to Ethereum, a JSON file describing the contract interface is generated after compiling the PlatONE smart contract. The JSON fields of PlatONE are the same as Ethereum, and the correspondence between the C language interface and JSON fields is also consistent with Ethereum.
 
 ##### Tool for Generating FISCO BCOS Smart Contract C Language Interface
-The commonly used programming language for FISCO BCOS smart contracts is Solidity. For more details, please refer to the [Tools for Generating C Language Interfaces for Ethereum Smart Contracts](#Tools-for-Generating-C-Language-Interfaces-for-Ethereum-Smart-ontracts).
+The commonly used programming language for FISCO BCOS smart contracts is Solidity. For more details, please refer to the [Tools for Generating C Language Interfaces for Ethereum Smart Contracts](#Tools-for-Generating-C-Language-Interfaces-for-Ethereum-Smart-Contracts).
 
 ##### Tool for Generating Venachain Smart Contract C Language Interface
 The commonly used programming language for Venachain smart contracts is C++. Similar to Ethereum, a JSON file describing the contract interface is generated after compiling the Venachain smart contract. The JSON fields of Venachain are the same as Ethereum, and the correspondence between the C language interface and JSON fields is also consistent with Ethereum.
