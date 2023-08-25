@@ -5,7 +5,7 @@
 ### Overview
 This document introduces the functionality and usage of BoAT Edge product, which is the implementation of the BoAT Infra Arch framework. The features of BoAT Edge product are dependent on the flexible configuration and combination capabilities of the BoAT Infra Arch framework.  
 The intended audience of this document is customers and enthusiasts who integrate the BoAT Edge product software framework.  
-This user manual is version 1.0.0.
+This user manual is version 3.1.
 
 ### Abbreviations and Terms
 |Term   |Explanation                               |
