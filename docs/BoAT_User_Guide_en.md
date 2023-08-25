@@ -305,44 +305,112 @@ The source code of BoAT-Engine and BoAT-SupportLayer included in the BoAT Infra 
    Execute the script in the \<BoAT-ProjectTemplate/\> directory. There will be several interactions during the process. The detailed process is as follows.  
    Run the script:
    ```
-   p
+   python3 config.py
    ```
    The explicit prompt is as follows:
    ```
-   W
+   We will clone the BoAT- SupportLayer' repository, which may take several minutes
    
+   Input the branch name or null:
    ```
    Press Enter directly to clone the "BoAT-SupportLayer" open-source repository's main branch.
    ```
-   b
-
+   branch name is []
+   
+   git clone https://github.com/aitos-io/BoAT-SupportLayer.git
+   
+   Cloning into 'BoAT-SupportLayer'...
+   remote: Enumerating objects: 2837, done.
+   remote: Counting objects: 100% (611/611), done.
+   remote: Compressing objects: 100% (281/281), done.
+   remote: Total 2837 (delta 384), reused 521 (delta 317), pack-reused 2226
+   Receiving objects: 100% (2837/2837), 2.41 MiB | 1.86 MiB/s, done.
+   Resolving deltas: 100% (1769/1769), done.
+   git cmd succ
+   
+   We will clone the BoAT-Engine repository, which may take several minutes
+   
+   Input the branch name or null:
    ```
    Press Enter to clone the "BoAT-Engine" open-source repository's main branch.  
    ```
-   b
-
+   branch name is []
+   
+   git clone https://github.com/aitos-io/BoAT-Engine.git
+   
+   Cloning into 'BoAT-Engine'...
+   remote: Enumerating objects: 860, done.
+   remote: Counting objects: 100% (860/860), done.
+   remote: Compressing objects: 100% (400/400), done.
+   remote: Total 860 (delta 551), reused 752 (delta 455), pack-reused 0
+   Receiving objects: 100% (860/860), 513.51 KiB | 365.00 KiB/s, done.
+   Resolving deltas: 100% (551/551), done.
+   git cmd succ
+   
+   overwrite the Makefile?(Y/n):
    ```
    Press Enter, which is considered as Y: Yes; if you don't want to overwrite the Makefile, you can enter n, and the compilation configuration will end immediately.  
    ```
    Yes
-
+   
+    Select blockchain list as below:
+    [1] ETHEREUM          : 
+    [2] PLATON            : 
+    [3] PLATONE           : 
+    [4] FISCOBCOS         : 
+    [5] HLFABRIC          : 
+    [6] HWBCS             : 
+    [7] CHAINMAKER_V1     : 
+    [8] CHAINMAKER_V2     : 
+    [9] VENACHAIN         : 
+    [a] QUORUM            : 
+    [b] CITA              : 
+    [0] All block chains
+    Example:
+     Select blockchain list as below:
+     input:1a
+     Blockchain selected:
+      [1] ETHEREUM
+      [a] QUORUM
+   
+   input:
    ```
    Enter the selected blockchain in the application. Enter 9 to select the "VENACHAIN" blockchain.  
    ```
-   i
-
+   input:9
+   Blockchain selected:
+    [9] VENACHAIN
+   
+   Select the platform list as below:
+   [1] linux-default             : Default linux platform
+   [2] Fibocom-L610              : Fibocom's LTE Cat.1 module
+   [3] create a new platform
    ```
    Enter 1 to select the target platform as "linux-default", and the script will automatically generate the Makefile after selection.  
    ```
    1
-
+   platform is : linux-default
+   
+   include BoAT-SupportLayer.conf
+   
+   include BoAT-Engine.conf
+   
+   ./BoAT-SupportLayer/demo/ False
+   ./BoAT-Engine/demo/ True
+   Configuration completed
    ```
    After the script is executed, the compilation directory for BoAT-Engine is built.  
    At this point, the relevant source code of BoAT-Engine has been downloaded to the local machine, and the compilation configuration of BoAT-Engine has been completed. The Makefile is generated according to the selected platform.  
    After the configuration is completed, the development directory will include the following content:
    ```
-   <
- 
+   <BoAT-ProjectTemplate>
+   |-- <BoAT-Engine>
+   |-- <BoAT-SupportLayer>
+   |-- BoATLibs.conf
+   |-- config.py
+   |-- Makfile
+   |-- README.md
+   |-- README_en.md
    ```
    After the script is executed, the directories \<BoAT-Engine\> and \<BoAT-SupportLayer\>, as well as the Makefile file, will be added.
    
@@ -357,8 +425,25 @@ If cross-compiling, if the cross-compilation environment needs to configure spec
 - Enable/Disable Blockchain Protocols  
    Run the config.py script in the BoAT-ProjectTemplate. If the BoATLibs.conf file contains the BoAT-Engine repository, you will be prompted to select a blockchain during the configuration process, with the following prompt:
    ```
-    S
-	
+    Select blockchain list as below:
+    [1] ETHEREUM          : 
+    [2] PLATON            : 
+    [3] PLATONE           : 
+    [4] FISCOBCOS         : 
+    [5] HLFABRIC          : 
+    [6] HWBCS             : 
+    [7] CHAINMAKER_V1     : 
+    [8] CHAINMAKER_V2     : 
+    [9] VENACHAIN         : 
+    [a] QUORUM            : 
+    [b] CITA              : 
+    [0] All block chains
+    Example:
+     Select blockchain list as below:
+     input:1a
+     Blockchain selected:
+      [1] ETHEREUM
+      [a] QUORUM
    ```
    According to your needs, select one or more blockchain numbers to enable the corresponding blockchain protocols. The blockchain protocols that are not selected will be disabled. The above prompt provides an example of selecting a blockchain. When entering "1a", it means choosing to enable the "ETHEREUM" and "QUORUM" blockchains, and the remaining blockchains will be disabled, see [Build and Compile Directory](#build-and-compile-directory) for details.
 
