@@ -232,7 +232,8 @@ Compared to Ethereum, PlatON has the following differences:
    There is no difference for BoAT SDK users.
 
 3. Specific blockchain ID requirement for PlatON:
-   EIP-155 describes two data formats that can be used for transactions, but PlatON only supports one. Please refer to the [raw transaction interface description](#Raw-Transaction-Interface) for more details.
+   EIP-155 describes two data formats that can be used for transactions, but PlatON only supports one. Please refer to the
+   [raw transaction interface description](#Raw-Transaction-Interface) for more details.
 
 When designing the data structure and code implementation for PlatON, it is important to consider inheritance and code reuse. This helps to reduce code complexity and facilitate maintenance. Although PlatON's transaction structure is similar to Ethereum's, there is a need for Bech32 format addresses in some RPC commands. Therefore, in the data structure design, two additional fields for storing Bech32 format addresses are added. One possible design approach is shown in Figure 4-4:
 
