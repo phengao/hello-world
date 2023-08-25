@@ -815,7 +815,7 @@ BoAT Infra Arch基础框架SDK编译完成后，应用可以通过SDK头文件�
                         -I$(BOAT_BASE_DIR)/demo\
 		                $(BOAT_INCLUDE)
       ...
-	  ```
+      ```
    - **BoAT-Engine/include/BoAT-Engine.conf**
       ```
 	  BOAT_INCLUDE +=   -I$(BOAT_BASE_DIR)/BoAT-Engine/include \
@@ -824,7 +824,7 @@ BoAT Infra Arch基础框架SDK编译完成后，应用可以通过SDK头文件�
                         -I$(BOAT_BASE_DIR)/BoAT-Engine/protocol/common/web3intf \
                         -I$(BOAT_BASE_DIR)/BoAT-Engine/protocol \
       ...
-	  ```
+      ```
 - 在应用相关C代码中，添加以下头文件:
   ```
   #include "boatiotsdk.h" //SDK的入口头文件
