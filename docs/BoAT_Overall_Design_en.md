@@ -476,14 +476,14 @@ The protocol layer implementation of FISCO BCOS is almost the same as Ethereum's
 #### Protocol Layer Implementation of Fabric
 ##### Overview of Fabric Protocol
 The Fabric protocol layer mainly includes the endorsement protocol and the transaction protocol, with the query protocol being the same as the endorsement protocol. The endorsement protocol and the transaction protocol are shown in Figure 4-7 and Figure 4-8 respectively.
-![Fabric Proposal Message Structure](./images/BoAT_Overall_Design_cn-F4-7-Fabric-Proposal.png)
+![Fabric Proposal Message Structure](./images/BoAT_Overall_Design_cn-F4-7-Fabric-Proposal.png)  
 Figure 4-7 Fabric Proposal Message Structure
-![Fabric Transaction Message Structure](./images/BoAT_Overall_Design_cn-F4-8-Fabric-Transaction.png)
+![Fabric Transaction Message Structure](./images/BoAT_Overall_Design_cn-F4-8-Fabric-Transaction.png)  
 Figure 4-8 Fabric Transaction Message Structure
 
 When a Fabric client initiates a transaction, it first sends a proposal to the endorsing peers. The endorsing peers sign the proposal and return the signature data. The Fabric client then organizes the signature data, transaction parameters, and endorsing peer signatures into a transaction message and sends it to the ordering service node. After the ordering service node verifies the transaction, it updates the state of the ledger. The detailed transaction process is shown in Figure 4-9, which is extracted from the "hyperlEdger-fabricdocs master" document. For more information about Fabric, please refer to the Fabric documentation <https://hyperledger-fabric.readthedocs.io/en/release-1.4/>.
 
-![Fabric Transaction Flow](./images/BoAT_Overall_Design_cn-F4-9-Fabric-Transaction-Flow.png)
+![Fabric Transaction Flow](./images/BoAT_Overall_Design_cn-F4-9-Fabric-Transaction-Flow.png)  
 Figure 4-9 Fabric Transaction Flow
 
 ##### Fabric Protocol Interface Implementation
@@ -587,7 +587,7 @@ The commonly used programming language for Venachain smart contracts is C++. Sim
 ### BoAT-SupportLayer
 
 The detailed composition of BoAT-SupportLayer is shown in Figure 4-10:
-![BoAT Architecture Diagram](./images/BoAT_Overall_Design_cn-F4-10-BoAT-SupportLayer.png)
+![BoAT Architecture Diagram](./images/BoAT_Overall_Design_cn-F4-10-BoAT-SupportLayer.png)  
 Figure 4-10: Internal Components of BoAT-SupportLayer
 
 #### BoAT Common Components
@@ -637,7 +637,7 @@ The signature is implemented purely in software by the BoAT SDK. It uses the ECD
 ##### RLP Encoding
 ##### Structure of RLP
 RLP encoding is used in two places: organizing transaction messages at the protocol layer and generating C language contract interface code. RLP encoding only deals with two types of data: strings and lists. A string refers to a binary data, such as a byte array, while a list is a nested recursive structure that can contain strings and other lists. The structure of an RLP list is shown in Figure 4-11:
-![Structure of RLP List](./images/BoAT_Overall_Design_cn-F4-11-Structure_Of_RLP.png)
+![Structure of RLP List](./images/BoAT_Overall_Design_cn-F4-11-Structure_Of_RLP.png)  
 Figure 4-11: Structure of RLP List
 
 ##### RLP Encoding Rules
