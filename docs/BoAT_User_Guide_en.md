@@ -199,8 +199,8 @@ Access the ![BoAT-SupportLayer repository](https://github.com/aitos-io/BoAT-Supp
                     | applications based on the BoAT Infra Arch infrastructure.
 ```
 
-BoATLibs.conf is used to configure the static libraries (libboatvendor.a/libboatengine.a) provided by the BoAT Infra Arch SDK used in the project.
-config.py is used to create a compilation directory for applications based on the BoAT Infra Arch infrastructure SDK.
+BoATLibs.conf is used to configure the static libraries (libboatvendor.a/libboatengine.a) provided by the BoAT Infra Arch SDK used in the project.  
+config.py is used to create a compilation directory for applications based on the BoAT Infra Arch infrastructure SDK.  
 Access the ![BoAT-ProjectTemplate repository](https://github.com/aitos-io/BoAT-ProjectTemplate).
 
 ## Compilation of BoAT Infra Arch SDK
