@@ -754,8 +754,8 @@ BoAT's design should consider support for TEE environments. For hardware with TE
 
 ## The Process of Creating a Blockchain Transaction using BoAT SDK
 ### Creating an Ethereum Transaction using BoAT SDK
-The typical process of creating an Ethereum transaction using BoAT SDK is illustrated in Figure 5-1:
-![Process of Creating a Transaction using BoAT](./images/BoAT_Overall_Design_cn-F5-1-Create_Ttransaction.png)  
+The typical process of creating an Ethereum transaction using BoAT SDK is illustrated in Figure 5-1:  
+![Process of Creating a Transaction using BoAT](./images/BoAT_Overall_Design_en-F5-1-Create_Ttransaction.png)  
 Figure 5-1 Process of Creating a Transaction using BoAT
 
 The steps involved in this process are as follows:
