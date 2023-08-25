@@ -649,7 +649,7 @@ The encoding rules for RLP are described as follows:
 For a more detailed description of the RLP encoding rules, please refer to the RLP wiki: https://eth.wiki/en/fundamentals/rlp
 
 ##### RLP Encoding Implementation
-There can be multiple ways to implement RLP encoding. As mentioned earlier, one possible data structure composition for RLP encoding is shown in Figure 4-12:
+There can be multiple ways to implement RLP encoding. As mentioned earlier, one possible data structure composition for RLP encoding is shown in Figure 4-12:  
 ![One Possible Data Structure for RLP Encoding](./images/BoAT_Overall_Design_cn-F4-12-Data_Structure_Of_RLP.png)  
 Figure 4-12: One Possible Data Structure for RLP Encoding
 
