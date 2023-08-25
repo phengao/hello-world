@@ -236,7 +236,7 @@ Compared to Ethereum, PlatON has the following differences:
 
 When designing the data structure and code implementation for PlatON, it is important to consider inheritance and code reuse. This helps to reduce code complexity and facilitate maintenance. Although PlatON's transaction structure is similar to Ethereum's, there is a need for Bech32 format addresses in some RPC commands. Therefore, in the data structure design, two additional fields for storing Bech32 format addresses are added. One possible design approach is shown in Figure 4-4:
 
-![Possible design approach for PlatON data structure](./images/BoAT_Overall_Design_cn-F4-4-PlatON_Data_Structure.png)  
+![Possible design approach for PlatON data structure](./images/BoAT_Overall_Design_en-F4-4-PlatON_Data_Structure.png)  
 Figure 4-4: Possible design approach for PlatON data structure
 
 Figure 4-4 illustrates a possible design approach for PlatON's data structure. It is important to note that the two additional address fields for PlatON should be placed at the end of the data structure without compromising the integrity of the reusable Ethereum data structure. If the integrity of the Ethereum data structure is compromised, it will render the related implementation methods in Ethereum unusable.
@@ -251,7 +251,7 @@ The differences between PlatONE and Ethereum are as follows:
 
 As mentioned earlier, the differences between PlatONE and Ethereum are minimal. When designing the data structure and code implementation for PlatONE, it is important to consider inheritance and code reuse. This helps to reduce code complexity and facilitate maintenance. For example, in terms of the composition of the transaction structure, PlatONE's transaction structure has an additional transaction type field compared to Ethereum. Therefore, in the data structure design, one possible approach is shown in Figure 4-5:
 
-![Possible design approach for PlatONE data structure](./images/BoAT_Overall_Design_cn-F4-5-PlatONE_Data_Structure.png)  
+![Possible design approach for PlatONE data structure](./images/BoAT_Overall_Design_en-F4-5-PlatONE_Data_Structure.png)  
 Figure 4-5: Possible design approach for PlatONE data structure
 
 Figure 4-5 illustrates a possible design approach for PlatONE's data structure. It is important to note that the transaction type field for PlatONE should be placed at the end of the data structure without compromising the integrity of the reusable Ethereum data structure. If the integrity of the Ethereum data structure is compromised, it will render the related implementation methods in Ethereum unusable.
@@ -269,7 +269,7 @@ When designing the data structure and code implementation for FISCO BCOS, it is 
 
 Therefore, in the data structure design, one possible approach is shown in Figure 4-6:
 
-![Possible design approach for FISCO BCOS data structure](./images/BoAT_Overall_Design_cn-F4-6-FISCOBCOS_Data_Structure.png)  
+![Possible design approach for FISCO BCOS data structure](./images/BoAT_Overall_Design_en-F4-6-FISCOBCOS_Data_Structure.png)  
 Figure 4-6: Possible design approach for FISCO BCOS data structure
 
 Figure 4-6 illustrates a possible design approach for FISCO BCOS's data structure. It is important to note that the transaction type field for FISCO BCOS should be placed at the end of the data structure without compromising the integrity of the reusable Ethereum data structure. If the integrity of the Ethereum data structure is compromised, it will render the related implementation methods in Ethereum unusable.
@@ -475,9 +475,9 @@ The protocol layer implementation of FISCO BCOS is almost the same as Ethereum's
 #### Protocol Layer Implementation of Fabric
 ##### Overview of Fabric Protocol
 The Fabric protocol layer mainly includes the endorsement protocol and the transaction protocol, with the query protocol being the same as the endorsement protocol. The endorsement protocol and the transaction protocol are shown in Figure 4-7 and Figure 4-8 respectively.
-![Fabric Proposal Message Structure](./images/BoAT_Overall_Design_cn-F4-7-Fabric-Proposal.png)  
+![Fabric Proposal Message Structure](./images/BoAT_Overall_Design_en-F4-7-Fabric-Proposal.png)  
 Figure 4-7 Fabric Proposal Message Structure
-![Fabric Transaction Message Structure](./images/BoAT_Overall_Design_cn-F4-8-Fabric-Transaction.png)  
+![Fabric Transaction Message Structure](./images/BoAT_Overall_Design_en-F4-8-Fabric-Transaction.png)  
 Figure 4-8 Fabric Transaction Message Structure
 
 When a Fabric client initiates a transaction, it first sends a proposal to the endorsing peers. The endorsing peers sign the proposal and return the signature data. The Fabric client then organizes the signature data, transaction parameters, and endorsing peer signatures into a transaction message and sends it to the ordering service node. After the ordering service node verifies the transaction, it updates the state of the ledger. The detailed transaction process is shown in Figure 4-9, which is extracted from the "hyperlEdger-fabricdocs master" document. For more information about Fabric, please refer to the Fabric documentation <https://hyperledger-fabric.readthedocs.io/en/release-1.4/>.
@@ -650,7 +650,7 @@ For a more detailed description of the RLP encoding rules, please refer to the R
 
 ##### RLP Encoding Implementation
 There can be multiple ways to implement RLP encoding. As mentioned earlier, one possible data structure composition for RLP encoding is shown in Figure 4-12:  
-![One Possible Data Structure for RLP Encoding](./images/BoAT_Overall_Design_cn-F4-12-Data_Structure_Of_RLP.png)  
+![One Possible Data Structure for RLP Encoding](./images/BoAT_Overall_Design_en-F4-12-Data_Structure_Of_RLP.png)  
 Figure 4-12: One Possible Data Structure for RLP Encoding
 
 The diagram defines four types to represent the nested recursive structure of an RLP list. For example, if there is a list object named "List" that contains three string objects named "StringA," "StringB," and "StringC," the possible steps to encode the list object "List" using RLP are as follows:
@@ -755,7 +755,7 @@ BoAT's design should consider support for TEE environments. For hardware with TE
 ## The Process of Creating a Blockchain Transaction using BoAT SDK
 ### Creating an Ethereum Transaction using BoAT SDK
 The typical process of creating an Ethereum transaction using BoAT SDK is illustrated in Figure 5-1:
-![Process of Creating a Transaction using BoAT](./images/BoAT_Overall_Design_en-F5-1-Create_Ttransaction.png)
+![Process of Creating a Transaction using BoAT](./images/BoAT_Overall_Design_cn-F5-1-Create_Ttransaction.png)  
 Figure 5-1 Process of Creating a Transaction using BoAT
 
 The steps involved in this process are as follows:
