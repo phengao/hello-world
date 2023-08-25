@@ -516,21 +516,64 @@ The most commonly used programming language for Ethereum smart contracts is Soli
 - constant: true if the function is specified as pure or view
 
 For the generated C language contract interface, the corresponding relationship with the JSON object is as follows:
+<table>
+    <tr>
+        <td colspan="2">JSON Object</td>
+        <td>JSON Object Value</td>
+        <td>C Language Contract Interface</td>
+    </tr>
+    <tr>
+        <td colspan="2">Type</td>
+        <td>/</td>
+        <td>/</td>
+    </tr>
+    <tr>
+        <td colspan="2">Name</td>
+        <td>/</td>
+        <td>Function Name </td>
+    </tr>
+    <tr>
+        <td rowspan="3">Inputs</td>
+        <td>Name</td>
+        <td>/</td>
+        <td>Function Parameter Name</td>
+    </tr>
+     <tr>
+        <td>Type</td>
+        <td>/</td>
+        <td>Function Parameter Type</td>
+    </tr>
+     <tr>
+        <td>components</td>
+        <td>/</td>
+        <td>/</td>
+    </tr>
+      <tr>
+        <td colspan="2">Outputs</td>
+        <td>/</td>
+        <td>Since the contract returns an HTTP message, the function should be treated as char*</td>
+    </tr>
+     <tr>
+        <td colspan="2">Payable</td>
+        <td>/</td>
+        <td>/</td>
+    </tr>
+     <tr>
+        <td colspan="2">stateMutability</td>
+        <td>/</td>
+        <td>/</td>
+    </tr>
+    <tr>
+        <td colspan="2" rowspan="2">Constant</td>
+        <td>True</td>
+        <td>The function accesses the blockchain through the RPC method "web3_call"</td>
+    </tr>
+    <tr>
+        <td>False</td>
+        <td>The function accesses the blockchain through the RPC method "web3_sendRawTransaction"</td>
+    </tr>
+</table>
 
-| JSON Object  | JSON Object Value | C Language Contract Interface |
-|--------------|------------------|------------------------------|
-| Type         | /                | /                            |
-| Name         | /                | Function Name                |
-| Inputs       | Name             | Function Parameter Name       |
-| Inputs       | Type             | Function Parameter Type       |
-| Inputs       | components       | /                            |
-| Outputs      | /                | Function Return Value         |
-| Payable      | /                | /                            |
-| stateMutability | /             | /                            |
-| Constant     | True             | The function accesses the blockchain through the RPC method "web3_call" |
-| Constant     | False            | The function accesses the blockchain through the RPC method "web3_sendRawTransaction" |
-
-Note: Since the contract returns an HTTP message, the function should be treated as char*.
 
 ##### Tool for Generating PlatONE Smart Contract C Language Interface
 The commonly used programming language for PlatONE smart contracts is C++. Similar to Ethereum, a JSON file describing the contract interface is generated after compiling the PlatONE smart contract. The JSON fields of PlatONE are the same as Ethereum, and the correspondence between the C language interface and JSON fields is also consistent with Ethereum.
