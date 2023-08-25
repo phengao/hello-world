@@ -808,7 +808,7 @@ After the SDK compilation, the following files are required for compiling and li
                         -I$(BOAT_BASE_DIR)/BoAT-Engine/protocol \
       ...
       ```
-Translation:
+
 
 - In the application's related C code, add the following header files:
   ```
@@ -847,7 +847,7 @@ Key pairs are used to generate blockchain wallet addresses. The SDK supports cre
 In addition to being used in secure applications, key pairs are also a component of blockchain wallets.  
 ***Note: The persistent implementation method in `<BoAT-ProjectTemplate>/BoAT-SupportLayer/common/storage` is for reference only. In commercial products, it is recommended to consider more secure persistent methods based on the actual hardware capabilities.***
 
-Translation:
+
 
 #### Key Pair Creation
 IoT devices generate key pairs through the key pair creation function. The creation of key pairs requires pre-configuring the properties of the key pair, including the mode, type, algorithm, format, etc. The creation process generates a private key and a public key for the key pair, and stores the key pair in the system's encrypted file. After successful creation, the index number of the key pair in the system is obtained for loading and deleting the key pair.  
@@ -889,7 +889,7 @@ Example (Creating a one-time key pair):
 #### Get Key Pair
 After creating a key pair, the IoT application can use the returned key pair index number to obtain the detailed content of the key pair, including the index number, name, format, type, and public key of the key pair.
 The IoT device application can load the key pair and get its basic information using the BoATKeypair_GetKeypairByIndex function, which is defined as follows:
-Translation:
+
 
 ```
 BOAT_RESULT BoATKeypair_GetKeypairByIndex(BoatKeypairPriKeyCtx *priKeyCtx, 
@@ -939,8 +939,6 @@ BOAT_RESULT BoATEthNetworkCreate(BoatEthNetworkConfig *networkConfig,
 |Parameter Name        |Description                                                        |
 |:---------------------|:------------------------------------------------------------------|
 |networkConfig         |A pointer to a Etherum network configuration structure. See network_ethereum.h for more details.  |
-Translation:
-
 |storeType             |An one-time or persistent keypair type|
 
 **Return Value:**  
@@ -1002,9 +1000,7 @@ A wallet is a collection of attributes of a blockchain account, including privat
 
 #### Initialize Wallet
 The SDK creates wallets for different blockchains according to their specific requirements.
-Translation:
 
-#### Initialize Wallet
 Wallets are created based on the principle of on-demand creation. They obtain key pairs and blockchain network information based on the index number, and calculate the wallet address information based on the address algorithm required by the blockchain. The wallet address is stored in memory and serves as the account for accessing the blockchain.
 
 When creating a wallet, make sure to call the wallet creation function `BoatXxxWalletInit()` in the same thread, where `Xxx` is the name of the blockchain, such as `BoatEthWalletInit()` for Ethereum.
@@ -1514,8 +1510,6 @@ e) According to the actual situation, reduce the self-increment step size of web
 
 ## BoAT's Extended AT Command Suggestion
 
-Translation:
-
 ### Create Keypair AT^BCKEYPAIR
 |Command                                                                         |Response(s)                                              |
 |:-----------------------------------------------------------------------------  |:------------------------------------------------------- |
@@ -1569,7 +1563,6 @@ A JSON string representing the network configuration of \<protocol_type\>. The e
 \<network_index\>: integer type; 
 the index of the created network
 
-Translation:
 
 ### Initialize Wallet AT^BCWALT
 |Command                                                                         |Response(s)                                              |
@@ -1620,9 +1613,6 @@ Delete a created persistent keypair, corresponding to BoatKeypairDelete().
 
 Parameters:
 \<keypair_index\>: integer type; the index of the stored keypair
-
-### Delete Keypair AT^BDKEYPAIR
-Translation:
 
 ### Delete Network AT^BDNETWORK
 |Command                                  |Response(s)   |
