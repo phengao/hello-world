@@ -356,8 +356,7 @@ This interface is used to query Network information based on the given input par
 
 ### Protocol Blockchain Protocol Interface
 #### Overview
-The protocol interface is responsible for implementing the protocol part of each blockchain. For Ethereum-based blockchains, such as Polygon, PlatON, PlatONE, and FISCO BCOS, their protocols are quite similar.  
-~~The protocol layer is supported by the RPC layer. Please refer to [RPC Layer](#RPC-Layer) for the description of the RPC layer.~~
+The protocol interface is responsible for implementing the protocol part of each blockchain. For Ethereum-based blockchains, such as Polygon, PlatON, PlatONE, and FISCO BCOS, their protocols are quite similar.   
 
 #### Implementation of Ethereum Protocol Layer
 ##### Raw Transaction Interface
