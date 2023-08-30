@@ -113,7 +113,7 @@ The blockchain wallet consists of two parts: the wallet interface and the transa
 
 ##### Wallet Interface
 ###### Data structures and function implementations of the wallet interface
-The wallet is a container that stores not only the necessary information for accessing the blockchain but also a key pair structure~~management system~~ and the **blockchain network information structure**.
+The wallet is a container that stores not only the necessary information for accessing the blockchain but also a key pair structure and the **blockchain network information structure**.
 
 In the data structure of the wallet, the following elements should be included at least:
   + Account private key
