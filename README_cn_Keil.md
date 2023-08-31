@@ -5,28 +5,33 @@
 
 本文档说明如何使用Keil工具链在 `Azure RTOS` 嵌入式系统中使用 `BoAT Infra Arch` 基础架构编译BoATLite静态库的过程。
 
-本例中使用到 `BoAT Infra Arch` 基础架构的静态库包括：
+本文的采用的编译操作系统是 windows 操作系统。
 
-`BoAT-SupportLayer` ： 为基于 BoAT Infra Arch 基础架构的应用程序和特定功能中间库提供平台操作系统调用接口抽象和驱动抽象应用接口，在本文中仅使用签名相关功能API接口。
+本文使用的工具软件包括：
 
-`Keil` 的SDK版本号为 `¦ÌVision V5.36.0.0`。
+**Keil**： 编译STM32应用的IDE，版本号为 `¦ÌVision V5.36.0.0`。
 
-STM32Cube版本为：STM32Cube_FW_H5_V1.1.0，Azure RTOS包含在Cube软件包中。
+**STM32Cube**：STM32软件套装，版本为：STM32Cube_FW_H5_V1.1.0，Azure RTOS包含在Cube软件包中。
 
-本文的编译操作在 windows 操作系统中完成。
+**Cygwin**：提供BoAT 静态库编译所需的操作命令。  
 
+**git**：下载BoAT源码仓库的工具
+
+本文中使用到 `BoAT Infra Arch` 基础架构的静态库包括：
+
+**BoAT-SupportLayer** ： 为基于 BoAT Infra Arch 基础架构的应用程序和特定功能中间库提供平台操作系统调用接口抽象和驱动抽象应用接口，在本文中仅使用签名相关功能API接口。
 
 
 ## 二、构建编译环境
 
-### 安装`KEIL`:  
-下载并安装Keil安装包，执行安装程序，按照提示完成KEIL安装。
-在本例中KEIL安装在"D:\Keil_v5"目录中。  
-安装成功后keil的安装目录中包含了armclang编译应用程序，路径为"D:\Keil_v5\ARM\ARMCLANG"，使用<KEIL root>代指该目录，后续在配置文件中会使用这一路径。  
+### 安装`Keil`:  
+下载并安装Keil安装包，执行安装程序，按照提示完成Keil安装。
+在本文中Keil安装在"D:\Keil_v5"目录中。  
+安装成功后Keil的安装目录中包含了armclang编译应用程序，路径为"D:\Keil_v5\ARM\ARMCLANG"，使用<Keil root>代指该目录，后续在配置文件中会使用这一路径。  
 
 ### 下载STM32Cube软件包：  
 下载地址：  
-完成下载后，将STM32Cube软件包，解压缩到工作目录，本例中工作目录为"D:\work\STM32Cube_FW_H5_V1.1.0"，使用<Cube root>代指该目录
+完成下载后，将STM32Cube软件包，解压缩到工作目录，本文中工作目录为"D:\work\STM32Cube_FW_H5_V1.1.0"，使用<Cube root>代指该目录
 
 ### 安装cygwin
 具体安装步骤参考用户手册。[]()  
@@ -35,7 +40,7 @@ STM32Cube版本为：STM32Cube_FW_H5_V1.1.0，Azure RTOS包含在Cube软件包�
 
 ## 三、BoAT3.1代码克隆和配置
 
-可在任意自选目录中克隆BoAT3.1代码，本例选择在目录"D:\work"，使用<BoAT root>代指该目录.
+可在任意自选目录中克隆BoAT3.1代码，本文选择在目录"D:\work"，使用<BoAT root>代指该目录.
 
 ### BoAT3.1源码编译目录构建
 
@@ -236,17 +241,17 @@ clean:
    libboatvendor.lib
    ```
    
-   将静态库中引用的头文件打包在一个新建目录中，本例中将静态库引用的头文件复制到`<BoAT root>/BoAT-ProjectTemplate/lib/include`目录下，具体头文件根据应用选择复制。
+   将静态库中引用的头文件打包在一个新建目录中，本文中将静态库引用的头文件复制到`<BoAT root>/BoAT-ProjectTemplate/lib/include`目录下，具体头文件根据应用选择复制。
    
 
-### 在keil项目中增加 BoAT 静态库引用
+### 在Keil项目中增加 BoAT 静态库引用
    
 1. 将静态库添加到`Keil`项目中  
 打开 Keil 项目，打开`Project->Manage->ProjectItems..`添加`BoAT`静态库引用。  
-在`Groups:`栏中增加新的组，本例中添加`BoAT`组，在左侧`Files:`栏中，点击`Add Files...`，将前面编译好的`libboatvendor.lib`添加到`BoAT`组中。点击`Ok`，退出配置窗口。  
+在`Groups:`栏中增加新的组，本文中添加`BoAT`组，在左侧`Files:`栏中，点击`Add Files...`，将前面编译好的`libboatvendor.lib`添加到`BoAT`组中。点击`Ok`，退出配置窗口。  
    
 2. 将`BoAT`头文件添加到`Keil`项目中  
-打开 Keil 项目，打开`Project->Options of Project 'xxxxx'...`，在`c/c++ (AC6)`栏`Include Path...`项中添加`BoAT`头文件路径，本例使用的`BoAT`头文件路径为`<BoAT root>/BoAT-ProjectTemplate/lib/include`目录。  
+打开 Keil 项目，打开`Project->Options of Project 'xxxxx'...`，在`c/c++ (AC6)`栏`Include Path...`项中添加`BoAT`头文件路径，本文使用的`BoAT`头文件路径为`<BoAT root>/BoAT-ProjectTemplate/lib/include`目录。  
    
 完成配置后，可在项目代码中引用BoAT提供的API接口函数。
 
