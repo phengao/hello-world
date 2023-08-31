@@ -221,7 +221,7 @@ clean:
 
 ## 四、BoAT静态库的编译和使用
 
-### 1、编译BoAT静态库.lib文件
+### 编译BoAT静态库.lib文件
    
    
    在windows打开终端并进入`<BoAT root>/BoAT-ProjectTemplate`目录编译BoAT静态库：
@@ -239,7 +239,7 @@ clean:
    将静态库中引用的头文件打包在一个新建目录中，本例中将静态库引用的头文件复制到`<BoAT root>/BoAT-ProjectTemplate/lib/include`目录下，具体头文件根据应用选择复制。
    
 
-### 2、在keil项目中增加 BoAT 静态库引用
+### 在keil项目中增加 BoAT 静态库引用
    
 1. 将静态库添加到`Keil`项目中  
 打开 Keil 项目，打开`Project->Manage->ProjectItems..`添加`BoAT`静态库引用。  
