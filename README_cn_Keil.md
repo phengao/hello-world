@@ -1,4 +1,4 @@
-# Azure RTOS基于BoATInfraARch架构BoATLite应用适配说明
+# 基于Azure RTOS编译BoATLite静态库适配说明
 
 
 ## 一、前言
