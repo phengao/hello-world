@@ -166,7 +166,7 @@ EXTERNAL_CFLAGS := -DHAVE_ARPA_INET_H -xc -std=c11 --target=arm-arm-none-eabi -m
 -fno-rtti -funsigned-char -fshort-enums -fshort-wchar -DSTM32H563xx
 ```
 
-### 2、需改 Makefile关闭不需要编译的内容
+### 2、修改 Makefile关闭不需要编译的内容
 
 打开`<BoAT root>/BoAT-ProjectTemplate/BoAT-SupportLayer/common/Makefile`文件
 屏蔽或删除 http2intf 和 rpc 编译项
