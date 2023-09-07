@@ -113,10 +113,3 @@ BoAT-X 社区相关信息：
 
 Apache License 2.0, 请访问[LICENSE](./LICENSE).
 
-
-## 水手们，欢迎前来开启BoAT奇幻漂流之旅
-
-**Open source by [aitos.io](http://www.aitos.io/)**
-
-[![aitos.io](https://aitos-io.github.io/BoAT-X-Framework/logo/aitos_logo_100.png)](http://www.aitos.io/)
-
