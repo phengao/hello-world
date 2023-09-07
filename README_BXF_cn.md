@@ -1,8 +1,8 @@
 
 # BoAT-Edge Framework
-[![Issue](https://img.shields.io/github/issues/aitos-io/BoAT-X-Framework)](https://github.com/aitos-io/BoAT-X-Framework/issues)![Forks](https://img.shields.io/github/forks/aitos-io/BoAT-X-Framework)![Stars](https://img.shields.io/github/stars/phengao/hello-world)[![GitHub Release](https://img.shields.io/github/license/aitos-io/BoAT-X-Framework)](https://github.com/aitos-io/BoAT-X-Framework/blob/master/LICENSE)[![Join the chat at https://gitter.im/BoAT-X/community](https://badges.gitter.im/BoAT-X/community.svg)](https://gitter.im/BoAT-X/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Issue](https://img.shields.io/github/issues/aitos-io/BoAT-EdgeDocs)](https://github.com/aitos-io/BoAT-EdgeDocs/issues)![Forks](https://img.shields.io/github/forks/aitos-io/BoAT-EdgeDocs)![Stars](https://img.shields.io/github/stars/phengao/hello-world)[![GitHub Release](https://img.shields.io/github/license/aitos-io/BoAT-EdgeDocs)](https://github.com/aitos-io/BoAT-EdgeDocs/blob/master/LICENSE)[![Join the chat at https://gitter.im/BoAT-X/community](https://badges.gitter.im/BoAT-X/community.svg)](https://gitter.im/BoAT-X/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-![BoAT logo](https://aitos-io.github.io/BoAT-X-Framework/logo/BoAT_RGB_Horizontal_100.png)
+![BoAT logo](https://aitos-io.github.io/BoAT-EdgeDocs/logo/BoAT_RGB_Horizontal_100.png)
 
 
 ## BoAT-Edge介绍  
@@ -42,7 +42,7 @@ BoAT-Edge产品族提供了一整套基础组件，利用区块链技术改造�
 
 #### 运行模式
 
-![Direct Approach](https://aitos-io.github.io/BoAT-X-Framework/en-us/images/BoAT_README_Direct_Approach.png)
+![Direct Approach](https://aitos-io.github.io/BoAT-EdgeDocs/en-us/images/BoAT_README_Direct_Approach.png)
 
 物联网设备能够直接访问区块链节点和网络服务。物联网设备向物联网平台发送数据，并通过调用BoAT-Engine API将数据哈希值和签名发送到区块链上。数据消费者随后将链上哈希值与存储在物联网平台上的数据产生的哈希值进行比对，以确定其数据可信度。消费者还可以检查数据是否来自真实注册在网的物联网终端。
 
@@ -79,13 +79,13 @@ BoAT-Edge产品族提供了一整套基础组件，利用区块链技术改造�
 ## 文档
 
 ### 区块链物联网模组白皮书
-访问[BoAT区块链物联网模组产品白皮书](https://aitos-io.github.io/BoAT-X-Framework/en-us/BoAT_Blockchain_IoT_Module_Product_White_Paper_en.pdf)。
+访问[BoAT区块链物联网模组产品白皮书](https://aitos-io.github.io/BoAT-EdgeDocs/en-us/BoAT_Blockchain_IoT_Module_Product_White_Paper_en.pdf)。
 
 ### 区块链物联网模组技术及应用
-访问[BoAT区块链物联网模组技术及应用](https://aitos-io.github.io/BoAT-X-Framework/en-us/BoAT_Blockchain_IoT_Module_Technology_and_Application_en.pdf)。
+访问[BoAT区块链物联网模组技术及应用](https://aitos-io.github.io/BoAT-EdgeDocs/en-us/BoAT_Blockchain_IoT_Module_Technology_and_Application_en.pdf)。
 
 ### 文档总汇
-文档总汇，请访问[BoAT文档](https://aitos-io.github.io/BoAT-X-Framework)。
+文档总汇，请访问[BoAT文档](https://aitos-io.github.io/BoAT-EdgeDocs)。
 
 ### 常见问题
 敬请期待。
@@ -94,7 +94,7 @@ BoAT-Edge产品族提供了一整套基础组件，利用区块链技术改造�
 ## 社区
 BoAT-X 社区相关信息：
 + 联系邮箱： info@aitos.io
-+ 漏洞提交： [BoAT-X Issues](https://github.com/aitos-io/BoAT-X-Framework/issues)
++ 漏洞提交： [BoAT-X Issues](https://github.com/aitos-io/BoAT-EdgeDocs/issues)
 + 相关新闻： https://aitos-io.medium.com/
 + LinkedIn： https://www.linkedin.com/company/aitos-io
 
@@ -104,12 +104,11 @@ BoAT-X 社区相关信息：
 
 更多信息请参考 [Contribution Guideline](./CONTRIBUTING.md)。
 
-开发文档请参考 [BoAT documentation](https://aitos-io.github.io/BoAT-X-Framework)。
+开发文档请参考 [BoAT documentation](https://aitos-io.github.io/BoAT-EdgeDocs)。
 
-提交Pull Requests请前往[Pull Requests](https://github.com/aitos-io/BoAT-X-Framework/pulls)。
+提交Pull Requests请前往[Pull Requests](https://github.com/aitos-io/BoAT-EdgeDocs/pulls)。
 
 
 ## 许可
 
 Apache License 2.0, 请访问[LICENSE](./LICENSE).
-
